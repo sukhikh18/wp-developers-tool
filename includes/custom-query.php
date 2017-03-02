@@ -133,7 +133,7 @@ class dp_customQuery //extends DevelopersTools
     
     $query = new WP_Query($args);
 
-    if( $max <= 1 )
+    if( $max > 1 )
       $this->set_query_variables('is_singular', '');
 
     if($type != 'page')
