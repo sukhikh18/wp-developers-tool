@@ -137,6 +137,7 @@ class DevelopersTools
     if(is_admin()){
       $admin = array(
         'orign-image-resize'  => DT_DIR_INCLUDES . '/admin-orign-image-resize',
+        'remove-images'  => DT_DIR_INCLUDES . '/admin-remove-images',
         'bestsellers' => DT_DIR_INCLUDES . '/bestsellers'
         );
     }
@@ -300,7 +301,7 @@ class DevelopersTools
 
   function set_defaults(){
     $defaults = array(
-      'orign-image-resize'=>'default',
+      'orign-image-resize'=>'large_compress',
       );
 
     update_option( DT_PLUGIN_NAME, $defaults );

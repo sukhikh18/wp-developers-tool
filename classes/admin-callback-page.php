@@ -38,9 +38,27 @@ class AdminCallBacks // extends DevelopersTools
     }
   }
 
+  function get_post_types($before_label = '', $after_label = ''){
+    $post_types = get_post_types( array('_builtin' => false), 'objects');
+    $unset = array('acf', 'product_variation', 'shop_order', 'shop_order_refund', 'shop_coupon', 'shop_webhook', 'multimedia-base');
+    $result = array();
+    foreach ($post_types as $key => $type_obj) {
+      if(! in_array($key, $unset) )
+        $result[$key] = $before_label . $type_obj->label . $after_label;
+    }
+    return $result;
+  }
   // Все параметры
   function register_options(){
     register_setting( DT_PLUGIN_NAME, DT_PLUGIN_NAME, array($this, 'validate_settings') );
+
+    $remove_options = array(
+      ''     => 'Не удалять',
+      'all'  => 'Удалять все изображения',
+      'post' => 'Изображения типа Запись',
+      'page' => 'Изображения типа Страница',
+      );
+    $remove_options = array_merge($remove_options, $this->get_post_types('Изображения типа ') );
 
     $args = array(
       array(
@@ -48,10 +66,17 @@ class AdminCallBacks // extends DevelopersTools
         'title'     => 'Сжимать оригиналы изображений',
         'type'      => 'select',
         'vals'      => array(
-          ''           => 'Не сжимать',
-          'default'    => 'Сжимать стандартно (1600х1024)',
+          ''               => 'Не сжимать',
           'large_compress' => 'Сжимать до "Крупного" размера',
+          'default'        => 'Сжимать до 1600х1024 (px)',
           ),
+        ),
+      array(
+        'id'        => 'remove-images',
+        'title'     => 'Удалять прикрепленные изображения',
+        'type'      => 'select',
+        'vals'      => $remove_options,
+        'desc'      => 'Функция удаляет прикрепленные изображения к записи всех или выбранного типа. Минус в том, что в некоторых случаях изображения могут использоваться в нескльких записях.'
         ),
       array(
         'type'      => 'checkbox',
@@ -189,12 +214,12 @@ class AdminCallBacks // extends DevelopersTools
           'id'        => 'bestsellers',
           'title'     => 'Популярный товар',
           'vals'      => array(
-            ''=>'Не использовать',
-            'personal'=>'Использовать вручную',
-            'views'=>'Сортировать по просмотрам',
-            'sales'=>'Сортировать по продажам'
+            ''         =>'Не использовать',
+            'personal' =>'Использовать вручную',
+            'views'    =>'Сортировать по просмотрам',
+            'sales'    =>'Сортировать по продажам'
             ),
-          'desc'      => '<br> 1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
+          'desc'      => '1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
         )
       );
       $this->register_section('dt-woo-settings', 'WooCommerce', '', $args);
@@ -223,7 +248,6 @@ class AdminCallBacks // extends DevelopersTools
   // Шаблоны вывода параметров
   function settings_templates($args){
     extract( $args );
-
     
     $option_name = DT_PLUGIN_NAME;
     $opt = $this->plugin_values;
@@ -259,7 +283,7 @@ class AdminCallBacks // extends DevelopersTools
           $selected = (!empty($opt[$id]) && $opt[$id] == $val) ? "selected=' selected'" : ' ';  
           echo "<option value='{$val}'{$selected}>{$text}</option>";
         }
-        echo "</select>";
+        echo "</select><br>";
         break;
     }
     if(!empty($desc))
