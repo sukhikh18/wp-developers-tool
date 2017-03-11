@@ -1,9 +1,4 @@
 <?php
-$options = get_option( DT_PLUGIN_NAME );
-if($options['orign-image-resize'] == 'default'){
-    add_image_size('compressed_full', '1600', '1024');
-}
-
 function replace_uploaded_image($image_data){
     $size = 'compressed_full';
 
