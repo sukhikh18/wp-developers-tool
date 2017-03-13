@@ -1,5 +1,4 @@
 <?php
-
 class AssetsEnqueuer // extends AnotherClass
 {
   protected $suffix = '';
@@ -11,8 +10,17 @@ class AssetsEnqueuer // extends AnotherClass
 
     $this->settings = get_option( DT_PLUGIN_NAME );
     $this->add_assets();
+
+    add_filter( 'remove_cyrillic', array($this, 'remove_cyrillic_filter'), 10, 1 );
   }
 
+  function remove_cyrillic_filter($str){
+    $pattern = "/[\x{0410}-\x{042F}]+.*[\x{0410}-\x{042F}]+/iu";
+    $str = preg_replace( $pattern, "", $str );
+    
+    return $str;
+  }
+          
   function assets(){
     extract( $this->settings );
     $suffix = $this->suffix;
@@ -56,10 +64,8 @@ class AssetsEnqueuer // extends AnotherClass
       add_action('wp_footer', array($this, 'init_fancybox'), 99 );
     }
 
-    if( isset( $use_scss ) ){
-      wp_deregister_script( 'common-style' );
+    if( isset( $use_scss ) )
       $this->use_scss();
-    }
     
     if( isset( $use_bootstrap ) ){
 
@@ -158,8 +164,6 @@ class AssetsEnqueuer // extends AnotherClass
       $file = get_template_directory() . '/style.css';
 
       if (file_exists( $file ) && filemtime($file) !== $scss_cache){
-        include_once get_template_directory() . "/include/scss.inc.php";
-
         $scss = new scssc();
         $scss->setImportPaths(function($path) {
           if (!file_exists(get_template_directory() . '/assets/scss/'.$path)) return null;
@@ -169,7 +173,7 @@ class AssetsEnqueuer // extends AnotherClass
         if(!is_wp_debug())
           $scss->setFormatter('scss_formatter_compressed');
 
-        $compiled = $scss->compile( file_get_contents($file) );
+        $compiled = $scss->compile( apply_filters( 'remove_cyrillic', file_get_contents($file) ) );
         if(!empty($compiled)){
           file_put_contents(get_template_directory().$out_file, $compiled );
           update_option( 'scss_cache', filemtime($file) );

@@ -132,7 +132,8 @@ class DevelopersTools
     }
     $public = array(
       'WPAdvancedPostType' => DT_DIR_CLASSES . '/advanced-post-types',
-      'AssetsEnqueuer' => DT_DIR_CLASSES . '/assets_enqueuer'
+      'scssc'              => DT_DIR_CLASSES . '/scss.inc',
+      'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
       );
     $classes = array_merge($public, $admin);
     return $classes;
