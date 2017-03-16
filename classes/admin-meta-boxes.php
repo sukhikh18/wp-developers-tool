@@ -5,13 +5,13 @@ class dt_CustomMetaBoxes {
 	private $output_function = '';
 	private $box_name = 'Example title';
 	private $side = false;
+	private $priority;
 
 	private $meta_fields = array('');
 
 	private static $count;
 
-	function __construct() {
-	}
+	function __construct() {}
 
 	/**
 	 * Добавляет в массив значения которые нужно сохранять.
@@ -37,13 +37,15 @@ class dt_CustomMetaBoxes {
 	 * @param string 	$output_function Название callback функции
 	 * @param boolean 	$side   Показывать с боку / Нормально
 	 */
-	public function add_box($name = false, $output_function = false, $side = false){
+	public function add_box($name = false, $output_function = false, $side = false, $priority = 'normal'){
 		if($name)
 			$this->box_name = sanitize_text_field($name);
+		
 		if($output_function)
-			$this->output_function = sanitize_text_field($output_function);
-		if($side)
-			$this->side = true;
+			$this->output_function = $output_function;
+
+		$this->side = $side;
+		$this->priority = $priority;
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 	}
@@ -69,8 +71,8 @@ class dt_CustomMetaBoxes {
 				$this->output_function,
 				$post_types,
 				$side,
-				'default',
-				array(self::NONCE)
+				$this->priority,
+				array( self::NONCE )
 				);
 		}
 	}
@@ -88,9 +90,15 @@ class dt_CustomMetaBoxes {
 		if ( ! wp_verify_nonce( $nonce, self::NONCE ) )
 			return $post_id;
 
+		$test = array();
+		$test['post'] = $_POST;
+		$test['metas'] = $this->meta_fields;
+		file_put_contents(__DIR__ . '/meta_debug.log', print_r($test, 1));
+
 		if ( ! current_user_can( 'edit_page', $post_id ) )
 			return $post_id;
 
+		
 
 		foreach ($this->meta_fields as $field) {
 			if(isset($_POST[$field]))

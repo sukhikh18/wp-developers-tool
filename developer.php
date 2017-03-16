@@ -125,6 +125,7 @@ class DevelopersTools
 
     if(is_admin()){
       $admin = array(
+        'DTForm'             => DT_DIR_CLASSES . '/dt-form-render',
         'dt_AdminCallBacks'  => DT_DIR_CLASSES . '/admin-callback-page',
         'dt_CustomMetaBoxes' => DT_DIR_CLASSES . '/admin-meta-boxes',
         'WCProductSettings'  => DT_DIR_CLASSES . '/admin-wc-product-settings'
