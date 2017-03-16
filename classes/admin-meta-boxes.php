@@ -2,7 +2,7 @@
 class dt_CustomMetaBoxes {
 	const NONCE = 'abra_kadabra_security';
 
-	private $render_function = '';
+	private $output_function = '';
 	private $box_name = 'Example title';
 	private $side = false;
 
@@ -34,14 +34,14 @@ class dt_CustomMetaBoxes {
 	/**
 	 * Установка хука с предварительной установкой значений
 	 * @param string 	$name   Название бокса
-	 * @param string 	$render Название callback функции
+	 * @param string 	$output_function Название callback функции
 	 * @param boolean 	$side   Показывать с боку / Нормально
 	 */
-	public function add_box($name = false, $render = false, $side = false){
+	public function add_box($name = false, $output_function = false, $side = false){
 		if($name)
 			$this->box_name = sanitize_text_field($name);
-		if($render)
-			$this->render_function = sanitize_text_field($render);
+		if($output_function)
+			$this->output_function = sanitize_text_field($output_function);
 		if($side)
 			$this->side = true;
 
@@ -59,14 +59,14 @@ class dt_CustomMetaBoxes {
 		$add = array('post', 'page');
 		$post_types = array_merge($post_types, $add);
 		
-		if(!empty($this->render_function) && !empty($this->box_name)){
+		if(!empty($this->output_function) && !empty($this->box_name)){
 			$side = ($this->side) ? 'side' : 'advanced';
 			
 			self::$count++;
 			add_meta_box(
 				'CustomMetaBox-'.self::$count,
 				$this->box_name,
-				$this->render_function,
+				$this->output_function,
 				$post_types,
 				$side,
 				'default',
