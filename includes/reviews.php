@@ -3,17 +3,64 @@
 // remove str_replace;
 // editble forms
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // disable direct access
+}
+
+if ( ! class_exists( 'DTReview' ) ) :
+
 class DTReview
 {
 	const REVIEW_TYPE = 'review';
+	protected $classes = array(
+		'dt_CustomMetaBoxes' => 'admin-meta-boxes',
+		'DTForm' => 'dt-form-render'
+		);
 
 	function __construct(){
-		$this->_actions();
+		$this->admin_classes($this->classes);
+		$this->filters();
+		$this->actions();
 		if(is_admin()){
-			$this->_admin_actions();
+			$this->admin_actions();
 		}
 	}
 
+	function admin_classes($classes){
+		foreach ($classes as $class => $filename) {
+			$path =  __DIR__ . '/classes/' . $filename . '.php';
+			if( ! class_exists($class) && file_exists($path) && is_file($path) ){
+				require_once $path;
+			}
+		}
+	}
+
+	function filters(){
+
+		add_filter( 'dt_review_title', array($this, 'review_title'), 10, 2 );
+		add_filter( 'dt_review_email', array($this, 'review_email'), 10, 1 );
+	}
+
+	function actions(){
+		add_action('init', array($this, 'register_review_type') );
+
+		add_action('wpcf7_mail_sent', array($this, 'dt_create_review') );
+	}
+
+	function admin_actions(){
+		add_action( 'contextual_help', array($this, 'add_review_help_text'), 10, 3 );
+
+		if( class_exists('dt_CustomMetaBoxes') && class_exists('DTForm') ){
+			add_action( 'load-post.php', array($this, 'call_MetaBox') );
+			add_action( 'load-post-new.php', array($this, 'call_MetaBox') );
+
+			add_action('edit_form_after_title', array($this, 'sort_boxes') );
+		}
+	}
+
+	/**
+	 * Form Settings
+	 */
 	static function _review_fields(){
 		$review_fields = array(
 			array(
@@ -60,69 +107,9 @@ class DTReview
 		return apply_filters( 'review_fields', $review_fields );
 	}
 
-	function _actions(){
-		add_action('init', array($this, 'register_review_type') );
-
-		add_action('wpcf7_mail_sent', array($this, 'dt_create_review') );
-	}
-
-	function _admin_actions(){
-		add_action( 'contextual_help', array($this, 'add_review_help_text'), 10, 3 );
-
-		if( class_exists('dt_CustomMetaBoxes') ){
-			add_action( 'load-post.php', array($this, 'call_MetaBox') );
-			add_action( 'load-post-new.php', array($this, 'call_MetaBox') );
-
-			add_action('edit_form_after_title', array($this, 'sort_boxes') );
-		}
-	}
-
-	// Передать данные для записи отзыва из формы
-	function dt_create_review ($contact_form){
-		$posted_data = $contact_form->posted_data;
-		$submission = WPCF7_Submission::get_instance();
-		$posted_data = $submission->get_posted_data();
-			 
-		if(isset($posted_data['dp_review'])){
-			$meta = array();
-			require_once(ABSPATH .'wp-blog-header.php');
-
-			if ( is_user_logged_in() ){
-				$current_user = wp_get_current_user();
-				$meta['user_id'] = $current_user->ID;
-				$meta['_your_name'] = $current_user->display_name;
-			} else {
-				$meta['_your_name'] = (!empty($posted_data['your-name'])) ? $posted_data['your-name'] : 'Не указано';
-			}
-			$meta['user_ip'] = $_SERVER['REMOTE_ADDR'];
-			$meta['posted_date'] = date('d.m.Y');
-
-			$post_data = $this->get_review_fields_id();
-			unset($post_data[0]); // _your_name
-
-			foreach ($post_data as $v) {
-				if(!empty($posted_data[$v]))
-					$key = str_replace('_', '-', $v);
-					$key = str_replace('-your', 'your', $key);
-					$meta[$v] = wp_strip_all_tags($posted_data[$key]);
-			}
-
-			$message = (!empty($posted_data['your-message'])) ? $posted_data['your-message'] : '';
-
-			$new_review = array(
-				'post_title' => wp_strip_all_tags('Отзыв от '.$meta['_your_name'].' ['.$meta['posted_date'].'г.]'),
-				'post_content' => wp_strip_all_tags($message),
-				'post_date' => date('Y-m-d H:i:s'),
-				'post_excerpt' => 'Оставте здесь свой ответ посетителю или удалите это сообщение перед тем как опубликовать',
-				'post_status' => 'pending',
-				'post_type' => 'review',
-				);
-			if(!empty($meta)) $new_review['meta_input'] = $meta;
-
-			wp_insert_post( $new_review, true );
-		}
-	}
-
+	/**
+	 * Register Post Type
+	 */
 	function register_review_type(){
 		$labels = array(
 		'name' => 'Отзывы', 
@@ -171,6 +158,63 @@ class DTReview
 	}
 
 	/**
+	 * Global functions
+	 */
+	function get_review_fields_id(){
+		$result = array();
+		$fields = self::_review_fields();
+		foreach ($fields as $field) {
+			$result[] = $field['id'];
+		}
+		return $result;
+	}
+
+	function dt_create_review ($contact_form){
+		$posted_data = $contact_form->posted_data;
+		$submission = WPCF7_Submission::get_instance();
+		$posted_data = $submission->get_posted_data();
+			 
+		if(isset($posted_data['dp_review'])){
+			$meta = array();
+			require_once(ABSPATH .'wp-blog-header.php');
+
+			if ( is_user_logged_in() ){
+				$current_user = wp_get_current_user();
+				$meta['user_id'] = $current_user->ID;
+				$meta['_your_name'] = $current_user->display_name;
+			} else {
+				$meta['_your_name'] = (!empty($posted_data['your-name'])) ? $posted_data['your-name'] : 'Не указано';
+			}
+			$meta['user_ip'] = $_SERVER['REMOTE_ADDR'];
+			$meta['posted_date'] = date('d.m.Y');
+
+			$post_data = $this->get_review_fields_id();
+			unset($post_data[0]); // _your_name
+
+			foreach ($post_data as $v) {
+				if(!empty($posted_data[$v]))
+					$key = str_replace('_', '-', $v);
+					$key = str_replace('-your', 'your', $key);
+					$meta[$v] = wp_strip_all_tags($posted_data[$key]);
+			}
+
+			$message = (!empty($posted_data['your-message'])) ? $posted_data['your-message'] : '';
+
+			$new_review = array(
+				'post_title' => wp_strip_all_tags('Отзыв от '.$meta['_your_name'].' ['.$meta['posted_date'].'г.]'),
+				'post_content' => wp_strip_all_tags($message),
+				'post_date' => date('Y-m-d H:i:s'),
+				'post_excerpt' => 'Оставте здесь свой ответ посетителю или удалите это сообщение перед тем как опубликовать',
+				'post_status' => 'pending',
+				'post_type' => 'review',
+				);
+			if(!empty($meta)) $new_review['meta_input'] = $meta;
+
+			wp_insert_post( $new_review, true );
+		}
+	}
+
+	/**
 	 * Metabox
 	 */
 	function sort_boxes(){
@@ -205,16 +249,27 @@ class DTReview
 		DTForm::render( self::_review_fields(), $active, true );
 	}
 
-	function get_review_fields_id(){
-		$result = array();
-		$fields = self::_review_fields();
-		foreach ($fields as $field) {
-			$result[] = $field['id'];
-		}
+	/**
+	 * Review filters
+	 */
+	function review_title( $name, $link = false ){
+		if($link)
+			$name = "Отзыв от <a href='{$user_link}' class='review-link'><span class='entry-review-title'>{$name}</span></a>";
+		else
+			$name = "Отзыв от <span class='entry-review-title'>{$name}</span>";
+
+		return $name;
+	}
+
+	function review_email( $email ){
+		$result = '<span class="entry-review-email">(' . $email . ')</span>';
 		return $result;
 	}
 
-	static function get_review_options($post_id=null){
+	/**
+	 * Front functions
+	 */
+	static public function get_review_options($post_id=null){
 		if(! $post_id ){
 			global $post;
 
@@ -234,8 +289,9 @@ class DTReview
 
 		return $result;
 	}
-
 }
 new DTReview();
+
+endif;
 
 // u may use DTReview::get_review_options( get_post_id() ); in content template
