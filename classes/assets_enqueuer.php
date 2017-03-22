@@ -64,9 +64,6 @@ class AssetsEnqueuer // extends AnotherClass
       add_action('wp_footer', array($this, 'init_fancybox'), 99 );
     }
 
-    if( isset( $use_scss ) )
-      $this->use_scss();
-    
     if( isset( $use_bootstrap ) ){
 
       wp_enqueue_style('bootstrap4', DT_ASSETS_URL . 'bootstrap/bootstrap.css',array(),'4.0alpha6');
@@ -76,6 +73,9 @@ class AssetsEnqueuer // extends AnotherClass
       wp_enqueue_script('Tether', 'https://www.atlasestateagents.co.uk/javascript/tether.min.js', array(), null, true);
       wp_enqueue_script('bootstrap-script', DT_ASSETS_URL . 'bootstrap/js/bootstrap'.$suffix.'.js', array('jquery'), '4.0alpha6', true);
     }
+
+    if( isset( $use_scss ) )
+      $this->use_scss();
   }
 
   private function add_assets(){
