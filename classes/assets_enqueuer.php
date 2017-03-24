@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if(!function_exists('is_wp_debug')){
+if(! function_exists('is_wp_debug') ){
   function is_wp_debug(){
     if( WP_DEBUG ){
       if( defined(WP_DEBUG_DISPLAY) && ! WP_DEBUG_DISPLAY ){
@@ -11,6 +11,69 @@ if(!function_exists('is_wp_debug')){
     }
     return false;
   }
+}
+if(! function_exists('cpJsonStr') ){
+    function cpJsonStr($str){
+        $str = preg_replace_callback('/\\\\u([a-f0-9]{4})/i', create_function('$m', 'return chr(hexdec($m[1])-1072+224);'), $str);
+        return iconv('cp1251', 'utf-8', $str);
+    }
+}
+if(! function_exists('str_to_bool') ){
+  function str_to_bool( $json ){
+    $json = str_replace('"true"',  'true',  $json);
+    $json = str_replace('"on"',  'true',  $json);
+    $json = str_replace('"false"', 'false', $json);
+    $json = str_replace('"off"', 'false', $json);
+    return $json;
+  }
+}
+if(! function_exists('json_function_names') ){
+  function json_function_names( $json ){
+    $json = str_replace( '"%', '', $json );
+    $json = str_replace( '%"', '', $json );
+    return $json;
+  }
+}
+
+if(! function_exists('JSсript_jQuery_onload_wrapper') ){
+    function JSсript_jQuery_onload_wrapper($data){
+        return "<script type='text/javascript'><!-- \n jQuery(function($){ \n" . $data . "\n });\n --></script>";
+    }
+}
+
+add_filter( 'jscript_php_to_json', 'json_encode', 10, 1 );
+add_filter( 'jscript_php_to_json', 'cpJsonStr', 15, 1 );
+add_filter( 'jscript_php_to_json', 'str_to_bool', 20, 1 );
+add_filter( 'jscript_php_to_json', 'json_function_names', 25, 1 );
+
+add_filter( 'jQuery_onload_wrapper', 'JSсript_jQuery_onload_wrapper', 10, 1 );
+
+if(! class_exists('JSсript') ){
+    class JSсript // extends AnotherClass
+    {
+        protected static $selector;
+        protected static $script_name;
+        protected static $options;
+
+        // function __construct(){}
+        public static function init( $selector, $script_name, $options = '' ){ // has html
+            $selector = sanitize_text_field( $selector );
+            $script_name = sanitize_text_field( $script_name );
+
+            if( is_array($options) )
+                $options = apply_filters( 'jscript_php_to_json', $options );
+
+            self::$selector = $selector;
+            self::$script_name = $script_name; 
+            self::$options = $options;
+            add_action( 'wp_footer', array('JSсript', 'initialize'), 99 );
+        }
+
+        static function initialize(){
+            $script = "$('".self::$selector."').".self::$script_name."(".self::$options.");";
+            echo apply_filters( 'jQuery_onload_wrapper', $script );
+        }
+    }
 }
 
 class AssetsEnqueuer // extends AnotherClass
@@ -88,14 +151,14 @@ class AssetsEnqueuer // extends AnotherClass
       wp_enqueue_script('bootstrap-script', DT_ASSETS_URL . 'bootstrap/js/bootstrap'.$suffix.'.js', array('jquery'), '4.0alpha6', true);
     }
 
+    if( isset($countTo) ){
+      wp_enqueue_script('countTo', DT_ASSETS_URL . 'countTo/jquery.countTo'.$suffix.'.js', array('jquery'), '', true);
+
+      JSсript::init( $countTo, 'countTo' );
+    }
+
     if( isset( $use_scss ) )
       $this->use_scss();
-
-    if( isset($countTo) ){
-      wp_enqueue_script('countTo', DT_ASSETS_URL . 'countTo/jquery.countTo'.$suffix.'.js',
-        array('jquery'), '', true);
-      add_action('wp_footer', array($this, 'init_countTo'), 99 );
-    }
   }
 
   private function add_assets(){
@@ -204,15 +267,5 @@ class AssetsEnqueuer // extends AnotherClass
       }
     } // is user admin
     wp_enqueue_style('scss-style', get_template_directory_uri() . $out_file, array(), $scss_cache, 'all');
-  }
-  function init_countTo(){ // has html
-    $selector = $this->settings['countTo'];
-    ?>
-    <script type="text/javascript">
-      jQuery(document).ready(function($) {
-        $('<?=$selector;?>').countTo();
-      });
-    </script>
-    <?php
   }
 }
