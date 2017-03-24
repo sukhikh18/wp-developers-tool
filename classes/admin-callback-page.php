@@ -177,8 +177,8 @@ class AdminCallBacks // extends DevelopersTools
         'type'      => 'text',
         'id'        => 'fancybox',
         'title'     => 'Необычная коробка fancybox',
-        //'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
-        'placeholder'   => '.fancybox',
+        'desc'      => '<br>Модальное окно (Галерея, всплывающее окно)',
+        'placeholder'   => '.fancybox, .zoom',
         ),
       array(
         'type'      => 'checkbox',
@@ -191,6 +191,13 @@ class AdminCallBacks // extends DevelopersTools
         'id'        => 'fancybox_mousewheel',
         'title'     => 'Прокрутка мышью',
         'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
+        ),
+      array(
+        'type'      => 'text',
+        'id'        => 'countTo',
+        'title'     => 'Счетчик countTo',
+        'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i>',
+        'placeholder'   => '.timer',
         ),
       array(
         'id'        => 'use_bootstrap',

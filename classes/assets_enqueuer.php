@@ -90,6 +90,12 @@ class AssetsEnqueuer // extends AnotherClass
 
     if( isset( $use_scss ) )
       $this->use_scss();
+
+    if( isset($countTo) ){
+      wp_enqueue_script('countTo', DT_ASSETS_URL . 'countTo/jquery.countTo'.$suffix.'.js',
+        array('jquery'), '', true);
+      add_action('wp_footer', array($this, 'init_countTo'), 99 );
+    }
   }
 
   private function add_assets(){
@@ -139,7 +145,7 @@ class AssetsEnqueuer // extends AnotherClass
     </script>
     <?php
   }
-  function init_scroll(){
+  function init_scroll(){ // has html
     $top = $this->settings['smooth_scroll'];
     // Прокрутка после загрузки страницы по параметру scroll
     // К пр.: http://mydomain.ru/?scroll=primary
@@ -198,5 +204,15 @@ class AssetsEnqueuer // extends AnotherClass
       }
     } // is user admin
     wp_enqueue_style('scss-style', get_template_directory_uri() . $out_file, array(), $scss_cache, 'all');
+  }
+  function init_countTo(){ // has html
+    $selector = $this->settings['countTo'];
+    ?>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $('<?=$selector;?>').countTo();
+      });
+    </script>
+    <?php
   }
 }
