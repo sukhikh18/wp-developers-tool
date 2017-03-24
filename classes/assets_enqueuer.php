@@ -1,11 +1,25 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if(!function_exists('is_wp_debug')){
+  function is_wp_debug(){
+    if( WP_DEBUG ){
+      if( defined(WP_DEBUG_DISPLAY) && ! WP_DEBUG_DISPLAY ){
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
+}
+
 class AssetsEnqueuer // extends AnotherClass
 {
   protected $suffix = '';
   public $settings;
 
   function __construct() {
-    if( function_exists('is_wp_debug') && is_wp_debug() !== false )
+    if( is_wp_debug() === false )
       $this->suffix = '.min';
 
     $this->settings = get_option( DT_PLUGIN_NAME );
@@ -157,11 +171,13 @@ class AssetsEnqueuer // extends AnotherClass
   }
   function use_scss(){
     $scss_cache = get_option( 'scss_cache' );
-    $out_file = '/assets/style'.$this->suffix.'.css';
 
     $role = isset(wp_get_current_user()->roles[0]) ? wp_get_current_user()->roles[0] : '';
     if($role == 'administrator'){
-      $file = get_template_directory() . '/style.css';
+      // from
+      $file = get_template_directory() . '/style.scss';
+      // to, suffix maybe has .min
+      $out_file = '/style'.$this->suffix.'.css';
 
       if (file_exists( $file ) && filemtime($file) !== $scss_cache){
         $scss = new scssc();
@@ -180,7 +196,7 @@ class AssetsEnqueuer // extends AnotherClass
           $scss_cache = filemtime($file);
         }
       }
-      } // is user admin
+    } // is user admin
     wp_enqueue_style('scss-style', get_template_directory_uri() . $out_file, array(), $scss_cache, 'all');
   }
 }
