@@ -12,11 +12,17 @@ if(! function_exists('is_wp_debug') ){
     return false;
   }
 }
+
+if( !has_filter( 'jscript_php_to_json', 'json_encode' ) ){
+  add_filter( 'jscript_php_to_json', 'json_encode', 10, 1 );
+}
+
 if(! function_exists('cpJsonStr') ){
     function cpJsonStr($str){
         $str = preg_replace_callback('/\\\\u([a-f0-9]{4})/i', create_function('$m', 'return chr(hexdec($m[1])-1072+224);'), $str);
         return iconv('cp1251', 'utf-8', $str);
     }
+    add_filter( 'jscript_php_to_json', 'cpJsonStr', 15, 1 );
 }
 if(! function_exists('str_to_bool') ){
   function str_to_bool( $json ){
@@ -26,6 +32,7 @@ if(! function_exists('str_to_bool') ){
     $json = str_replace('"off"', 'false', $json);
     return $json;
   }
+  add_filter( 'jscript_php_to_json', 'str_to_bool', 20, 1 );
 }
 if(! function_exists('json_function_names') ){
   function json_function_names( $json ){
@@ -33,23 +40,18 @@ if(! function_exists('json_function_names') ){
     $json = str_replace( '%"', '', $json );
     return $json;
   }
+  add_filter( 'jscript_php_to_json', 'json_function_names', 25, 1 );
 }
 
-if(! function_exists('JSсript_jQuery_onload_wrapper') ){
-    function JSсript_jQuery_onload_wrapper($data){
+if(! function_exists('JScript_jQuery_onload_wrapper') ){
+    function JScript_jQuery_onload_wrapper($data){
         return "<script type='text/javascript'><!-- \n jQuery(function($){ \n" . $data . "\n });\n --></script>";
     }
+    add_filter( 'jQuery_onload_wrapper', 'JScript_jQuery_onload_wrapper', 10, 1 );
 }
 
-add_filter( 'jscript_php_to_json', 'json_encode', 10, 1 );
-add_filter( 'jscript_php_to_json', 'cpJsonStr', 15, 1 );
-add_filter( 'jscript_php_to_json', 'str_to_bool', 20, 1 );
-add_filter( 'jscript_php_to_json', 'json_function_names', 25, 1 );
-
-add_filter( 'jQuery_onload_wrapper', 'JSсript_jQuery_onload_wrapper', 10, 1 );
-
-if(! class_exists('JSсript') ){
-    class JSсript // extends AnotherClass
+if(! class_exists('JScript') ){
+    class JScript // extends AnotherClass
     {
         protected static $selector;
         protected static $script_name;
@@ -66,7 +68,7 @@ if(! class_exists('JSсript') ){
             self::$selector = $selector;
             self::$script_name = $script_name; 
             self::$options = $options;
-            add_action( 'wp_footer', array('JSсript', 'initialize'), 99 );
+            add_action( 'wp_footer', array('JScript', 'initialize'), 99 );
         }
 
         static function initialize(){
@@ -154,7 +156,7 @@ class AssetsEnqueuer // extends AnotherClass
     if( isset($countTo) ){
       wp_enqueue_script('countTo', DT_ASSETS_URL . 'countTo/jquery.countTo'.$suffix.'.js', array('jquery'), '', true);
 
-      JSсript::init( $countTo, 'countTo' );
+      JScript::init( $countTo, 'countTo' );
     }
 
     if( isset( $use_scss ) )
