@@ -45,7 +45,7 @@ if(! function_exists('json_function_names') ){
 
 if(! function_exists('JScript_jQuery_onload_wrapper') ){
     function JScript_jQuery_onload_wrapper($data){
-        return "<script type='text/javascript'><!-- \n jQuery(function($){ \n" . $data . "\n });\n --></script>";
+        return "<script type='text/javascript'><!-- \n jQuery(document).ready(function($) { \n" . $data . " });\n --></script>\n";
     }
     add_filter( 'jQuery_onload_wrapper', 'JScript_jQuery_onload_wrapper', 10, 1 );
 }
@@ -53,27 +53,43 @@ if(! function_exists('JScript_jQuery_onload_wrapper') ){
 if(! class_exists('JScript') ){
     class JScript // extends AnotherClass
     {
-        protected static $selector;
-        protected static $script_name;
-        protected static $options;
+        protected static $scripts = array();
 
         // function __construct(){}
-        public static function init( $selector, $script_name, $options = '' ){ // has html
+        public static function init( $selector, $script_name, $options = '', $before = '', $after = '', $open_keys = false ){ // has html
             $selector = sanitize_text_field( $selector );
             $script_name = sanitize_text_field( $script_name );
-
+            
             if( is_array($options) )
                 $options = apply_filters( 'jscript_php_to_json', $options );
+            else
+                $options = json_function_names('"'. $options .'"');
 
-            self::$selector = $selector;
-            self::$script_name = $script_name; 
-            self::$options = $options;
+            if( $open_keys ){
+                $options = str_replace('{"', '{', $options);
+                $options = str_replace(',"', ',', $options);
+                $options = str_replace('":', ':', $options);
+            }
+
+            self::$scripts[] = array(
+                'selector' => $selector,
+                'init' => $script_name,
+                'options' =>$options,
+                'before' => $before,
+                'after' => $after,
+                 );
+
+
             add_action( 'wp_footer', array('JScript', 'initialize'), 99 );
         }
 
         static function initialize(){
-            $script = "$('".self::$selector."').".self::$script_name."(".self::$options.");";
-            echo apply_filters( 'jQuery_onload_wrapper', $script );
+            $output = '';
+            foreach (self::$scripts as $script) {
+                $script_code = "$('".$script['selector']."').".$script['init']."(".$script['options'].");";
+                $output .= $script['before'] . $script_code . $script['after'] . "\n";
+            }
+            echo apply_filters( 'jQuery_onload_wrapper', $output );
         }
     }
 }
