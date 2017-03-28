@@ -66,6 +66,7 @@ class dp_customQuery //extends DevelopersTools
   }
   function get_container($part=false, $class = 'container-fluid', $tag = 'div'){
     $result = "";
+    $class .= " custom-query";
     if($class){
       if($part=="start"){
         $result.= "<{$tag} class='{$class}'>";
