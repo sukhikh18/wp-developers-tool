@@ -18,9 +18,9 @@ $enable-print-styles:       false;
 	$orange: #d9c26c; // default: #f0ad4e; 
 	$yellow: #ffd500;
 	$green:  #24aa98; // default: #5cb85c; 
-	$blue:   #65abd0; // default: #0275d8; 
-	$teal:   #5bc0de;
-	$pink:   #ff5b77;
+	$blue:   #0275d8;
+	$teal:   #65abd0; // default: #5bc0de;
+	$pink:   #af5261; // default: #ff5b77;
 	$purple: #613d7c;
 
 	$gray-dark:                 #383737; // default: #292b2c; 
@@ -29,7 +29,7 @@ $enable-print-styles:       false;
 	$gray-lighter:              #eceeef;
 	$gray-lightest:             #f7f7f9;
 
-	$brand-primary:             #65abd0;
+	$brand-primary:             $teal;
 	$brand-success:             $green;
 	$brand-info:                $teal;
 	$brand-warning:             $orange;
