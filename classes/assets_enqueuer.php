@@ -56,19 +56,15 @@ if(! class_exists('JScript') ){
         protected static $scripts = array();
 
         // function __construct(){}
-        public static function init( $selector, $script_name, $options = '', $before = '', $after = '', $open_keys = false ){ // has html
+        public static function init( $selector, $script_name, $options = '', $before = '', $after = '' ){ // has html
             $selector = sanitize_text_field( $selector );
             $script_name = sanitize_text_field( $script_name );
             
-            if( is_array($options) )
+            if( is_array($options) ){
                 $options = apply_filters( 'jscript_php_to_json', $options );
-            else
+            }
+            elseif($options) {
                 $options = json_function_names('"'. $options .'"');
-
-            if( $open_keys ){
-                $options = str_replace('{"', '{', $options);
-                $options = str_replace(',"', ',', $options);
-                $options = str_replace('":', ':', $options);
             }
 
             self::$scripts[] = array(
