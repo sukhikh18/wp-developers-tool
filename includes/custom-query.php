@@ -98,8 +98,12 @@ class dp_customQuery //extends DevelopersTools
       'template' => false, // for custom template
     ), $atts ) );
 
-    if(!empty($parent))
+    if($parent == 'this' || $parent == '(this)'){
+      $parent = array( get_the_id() );
+    }
+    elseif(!empty($parent)){
       $parent = explode(',', $parent);
+    }
 
     if($status == "alltime")
       $status = array('publish', 'future');
