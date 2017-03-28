@@ -64,18 +64,18 @@ class dp_customQuery //extends DevelopersTools
 
     require locate_template($templates);
   }
-  function get_container($part=false, $container){
-    $result = '';
-    if($container){
-      if($part=='start'){
-          $result.='<div class="'.$container.'">';
-          if($container=='container' || $container=='container-fluid' )
-            $result.= '<div class="row">';
+  function get_container($part=false, $class = 'container-fluid', $tag = 'div'){
+    $result = "";
+    if($class){
+      if($part=="start"){
+        $result.= "<{$tag} class='{$class}'>";
+        if($class=='container' || $class=='container-fluid' )
+          $result.= '<div class="row">';
       }
       if($part=='end'){
-        if($container=='container' || $container=='container-fluid' )
+        if($class=='container' || $class=='container-fluid' )
           $result.= '</div><!-- .row -->';
-        $result.='</div><!-- .container -->';
+        $result.= "</{$tag}><!-- .{$class} -->";
       }
     }
     return $result;
@@ -92,6 +92,7 @@ class dp_customQuery //extends DevelopersTools
       'parent' => '',
       'status' => 'publish', // publish, future, alltime (publish+future) //
       'order' => 'DESC', // ASC || DESC
+      'wrap_tag' => 'div',
       'container' => 'container-fluid', //true=container, false=noDivContainer, string=custom container
       // template attrs
       'columns' => '4', // 1 | 2 | 3 | 4 | 10 | 12
@@ -146,7 +147,7 @@ class dp_customQuery //extends DevelopersTools
     // шаблон
     ob_start();
     if ( $query->have_posts() ) {
-      echo $this->get_container('start', $container);
+      echo $this->get_container('start', $container, $wrap_tag);
       while ( $query->have_posts() ) {
         $query->the_post();
         
@@ -154,7 +155,7 @@ class dp_customQuery //extends DevelopersTools
           'columns' => $columns,
           ));
       }
-      echo $this->get_container('end', $container);
+      echo $this->get_container('end', $container, $wrap_tag);
     } else {
       if(is_wp_debug()){
         echo "<h4>Режим отладки:</h4>";
