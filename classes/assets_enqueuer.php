@@ -255,13 +255,12 @@ class AssetsEnqueuer // extends AnotherClass
   function use_scss(){
     $scss_cache = get_option( 'scss_cache' );
 
+    // from
+    $file = get_template_directory() . '/style.scss';
+      // to, suffix maybe has .min
+    $out_file = '/style'.$this->suffix.'.css';
     $role = isset(wp_get_current_user()->roles[0]) ? wp_get_current_user()->roles[0] : '';
     if($role == 'administrator'){
-      // from
-      $file = get_template_directory() . '/style.scss';
-      // to, suffix maybe has .min
-      $out_file = '/style'.$this->suffix.'.css';
-
       if (file_exists( $file ) && filemtime($file) !== $scss_cache){
         $scss = new scssc();
         $scss->setImportPaths(function($path) {
