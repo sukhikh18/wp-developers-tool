@@ -199,18 +199,6 @@ class AdminCallBacks // extends DevelopersTools
         'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i>',
         'placeholder'   => '.timer',
         ),
-      array(
-        'id'        => 'use_bootstrap',
-        'title'     => 'Подключить Bootstrap 4',
-        'type'      => 'checkbox',
-        'desc'      => '',
-        ),
-      array(
-        'id'        => 'use_bootstrap_js',
-        'title'     => 'Подключить Bootstrap 4 JS',
-        'type'      => 'checkbox',
-        'desc'      => '',
-        ),
     	);
     $this->register_section('scripts', 'Скрипты', '', $args);
 

@@ -188,8 +188,7 @@ class DevelopersTools
   function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
-      'use_scss'=>'on',
-      'use_bootstrap'=>'on'
+      'use_scss'=>'on'
       );
 
     update_option( DT_PLUGIN_NAME, $defaults );
