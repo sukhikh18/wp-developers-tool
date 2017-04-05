@@ -50,7 +50,7 @@ class AdminCallBacks // extends DevelopersTools
         'vals'      => array(
           ''           => 'Не сжимать',
           'default'    => 'Сжимать стандартно (1600х1024)',
-          'large_compress' => 'Сжимать до "Крупного" размера',
+          'large' => 'Сжимать до "Крупного" размера',
           ),
         ),
       array(
