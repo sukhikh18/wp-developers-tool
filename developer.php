@@ -75,37 +75,10 @@ class DevelopersTools
   function __construct(){
     $this->define_constants();
     $this->plugin_values = get_option( DT_PLUGIN_NAME );
-    $this->add_requires();
+    $this->include_classes();
+    $this->include_addons();
 
     new AssetsEnqueuer();
-
-    if(! isset($this->plugin_values['emojis']) )
-      add_action( 'init', array($this, 'remove_emojis') );
-  }
-
-  function show_admin_notice(){
-    if(sizeof($this->errors) == 0)
-      return;
-
-    foreach ($this->errors as $error) {
-      $type = (isset($error['type'])) ? $error['type'] . ' ' : ' ';
-      $msg = (isset($error['msg'])) ? apply_filters('the_content', $error['msg']) : false;
-      if($msg)
-        echo '
-        <div id="message" class="'.$type.'notice is-dismissible">
-          '.$msg.'
-        </div>';
-      else
-        echo '
-        <div id="message" class="'.$type.'notice is-dismissible">
-          <p>Обнаружена неизвестная ошибка!</p>
-        </div>';
-    }
-  }
-  protected function set_notice($msg=false, $type='error'){
-    $this->errors[] = array('type' => $type, 'msg' => $msg);
-
-    add_action( 'admin_notices', array($this, 'show_admin_notice') );
   }
 
   private function define_constants() {
@@ -120,72 +93,58 @@ class DevelopersTools
     define( 'DT_DIR_INCLUDES', trailingslashit( DT_DIR_PATH . 'includes') );
   }
 
-  private function classes(){
-    $public = $admin = array();
-
-    if(is_admin()){
-      $admin = array(
-        'DTForm'             => DT_DIR_CLASSES . '/dt-form-render',
-        'dt_AdminCallBacks'  => DT_DIR_CLASSES . '/admin-callback-page',
-        'dt_CustomMetaBoxes' => DT_DIR_CLASSES . '/admin-meta-boxes',
-        'WCProductSettings'  => DT_DIR_CLASSES . '/admin-wc-product-settings'
-        );
-    }
-    $public = array(
+  private function include_classes(){
+    $classes = array(
       'WPAdvancedPostType' => DT_DIR_CLASSES . '/advanced-post-types',
       'scssc'              => DT_DIR_CLASSES . '/scss.inc',
       'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
       );
-    $classes = array_merge($public, $admin);
-    return $classes;
-  }
-  private function includes(){
-    $public = $admin = array();
-    if(is_admin()){
-      $admin = array(
-        'orign-image-resize'  => DT_DIR_INCLUDES . '/admin-orign-image-resize',
-        'bestsellers' => DT_DIR_INCLUDES . '/bestsellers'
-        );
-    }
-    $public = array(
-      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode',
-      'custom-query'        => DT_DIR_INCLUDES . '/custom-query',
-      'reviews'             => DT_DIR_INCLUDES . '/reviews',
-      'second-title'        => DT_DIR_INCLUDES . '/second-title',
-      'sc-code'             => DT_DIR_INCLUDES . '/sc-code',
-      );
 
-    $includes = array_merge($public, $admin);
-    return $includes;
-  }
-  private function add_requires(){
-    foreach ( $this->classes() as $id => $path ) {
+    if( is_admin() ){
+      $classes['DTForm']             = DT_DIR_CLASSES . '/dt-form-render';
+      $classes['dt_AdminCallBacks']  = DT_DIR_CLASSES . '/admin-callback-page';
+      $classes['dt_CustomMetaBoxes'] = DT_DIR_CLASSES . '/admin-meta-boxes';
+      $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings';
+
+      // $classes = array_merge($public, $admin);
+    }
+
+    // Подключить вышеуказанные классы
+    foreach ( $classes as $id => $path ) {
       $path .= '.php';
       if ( is_readable( $path ) ) {
         if(! class_exists( $id ))
           require_once( $path );
       }
-      else {
-          $this->set_notice('Обнаружен поврежденный класс - <strong>'.$id.'</strong>', 'error');
-      }
     }
+  }
 
-    // Подключить include'ы которые задействованны в настройках
+  private function include_addons(){
+    $includes = array(
+      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode',
+      'custom-query'        => DT_DIR_INCLUDES . '/custom-query',
+      'reviews'             => DT_DIR_INCLUDES . '/reviews',
+      'second-title'        => DT_DIR_INCLUDES . '/second-title',
+      'sc-code'             => DT_DIR_INCLUDES . '/sc-code',
+      'remove_emojis'       => DT_DIR_INCLUDES . '/remove_emojis',
+      );
+    if(is_admin()){
+      $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize';
+      $includes['bestsellers'] = DT_DIR_INCLUDES . '/bestsellers';
+    }
+    
+    // Подключить вышеперечисленные addon'ы которые задействованны в настройках
     $values = apply_filters( $this->prefix . 'enabled_values', $this->plugin_values );
-    foreach ($this->includes() as $id => $path) {
+    foreach ( $includes as $id => $path) {
       $path .= '.php';
       if ( is_readable( $path ) ) {
         if(!empty($values[$id]))
           require_once( $path );
       }
-      else {
-          $id = basename($path);
-          $this->set_notice('Обнаружен поврежденный файл - <strong>'.$id.'</strong>', 'error');
-      }
     }
   }
   
-  function set_defaults(){
+  private function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
       'use_scss'=>'on'
@@ -193,22 +152,13 @@ class DevelopersTools
 
     update_option( DT_PLUGIN_NAME, $defaults );
   }
-  function activation_set_defaults(){
+
+  public function activation_set_defaults(){
+  	// Если база пустая
     if($this->plugin_values !== false && sizeof($this->plugin_values) >= 1)
       return false;
 
     $this->set_defaults();
   }
-
-  function remove_emojis() {
-    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-    remove_action( 'wp_print_styles', 'print_emoji_styles' );
-    remove_action( 'admin_print_styles', 'print_emoji_styles' );  
-    remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );  
-    remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-  }
-
 }
 new DevelopersTools();
