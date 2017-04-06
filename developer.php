@@ -77,8 +77,6 @@ class DevelopersTools
     $this->plugin_values = get_option( DT_PLUGIN_NAME );
     $this->include_classes();
     $this->include_addons();
-
-    new AssetsEnqueuer();
   }
 
   private function define_constants() {
@@ -120,6 +118,7 @@ class DevelopersTools
   }
 
   private function include_addons(){
+    $scripts = DT_DIR_INCLUDES . '/init-scripts';
     $includes = array(
       'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode',
       'custom-query'        => DT_DIR_INCLUDES . '/custom-query',
@@ -127,6 +126,14 @@ class DevelopersTools
       'second-title'        => DT_DIR_INCLUDES . '/second-title',
       'sc-code'             => DT_DIR_INCLUDES . '/sc-code',
       'remove_emojis'       => DT_DIR_INCLUDES . '/remove_emojis',
+      'use_scss'            => DT_DIR_INCLUDES . 'use_scss',
+
+      'smooth_scroll' => $scripts,
+      'sticky' => $scripts,
+      'animate' => $scripts,
+      'font_awesome' => $scripts,
+      'fancybox' => $scripts,
+      'countTo' => $scripts
       );
     if(is_admin()){
       $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize';

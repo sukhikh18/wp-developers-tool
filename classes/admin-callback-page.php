@@ -154,6 +154,10 @@ class AdminCallBacks // extends DevelopersTools
         'default' =>  '.navbar-static-top',
         //'require' => 'sticky'
         ),
+      // Прокрутка после загрузки страницы по параметру scroll
+      // К пр.: http://mydomain.ru/?scroll=primary
+      // Пролистает за $smooth_scroll пикселя до начала объекта #primary
+      // Внимание! параметр scroll указывается без "#" и прокручивает только до объекта с ID.
     	array(
     		'type'      => 'number',
     		'id'        => 'smooth_scroll',
