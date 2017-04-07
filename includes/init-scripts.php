@@ -87,3 +87,26 @@ if( isset($countTo) ){
   JQScript::enqueue('countTo', 'countTo/jquery.countTo'.$suffix.'.js');
   JQScript::common( $countTo, 'countTo' );
 }
+
+if( isset($back_top) ){
+  $back_top_script = '
+  var offset = 200;
+  var selector = "#back-top";
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > offset) {
+      $(selector).fadeIn(400);
+    } else {
+      $(selector).fadeOut(400);
+    }
+  });
+  $(selector).click(function(event) {
+    event.preventDefault();
+    $("html, body").animate({scrollTop: 0}, 600);
+    return false;
+  });' . "\n";
+  JQScript::custom( $back_top_script );
+  add_action( 'wp_footer', function(){
+    echo "<a href='#' id='back-top'> Наверх </a>";
+  });
+}

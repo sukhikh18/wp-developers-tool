@@ -133,7 +133,8 @@ class DevelopersTools
       'animate' => $scripts,
       'font_awesome' => $scripts,
       'fancybox' => $scripts,
-      'countTo' => $scripts
+      'countTo' => $scripts,
+      'back_top' => $scripts
       );
     if(is_admin()){
       $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize';

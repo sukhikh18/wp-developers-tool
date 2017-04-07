@@ -165,6 +165,12 @@ class AdminCallBacks // extends DevelopersTools
     		'desc'      => '<br>Плавная прокрутка до якоря, если ссылка начинается с #. (Укажите высоту отступа до объекта) <br> Для отключения удалите значение.',
         'placeholder'   => '40',
     		),
+      array(
+        'type'      => 'checkbox',
+        'id'        => 'back_top',
+        'title'     => 'Кнопка "Наверх"',
+        'desc'      => 'Задайте кнопке #back-top собственный стиль',
+        ),
     	array(
     		'type'      => 'checkbox', 
     		'id'        => 'font_awesome',
