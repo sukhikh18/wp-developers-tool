@@ -118,8 +118,8 @@ class AdminCallBacks // extends DevelopersTools
         ),
       array(
         'type'      => 'checkbox',
-        'id'        => 'emojis',
-        'title'     => 'Не блокировать функционал wp_emoji',
+        'id'        => 'remove-emojis',
+        'title'     => 'Отключить wp_emoji',
         'desc'      => '',
         ),
     	);
@@ -127,7 +127,7 @@ class AdminCallBacks // extends DevelopersTools
 
     $args = array(
       array(
-        'id'        => 'use_scss',
+        'id'        => 'use-scss',
         'title'     => 'Использовать SCSS',
         'type'      => 'checkbox',
         'desc'      => 'При включении, отключите подключение get_stylesheet_uri() в файле functions.php',

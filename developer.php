@@ -118,15 +118,15 @@ class DevelopersTools
   }
 
   private function include_addons(){
-    $scripts = DT_DIR_INCLUDES . '/init-scripts';
+    $scripts = DT_DIR_INCLUDES . 'init-scripts';
     $includes = array(
-      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode',
-      'custom-query'        => DT_DIR_INCLUDES . '/custom-query',
-      'reviews'             => DT_DIR_INCLUDES . '/reviews',
-      'second-title'        => DT_DIR_INCLUDES . '/second-title',
-      'sc-code'             => DT_DIR_INCLUDES . '/sc-code',
-      'remove_emojis'       => DT_DIR_INCLUDES . '/remove_emojis',
-      'use_scss'            => DT_DIR_INCLUDES . 'use_scss',
+      'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode',
+      'custom-query'        => DT_DIR_INCLUDES . 'custom-query',
+      'reviews'             => DT_DIR_INCLUDES . 'reviews',
+      'second-title'        => DT_DIR_INCLUDES . 'second-title',
+      'sc-code'             => DT_DIR_INCLUDES . 'sc-code',
+      'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis',
+      'use-scss'            => DT_DIR_INCLUDES . 'use-scss',
 
       'smooth_scroll' => $scripts,
       'sticky' => $scripts,
@@ -155,7 +155,8 @@ class DevelopersTools
   private function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
-      'use_scss'=>'on'
+      'use-scss'=>'on',
+      'remove-emojis'=>'on'
       );
 
     update_option( DT_PLUGIN_NAME, $defaults );
