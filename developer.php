@@ -122,7 +122,6 @@ class DevelopersTools
     $includes = array(
       'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode',
       'custom-query'        => DT_DIR_INCLUDES . 'custom-query',
-      'reviews'             => DT_DIR_INCLUDES . 'reviews',
       'second-title'        => DT_DIR_INCLUDES . 'second-title',
       'sc-code'             => DT_DIR_INCLUDES . 'sc-code',
       'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis',

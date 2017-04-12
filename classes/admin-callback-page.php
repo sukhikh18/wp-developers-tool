@@ -65,12 +65,6 @@ class AdminCallBacks // extends DevelopersTools
     		'title'     => 'Включить дополнительные заголовки',
         'desc'      => 'Используйте дополнительные заголовки в своей теме при помощи: <br><strong> get_second_title($id, $before, $after) </strong> или <strong> the_second_title($id, $before, $after) </strong>',
     		),
-    	array(
-    		'type'      => 'checkbox',
-    		'id'        => 'reviews',
-    		'title'     => 'Включить отзывы',
-    		'desc'      => 'Читайте информацию на странице отзывов в разделе помощь (В вехнем правом углу)',
-    		),
       // array(
       //   'type'      => 'checkbox',
       //   'id'        => 'dp_post_types',
