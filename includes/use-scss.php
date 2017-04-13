@@ -40,6 +40,5 @@ function use_scss(){
       }
     }
   } // is user admin
-  wp_enqueue_style('scss-style', get_template_directory_uri() . $out_file, array(), $scss_cache, 'all');
 }
 add_action('wp_enqueue_scripts', 'use_scss', 999 );
