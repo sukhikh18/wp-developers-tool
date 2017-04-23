@@ -38,16 +38,18 @@ if( isset($options['wholesales']) ){
 
 		if( method_exists($product, 'get_meta') ){
 			$from = $product->get_meta('wholesale_from');
+			$def = $product->get_min_purchase_quantity();
 		} else {
 			$_post = get_post($product->id);
 			if( isset($_post->ID) && $_post->ID > 1 )
 				$from = get_post_meta( $_post->ID, 'wholesale_from', true );
+			$def = 1;
 		}
 
 		if( $from > 1 )
 			return $from;
 		
-		return $product->get_min_purchase_quantity();
+		return $def;
 	}
 	if( is_admin() ){
 		$wc_fields->add_field( array(
