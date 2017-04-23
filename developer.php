@@ -98,13 +98,14 @@ class DevelopersTools
       'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
       );
 
+    if ( class_exists( 'WooCommerce' ) ) {
+      $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings';
+    }
+    
     if( is_admin() ){
       $classes['DTForm']             = DT_DIR_CLASSES . '/dt-form-render';
       $classes['dt_AdminCallBacks']  = DT_DIR_CLASSES . '/admin-callback-page';
       $classes['dt_CustomMetaBoxes'] = DT_DIR_CLASSES . '/admin-meta-boxes';
-      $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings';
-
-      // $classes = array_merge($public, $admin);
     }
 
     // Подключить вышеуказанные классы
@@ -119,6 +120,7 @@ class DevelopersTools
 
   private function include_addons(){
     $scripts = DT_DIR_INCLUDES . 'init-scripts';
+    $woo_inputs = DT_DIR_INCLUDES . 'woo-inputs';
     $includes = array(
       'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode',
       'custom-query'        => DT_DIR_INCLUDES . 'custom-query',
@@ -127,17 +129,21 @@ class DevelopersTools
       'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis',
       'use-scss'            => DT_DIR_INCLUDES . 'use-scss',
 
+      'wholesales'          => $woo_inputs,
+      'product-val'         => $woo_inputs,
+
       'smooth_scroll' => $scripts,
-      'sticky' => $scripts,
-      'animate' => $scripts,
-      'font_awesome' => $scripts,
-      'fancybox' => $scripts,
-      'countTo' => $scripts,
-      'back_top' => $scripts
+      'sticky'        => $scripts,
+      'animate'       => $scripts,
+      'font_awesome'  => $scripts,
+      'fancybox'      => $scripts,
+      'countTo'       => $scripts,
+      'back_top'      => $scripts,
       );
+    
     if(is_admin()){
-      $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize';
-      $includes['bestsellers'] = DT_DIR_INCLUDES . '/bestsellers';
+      $includes['orign-image-resize'] = DT_DIR_INCLUDES . 'admin-orign-image-resize';
+      $includes['bestsellers']        = $woo_inputs;
     }
     
     // Подключить вышеперечисленные addon'ы которые задействованны в настройках

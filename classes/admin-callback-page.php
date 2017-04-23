@@ -219,29 +219,33 @@ class AdminCallBacks // extends DevelopersTools
             'sales'=>'Сортировать по продажам'
             ),
           'desc'      => '<br> 1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
-        )
+        ),
+        array(
+          'type'      => 'checkbox',
+          'id'        => 'wholesales',
+          'title'     => 'Оптовые продажи',
+          'desc'      => 'Разрешить продажу от.. шт.',
+        ),
+        array(
+          'type'      => 'checkbox',
+          'id'        => 'product-val',
+          'title'     => 'Добавить товару ед. измерения',
+        ),        
       );
       $this->register_section('dt-woo-settings', 'WooCommerce', '', $args);
     }
 
-    if(is_wp_debug()){
-      $args = array(
-      array(
-        'type'      => 'checkbox', // тип
-        'id'        => 'bs_shortcodes',
-        'title'     => 'Использовать bootstrap [shortcode]\'ы',
-        //'desc'      => '',
-        ),
-      );
-      //if ( class_exists( 'WooCommerce' ) ) {
-      $args[] = array(
-        'type'      => 'checkbox', // тип
-        'id'        => 'woo_add_value',
-        'title'     => 'Добавить товару ед. измерения',
-        );
-      //}
-      $this->register_section('develop', 'В разработке', '', $args);
-    }
+    // if(is_wp_debug()){
+    //   $args = array(
+    //   array(
+    //     'type'      => 'checkbox', // тип
+    //     'id'        => 'bs_shortcodes',
+    //     'title'     => 'Использовать bootstrap [shortcode]\'ы',
+    //     //'desc'      => '',
+    //     ),
+    //   );
+    //   $this->register_section('develop', 'В разработке', '', $args);
+    // }
   }
 
   // Шаблоны вывода параметров
