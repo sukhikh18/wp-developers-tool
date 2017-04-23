@@ -36,10 +36,16 @@ if( isset($options['wholesales']) ){
 		if( $var != 1 )
 			return $var;
 
-		$from = $product->get_meta('wholesale_from');
+		if( method_exists($product, 'get_meta') ){
+			$from = $product->get_meta('wholesale_from');
+		} else {
+			$_post = get_post($product->id);
+			if( isset($_post->ID) && $_post->ID > 1 )
+				$from = get_post_meta( $_post->ID, 'wholesale_from', true );
+		}
+
 		if( $from > 1 )
 			return $from;
-		
 		
 		return $product->get_min_purchase_quantity();
 	}
