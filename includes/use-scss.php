@@ -1,8 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // disable direct access
 
-define('SCSS_DIR', get_template_directory() . '/assets/');
-
 add_filter( 'remove_cyrillic', 'remove_cyrillic_filter', 10, 1 );
 function remove_cyrillic_filter($str){
   $pattern = "/[\x{0410}-\x{042F}]+.*[\x{0410}-\x{042F}]+/iu";
@@ -27,8 +25,9 @@ function use_scss(){
     if (file_exists( $file ) && filemtime($file) !== $scss_cache){
       $scss = new scssc();
       $scss->setImportPaths(function($path) {
-        if (!file_exists(SCSS_DIR.$path)) return null;
-        return SCSS_DIR.$path;
+        if (!file_exists( apply_filters( 'SCSS_DIR', get_template_directory() . '/assets/' ).$path) )
+          return null;
+        return apply_filters( 'SCSS_DIR', get_template_directory() . '/assets/' ).$path;
       });
 
       if(!is_wp_debug())
