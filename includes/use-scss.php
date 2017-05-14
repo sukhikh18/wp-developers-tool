@@ -14,10 +14,12 @@ function use_scss(){
   if( is_wp_debug() !== false )
     $suffix = '';
 
+  $options = get_option( DT_PLUGIN_NAME );
+  $scss_dir = $options['use-scss'];
   $scss_cache = get_option( 'scss_cache' );
 
   // from
-  $file = get_template_directory() . '/style.scss';
+  $file = get_template_directory() . $scss_dir . 'style.scss';
   // to, suffix maybe has .min
   $out_file = '/style'.$suffix.'.css';
   $role = isset(wp_get_current_user()->roles[0]) ? wp_get_current_user()->roles[0] : '';

@@ -123,8 +123,9 @@ class AdminCallBacks // extends DevelopersTools
       array(
         'id'        => 'use-scss',
         'title'     => 'Использовать SCSS',
-        'type'      => 'checkbox',
-        'desc'      => 'При включении, отключите подключение get_stylesheet_uri() в файле functions.php',
+        'type'      => 'text',
+        'desc'      => '<br> Ищет файл style.scss в указаной папке и сохраняет в корень темы style.css или style.min.css в зависимости от debug параметра <a href="https://codex.wordpress.org/Debugging_in_WordPress" target="_blank">(?)</a><br>Для отключения удалите значение.',
+        'placeholder' => '/'
         // 'require' => 'sticky'
         ),
       array(
