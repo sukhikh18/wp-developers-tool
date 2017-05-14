@@ -26,7 +26,7 @@ Author URI: https://vk.com/nikolays_93
 if(!function_exists('is_wp_debug')){
   function is_wp_debug(){
     if( WP_DEBUG ){
-      if( defined(WP_DEBUG_DISPLAY) && ! WP_DEBUG_DISPLAY){
+      if( defined('WP_DEBUG_DISPLAY') && false === WP_DEBUG_DISPLAY ){
         return false;
       }
       return true;
