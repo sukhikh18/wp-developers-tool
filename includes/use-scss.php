@@ -1,4 +1,6 @@
 <?php
+// todo : Добавить поиск файлов scss в папке
+
 if ( ! defined( 'ABSPATH' ) ) exit; // disable direct access
 
 add_filter( 'remove_cyrillic', 'remove_cyrillic_filter', 10, 1 );
@@ -24,7 +26,10 @@ function use_scss(){
   $out_file = '/style'.$suffix.'.css';
   $role = isset(wp_get_current_user()->roles[0]) ? wp_get_current_user()->roles[0] : '';
   if($role == 'administrator'){
-    if (file_exists( $file ) && filemtime($file) !== $scss_cache){
+    if( ! file_exists( $file ) )
+      return null;
+
+    if ( isset($_GET['force_scss']) || filemtime($file) !== $scss_cache ){
       $scss = new scssc();
       $scss->setImportPaths(function($path) {
         if (!file_exists( apply_filters( 'SCSS_DIR', get_template_directory() . '/assets/' ).$path) )
@@ -45,3 +50,29 @@ function use_scss(){
   } // is user admin
 }
 add_action('wp_enqueue_scripts', 'use_scss', 999 );
+
+add_action( 'admin_bar_menu', 'add_scss_menu', 99 );
+function add_scss_menu( $wp_admin_bar ) {
+
+  $args = array(
+    'id'    => 'SCSS',
+    'title' => 'SCSS',
+  );
+  $wp_admin_bar->add_node( $args );
+
+  $args = array(
+    'id'     => 'force_scss',
+    'title'  => 'Принудительная компиляция SCSS',
+    'parent' => 'SCSS',
+    'href' => '?force-scss=1',
+  );
+  $wp_admin_bar->add_node( $args );
+
+  $args = array(
+    'id'     => 'change_scss_dir',
+    'title'  => 'Изменить папку style.scss',
+    'parent' => 'SCSS',
+    'href' => '/wp-admin/options-general.php?page=advanced-options&tab=scripts',
+  );
+  $wp_admin_bar->add_node( $args );
+}
