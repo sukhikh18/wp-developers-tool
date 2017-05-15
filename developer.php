@@ -160,7 +160,7 @@ class DevelopersTools
   private function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
-      'use-scss'=>'on',
+      'use-scss'=>'/',
       'remove-emojis'=>'on'
       );
 
