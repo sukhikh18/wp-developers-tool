@@ -86,14 +86,17 @@ if( isset( $fancybox ) ){
 if( isset($countTo) ){
   JQScript::enqueue('countTo', 'countTo/jquery.countTo'.$suffix.'.js');
   if( isset($appearJs) ){
-    JQScript::enqueue('appear', 'jquery.appear'.$suffix.'.js');
+    JQScript::enqueue('appear', 'jquery.appear.js');
     $appear = '
     $("'.$countTo.'").appear();
-    $(document.body).on("appear", "'.$countTo.'", function(event, $all_appeared_elements) {
-      $("'.$countTo.'").countTo();
-      console.log("appeared!");
+    $("'.$countTo.'").on("appear", function(event, $all_appeared_elements) {
+      console.log($(this).attr("data-appeared"));
+      if( !$(this).attr("data-appeared") )
+        $(this).countTo();
+
+      $(this).attr("data-appeared", 1);
     });
-    ' . "\n";
+    ';
 
     JQScript::custom( $appear );
   } else {
