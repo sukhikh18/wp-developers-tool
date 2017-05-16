@@ -85,8 +85,23 @@ if( isset( $fancybox ) ){
 
 if( isset($countTo) ){
   JQScript::enqueue('countTo', 'countTo/jquery.countTo'.$suffix.'.js');
-  JQScript::common( $countTo, 'countTo' );
+  if( isset($appearJs) ){
+    JQScript::enqueue('appear', 'jquery.appear'.$suffix.'.js');
+    $appear = '
+    $("'.$countTo.'").appear();
+    $(document.body).on("appear", "'.$countTo.'", function(event, $all_appeared_elements) {
+      $("'.$countTo.'").countTo();
+      console.log("appeared!");
+    });
+    ' . "\n";
+
+    JQScript::custom( $appear );
+  } else {
+    JQScript::common( $countTo, 'countTo' );
+  }
+  
 }
+
 
 if( isset($back_top) ){
   $back_top_script = '

@@ -53,35 +53,12 @@ class AdminCallBacks // extends DevelopersTools
           'large' => 'Сжимать до "Крупного" размера',
           ),
         ),
-      array(
-        'type'      => 'checkbox',
-        'id'        => 'sc-code',
-        'title'     => 'Включить возможность использовать [CODE]',
-        'desc'      => 'Добавит метабокс с возможностью разрешить [CODE] для записи',
-        ),
     	array(
     		'type'      => 'checkbox',
     		'id'        => 'second-title',
     		'title'     => 'Включить дополнительные заголовки',
         'desc'      => 'Используйте дополнительные заголовки в своей теме при помощи: <br><strong> get_second_title($id, $before, $after) </strong> или <strong> the_second_title($id, $before, $after) </strong>',
     		),
-      // array(
-      //   'type'      => 'checkbox',
-      //   'id'        => 'dp_post_types',
-      //   'title'     => 'Дополнительные типы записей',
-      //   'desc'      => 'В своей теме, для добавления типов, я обычно использую <strong>include/functions-custom.php</strong><br>
-      //   К примеру: <pre>
-      //   if(class_exists("WPAdvancedPostType")){
-      //     $types = new WPAdvancedPostType();
-      //     $types -> add_type( "enty", "Entity", "Entities", array("public"=>false) );
-      //     $types -> add_type( "news", "News");
-      //     $types -> reg_types();
-      //   }
-      //   $args не обязателен, но могут быть такие же как у registr_post_type: array(
-      //     "supports" => array("title","editor","thumbnail","custom-fields")
-      //   );
-      //   </pre>'
-      //   ),
       array(
         'type'      => 'checkbox',
         'id'        => 'custom-query',
@@ -126,7 +103,6 @@ class AdminCallBacks // extends DevelopersTools
         'type'      => 'text',
         'desc'      => '<br> Ищет файл style.scss в указаной папке и сохраняет в корень темы style.css или style.min.css в зависимости от debug параметра <a href="https://codex.wordpress.org/Debugging_in_WordPress" target="_blank">(?)</a><br>Для отключения удалите значение.',
         'placeholder' => '/'
-        // 'require' => 'sticky'
         ),
       array(
         'id'        => 'sticky',
@@ -137,17 +113,15 @@ class AdminCallBacks // extends DevelopersTools
           'forever'=>'Использовать всегда',
           'phone_only'=>'Только для телефона',
           ),
-        // 'desc'      => 'При прокрутке вниз, контейнер прилипает к верхней части экрана',
-        // 'require' => 'sticky'
+        'desc'      => '<br> При прокрутке вниз, контейнер прилипает к верхней части экрана',
         ),
       array(
         'type'      => 'text',
         'id'        => 'sticky_selector',
         'title'     => 'Селектор липкого контейнера',
         'placeholder' =>  '.navbar-default',
-        //'desc'      => 'Введите jQuery сселектор (.ExampleClass или #ExampleID)',
+        'desc'      => '<br> Введите jQuery сселектор (.ExampleClass или #ExampleID)',
         'default' =>  '.navbar-static-top',
-        //'require' => 'sticky'
         ),
       // Прокрутка после загрузки страницы по параметру scroll
       // К пр.: http://mydomain.ru/?scroll=primary
@@ -201,8 +175,14 @@ class AdminCallBacks // extends DevelopersTools
         'type'      => 'text',
         'id'        => 'countTo',
         'title'     => 'Счетчик countTo',
-        'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i>',
+        'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"',
         'placeholder'   => '.timer',
+        ),
+      array(
+        'type'      => 'checkbox',
+        'id'        => 'appearJs',
+        'title'     => 'Подключить appear',
+        'desc'      => '',
         ),
     	);
     $this->register_section('scripts', 'Скрипты', '', $args);
