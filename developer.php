@@ -94,7 +94,6 @@ class DevelopersTools
   private function include_classes(){
     $classes = array(
       'WPAdvancedPostType' => DT_DIR_CLASSES . '/advanced-post-types',
-      'scssc'              => DT_DIR_CLASSES . '/scss.inc',
       'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
       );
 
@@ -127,7 +126,6 @@ class DevelopersTools
       'second-title'        => DT_DIR_INCLUDES . 'second-title',
       'sc-code'             => DT_DIR_INCLUDES . 'sc-code',
       'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis',
-      'use-scss'            => DT_DIR_INCLUDES . 'use-scss',
 
       'wholesales'          => $woo_inputs,
       'product-val'         => $woo_inputs,
@@ -160,7 +158,6 @@ class DevelopersTools
   private function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
-      'use-scss'=>'/',
       'remove-emojis'=>'on'
       );
 

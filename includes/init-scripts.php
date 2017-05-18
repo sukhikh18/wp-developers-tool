@@ -28,14 +28,13 @@ if( isset( $smooth_scroll ) ){
 
 // sticky
 if( isset( $sticky ) ){
-  JQScript::enqueue( 'sticky', 'jquery.sticky'.$suffix.'.js', '1.0.4', true );
+  JQScript::enqueue( 'sticky', 'sticky/jquery.sticky'.$suffix.'.js', '1.0.4', true );
 
   if ( !empty($sticky_selector) && ( (wp_is_mobile() && $sticky == 'phone_only' ) || $sticky == 'forever' ) ){
     add_action( 'admin_bar_menu', function(){
       if( function_exists('is_admin_bar_showing') && is_admin_bar_showing() )
         echo "<style>.admin-bar .is-sticky > div, .admin-bar .is-sticky > ul, .admin-bar .is-sticky > nav { top: 32px !important; }</style>";
     });
-    
     
     $sticky_script = "
       var \$container = \$('{$sticky_selector}');

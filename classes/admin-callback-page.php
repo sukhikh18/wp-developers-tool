@@ -98,13 +98,6 @@ class AdminCallBacks // extends DevelopersTools
 
     $args = array(
       array(
-        'id'        => 'use-scss',
-        'title'     => 'Использовать SCSS',
-        'type'      => 'text',
-        'desc'      => '<br> Ищет файл style.scss в указаной папке и сохраняет в корень темы style.css или style.min.css в зависимости от debug параметра <a href="https://codex.wordpress.org/Debugging_in_WordPress" target="_blank">(?)</a><br>Для отключения удалите значение.',
-        'placeholder' => '/'
-        ),
-      array(
         'id'        => 'sticky',
         'title'     => 'Использовать липкий контейнер',
         'type'      => 'select',
