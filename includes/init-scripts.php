@@ -124,6 +124,8 @@ if( isset($back_top) ){
   });' . "\n";
   JQScript::custom( $back_top_script );
   add_action( 'wp_footer', function(){
-    echo "<a href='#' id='back-top'> Наверх </a>";
+    $option = get_option( DT_PLUGIN_NAME );
+
+    echo "<a href='#' id='back-top'>{$option['back_top']}</a>";
   });
 }

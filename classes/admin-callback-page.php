@@ -128,10 +128,11 @@ class AdminCallBacks // extends DevelopersTools
         'placeholder'   => '40',
     		),
       array(
-        'type'      => 'checkbox',
+        'type'      => 'text',
         'id'        => 'back_top',
-        'title'     => 'Кнопка "Наверх"',
-        'desc'      => 'Задайте кнопке #back-top собственный стиль',
+        'title'     => 'Содержимое кнопки "Наверх"',
+        'desc'      => '<br>Задайте кнопке #back-top собственный стиль',
+        'default'   => 'Наверх',
         ),
     	array(
     		'type'      => 'checkbox', 
