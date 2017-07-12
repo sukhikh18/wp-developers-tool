@@ -128,7 +128,10 @@ class dp_customQuery //extends DevelopersTools
       'post_status' => $status,
       );
 
-    if( $tax && $terms ){
+    if( $terms ){
+      if( ! $tax ){
+        $tax = ($type == 'product') ? 'product_cat' : 'category';
+      }
       $terms = array_filter(explode(',', $terms), 'absint');
       if(sizeof($terms) >= 1){
         $args['tax_query'] = array(
