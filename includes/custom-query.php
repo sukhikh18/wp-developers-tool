@@ -96,7 +96,7 @@ class dp_customQuery //extends DevelopersTools
       'wrap_tag' => 'div',
       'container' => 'container-fluid', //true=container, false=noDivContainer, string=custom container
       'tax' => false,
-      'terms' => false
+      'terms' => false,
       // template attrs
       'columns' => '4', // 1 | 2 | 3 | 4 | 10 | 12
       'template' => false, // for custom template
