@@ -95,6 +95,8 @@ class dp_customQuery //extends DevelopersTools
       'order' => 'DESC', // ASC || DESC
       'wrap_tag' => 'div',
       'container' => 'container-fluid', //true=container, false=noDivContainer, string=custom container
+      'tax' => false,
+      'terms' => false
       // template attrs
       'columns' => '4', // 1 | 2 | 3 | 4 | 10 | 12
       'template' => false, // for custom template
@@ -125,6 +127,18 @@ class dp_customQuery //extends DevelopersTools
       'order'=> $order,
       'post_status' => $status,
       );
+
+    if( $tax && $terms ){
+      $terms = array_filter(explode(',', $terms), 'absint');
+      if(sizeof($terms) >= 1){
+        $args['tax_query'] = array(
+          array(
+            'taxonomy' => sanitize_text_field( $tax ),
+            'terms'    => $terms,
+            ),
+          );
+      }
+    }
 
     if( $type == 'top-sales'){
       $options = get_option( DT_PLUGIN_NAME );
