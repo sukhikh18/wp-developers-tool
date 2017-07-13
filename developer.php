@@ -37,27 +37,6 @@ if(!function_exists('is_wp_debug')){
     return false;
   }
 }
-function is_advanced_type($post_id=false){
-  $advanced_post_types = array_keys(WPAdvancedPostType::$post_types);
-  $post_types = array('post', 'page');
-  $types = array_merge($advanced_post_types, $post_types);
-
-  if($post_id){
-    $post_type = get_post_type($post_id);
-  }
-  else {
-    $screen = (function_exists('get_current_screen')) ? get_current_screen() : false;
-    if($screen && isset($screen->post_type))
-      $post_type = $screen->post_type;
-  }
-
-  if($post_type){
-    if( in_array($post_type, $types) )
-      return true;
-  }
-  
-  return false;
-}
 
 register_activation_hook(__FILE__, function(){
   $dt = new DevelopersTools();
@@ -71,7 +50,6 @@ class DevelopersTools
 {
   public $prefix = 'dt_';
   public $plugin_values = array();
-  public $version = '3.0';
 
   protected $errors = array();
 

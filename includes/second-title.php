@@ -1,16 +1,12 @@
 <?php
 /**
  * Дополнительный заголовок
- * todo: add the_title filter
  */
 
 add_action('edit_form_after_title', 'render_second_title');
 add_action('save_post', 'save_second_title');
 
 function render_second_title(){
-	if(! is_advanced_type() )
-		return false;
-
 	global $post;
 
 	$val = get_post_meta($post->ID, '_second_title', true);
@@ -32,20 +28,8 @@ function render_second_title(){
 }
  
 function save_second_title($post_id){
-	if(! is_advanced_type() )
-		return false;
-		// if ( ! wp_verify_nonce( $_POST['second-title'], 'st' ) )
-		//   return $post_id;
-
-		// if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
-		//   return $post_id;
-		//   
-		// 'page' == $_POST['post_type'] && 
-	// if ( ! current_user_can( 'edit_page', $post_id ) ){
-	// return $post_id;
-	// } elseif( ! current_user_can( 'edit_post', $post_id ) ) {
-	// return $post_id;
-	// }
+	// if ( ! wp_verify_nonce( $_POST['second-title'], 'st' ) )
+	//   return $post_id;
 
 		// Убедимся что поле установлено.
 	if ( ! isset( $_POST['second-title'] ) )
@@ -74,4 +58,20 @@ function get_second_title($id=false, $before='', $after=''){
 }
 function the_second_title($id='', $before='<h1 class="entry-title">', $after='</h1>'){
 	echo get_second_title($id, $before, $after);
+}
+
+add_filter( 'the_title', 'advanced_get_the_title', 10, 2 );
+function advanced_get_the_title($title, $id){
+	if( is_admin() )
+		return $title;
+
+	if( is_singular() ){
+		$new_title = get_second_title($id);
+
+  	if( $new_title == 'false' ) // maybe string
+  		$title = '';
+  	elseif( $new_title )
+  		$title = $new_title;
+  }
+  return $title;
 }
