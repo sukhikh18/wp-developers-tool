@@ -1,28 +1,16 @@
 <?php
 /*
 Plugin Name: Дополнительные настройки разработчика
-Plugin URI:
-Description: Плагин добавляет новые возможности в WordPress.
-Version: 3.3 beta
+Plugin URI: https://github.com/nikolays93/wp-developers-tool
+Description: Плагин добавляет дополнительные настройки в WordPress.
+Version: 4.0.0 alpha
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
+Author EMAIL: nikolayS93@ya.ru
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
-/*  Copyright 2016  NikolayS93  (email: NikolayS93@ya.ru)
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
 if( defined('DT_PLUGIN_NAME') )
   return false;
 
@@ -51,8 +39,6 @@ class DevelopersTools
   public $prefix = 'dt_';
   public $plugin_values = array();
 
-  protected $errors = array();
-
   function __construct(){
     $this->define_constants();
     $this->plugin_values = get_option( DT_PLUGIN_NAME );
@@ -74,7 +60,6 @@ class DevelopersTools
 
   private function include_classes(){
     $classes = array(
-      'WPAdvancedPostType' => DT_DIR_CLASSES . '/advanced-post-types',
       'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
       );
 
@@ -103,6 +88,7 @@ class DevelopersTools
     $woo_inputs = DT_DIR_INCLUDES . 'woo-inputs';
     $includes = array(
       'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode',
+      'remove-images'       => DT_DIR_INCLUDES . 'admin-remove-images',
       'custom-query'        => DT_DIR_INCLUDES . 'custom-query',
       'second-title'        => DT_DIR_INCLUDES . 'second-title',
       'sc-code'             => DT_DIR_INCLUDES . 'sc-code',

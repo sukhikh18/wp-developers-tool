@@ -62,16 +62,11 @@ function the_second_title($id='', $before='<h1 class="entry-title">', $after='</
 
 add_filter( 'the_title', 'advanced_get_the_title', 10, 2 );
 function advanced_get_the_title($title, $id){
-	if( is_admin() )
+	if( is_admin() || ! is_singular() || ! in_the_loop() )
 		return $title;
 
-	if( is_singular() ){
-		$new_title = get_second_title($id);
+	if( $new_title = get_second_title($id) == 'false' ) // string
+		return '';
 
-  	if( $new_title == 'false' ) // maybe string
-  		$title = '';
-  	elseif( $new_title )
-  		$title = $new_title;
-  }
-  return $title;
+  	return $new_title ? $new_title : $title;
 }

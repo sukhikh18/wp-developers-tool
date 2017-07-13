@@ -48,44 +48,35 @@ class AdminCallBacks // extends DevelopersTools
         'title'     => 'Сжимать оригиналы изображений',
         'type'      => 'select',
         'vals'      => array(
-          ''           => 'Не сжимать',
-          'default'    => 'Сжимать стандартно (1600х1024)',
-          'large' => 'Сжимать до "Крупного" размера',
+          ''        => 'Не сжимать',
+          'default' => 'Сжимать стандартно (1600х1024)',
+          'large'   => 'Сжимать до "Крупного" размера',
+          ),
+        ),
+      array(
+        'id'        => 'remove-images',
+        'title'     => 'Удалять прикрепленные изображения в след за записью',
+        'type'      => 'select',
+        'vals'      => array(
+          ''        => 'Не удалять',
+          'all'     => 'Удалять все',
+          'post'    => 'Только для записей',
+          'page'    => 'Только для страниц',
+          'product' => 'Только для товаров',
           ),
         ),
     	array(
     		'type'      => 'checkbox',
     		'id'        => 'second-title',
     		'title'     => 'Включить дополнительные заголовки',
-        'desc'      => 'Используйте дополнительные заголовки в своей теме при помощи: <br><strong> get_second_title($id, $before, $after) </strong> или <strong> the_second_title($id, $before, $after) </strong>',
+        'desc'      => 'Изменяет заголовок на детальной странице записи, если указан второй заголовок. Укажите "false" если совсем не хотите выводить заголовок детальной страницы.',
     		),
-      array(
-        'type'      => 'checkbox',
-        'id'        => 'custom-query',
-        'title'     => 'Использовать [query] запросы',
-        'desc'      => 'Стандарты: [query max="4" type="post" status="publish" order="DESC" container="container-fluid" columns="4" template="#post_type"]<br>
-          max=int, - количество постов <br>
-          type=post_type, - post, page, product... <br>
-          cat=int, - ID категоирии (для записей) <br>
-          slug=string, - slug категории (для записей) <br>
-          parent=1,2,3 - записи родителей 1,2,3 (для иерархий), <br>
-          status= "publish" | "future" | "alltime" ("Опубликованные", "Запланированные", "Оба варианта"), <br>
-          order="DESC", | "ASC", <br>
-          container=string | false - подложка, <br>
-          [Шаблонные]<br>
-          columns="4", | 1 | 2 | 3 | 4 | 10 | 12 <br>
-          template=string определенный шаблон ищется так (если шаблон не найден, будет использоваться последующий):<br><pre>
-          #theme/template-parts/content-#template-query.php
-          #theme/template-parts/content-#template.php
-          #theme/template-parts/content-query.php
-          #theme/template-parts/content.php</pre>',
-        ),
       array(
         'type'      => 'textarea',
         'id'        => 'maintenance-mode',
         'title'     => 'Включить техническое обслуживание',
         'placeholder'   => "Сайт находится на техническом обслуживании.\nПожалуйста, зайдите позже.",
-        'desc'      => 'Техническое обслуживание времено закроет доступ к сайту с указанным сообщением',
+        'desc'      => 'Техническое обслуживание времено закроет доступ к сайту (кроме пользователей с привелегией "edit_themes") с указанным сообщением.',
         ),
       array(
         'type'      => 'checkbox',
@@ -95,6 +86,45 @@ class AdminCallBacks // extends DevelopersTools
         ),
     	);
     $this->register_section('dp-general', 'Главная', '', $args);
+
+    $args = array(
+      array(
+        'type'      => 'checkbox',
+        'id'        => 'custom-query',
+        'title'     => 'Использовать [query] запросы',
+        'desc'      => '
+        <input title="Количество записей (max)[4]" type="number" placeholder="4" style="width: 50px">
+        <select title="Тип записей (type)[post]" id="post_type"><option value="post">post</option><option value="post">page</option></select>
+        <input title="ID групп записи (cat)" type="text" placeholder="e.g. 4,8,12" style="width: 80px;">
+        <input title="Slug группы записей (slug)" type="text" placeholder="e.g. best_articles">
+        <input title="Страницы родителей (parent)" type="text" placeholder="e.g. 1,2,5" style="width: 80px;">
+        <select id="post_status" title="Статус записи (status)[publish]">
+          <option value="publish">publish</option>
+          <option value="pending">pending</option>
+          <option value="draft">draft</option>
+          <option value="auto-draft">auto-draft</option>
+          <option value="future">future</option>
+          <option value="private">private</option>
+          <option value="inherit">inherit</option>
+          <option value="trash">trash</option>
+          <option value="any">any</option>
+        </select>
+        <select title="Сортировка (order)[DESC]" name="" id=""><option value="DESC">DESC</option><option value="ASC">ASC</option></select>
+        <input title="Класс контейнера (container)[container-fluid]" type="text" placeholder="row"><br>
+        <input type="text" value="[query max=\'4\' type=\'post\' status=\'publish\' order=\'DESC\' container=\'container-fluid\' columns=\'4\' template=\'#post_type\']" class="widefat readonly" readonly="true">
+
+        <!-- Стандарты: [query max="4" type="post" status="publish" order="DESC" container="container-fluid" columns="4" template="#post_type"]<br> -->
+
+          columns="4", | 1 | 2 | 3 | 4 | 10 | 12 <br>
+          template=string определенный шаблон ищется так (если шаблон не найден, будет использоваться последующий):<br><pre>
+          #theme/template-parts/content-#template-query.php
+          #theme/template-parts/content-#template.php
+          #theme/template-parts/content-query.php
+          #theme/template-parts/content.php</pre>',
+        ),
+      );
+
+    $this->register_section('dp-queries', 'Запросы', '', $args);
 
     $args = array(
       array(
