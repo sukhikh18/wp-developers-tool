@@ -146,15 +146,18 @@ class AdminCallBacks // extends DevelopersTools
         'desc'      => '<br> Введите jQuery сселектор (.ExampleClass или #ExampleID)',
         'default' =>  '.navbar-static-top',
         ),
-      // Прокрутка после загрузки страницы по параметру scroll
-      // К пр.: http://mydomain.ru/?scroll=primary
-      // Пролистает за $smooth_scroll пикселя до начала объекта #primary
-      // Внимание! параметр scroll указывается без "#" и прокручивает только до объекта с ID.
     	array(
     		'type'      => 'number',
     		'id'        => 'smooth_scroll',
     		'title'     => 'Плаваня прокрутка',
-    		'desc'      => '<br>Плавная прокрутка до якоря, если ссылка начинается с #. (Укажите высоту отступа до объекта) <br> Для отключения удалите значение.',
+    		'desc'      => '<br>
+          Плавная прокрутка до якоря, если ссылка начинается с #. (Укажите высоту отступа до объекта) <br>
+          Прокрутка через 0.2s после загрузки страницы по параметру scroll:
+          <pre>
+          К пр.: http://mydomain.ru/?scroll=primary
+          Пролистает за указанное количество пикселей до начала объекта #primary 
+          Внимание! параметр scroll указывается без "#" и прокручивает только до объекта с ID.</pre>
+          Для отключения удалите значение.',
         'placeholder'   => '40',
     		),
       array(
@@ -162,7 +165,7 @@ class AdminCallBacks // extends DevelopersTools
         'id'        => 'back_top',
         'title'     => 'Содержимое кнопки "Наверх"',
         'desc'      => '<br>Задайте кнопке #back-top собственный стиль',
-        'default'   => 'Наверх',
+        'placeholder'   => '<i class=\'fa fa-angle-up\' aria-hidden=\'true\'></i>',
         ),
     	array(
     		'type'      => 'checkbox', 
