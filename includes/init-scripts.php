@@ -6,28 +6,40 @@ $suffix = '.min';
 if( is_wp_debug() !== false )
   $suffix = '';
 
-if( isset( $smooth_scroll ) ){
-  $smooth_scroll_script = "function scrollTo(\$elem, returnTop={$smooth_scroll}, delay=500){
-    if( \$elem.offset() )
-      \$('html, body').animate({ scrollTop: \$elem.offset().top - returnTop }, delay);
-    else
-      console.log('Обьект не найден: ' + \$elem.selector);
-  }
-  \$('a[href^=\"#\"]').click( function(){
-    if( \$(this).attr('rel') != 'noScroll' ){
-      var scrollEl = \$(this).attr('href');
-      if (scrollEl.length > 1) {
-        scrollTo(\$(scrollEl));
-        return false;
-      }
-    }
-  });\n";
-  $scroll_el = !empty($_GET['scroll']) ? esc_attr($_GET['scroll']) : false;
-  if($scroll_el) // scroll from timeOut after load';
-    $smooth_scroll_script .= "setTimeout(function(){ scrollTo(\$('#{$scroll_el}')) }, 200);\n";
+ob_start();
+?>
+  <?php if( !empty($smooth_scroll) || !empty($scroll_after_load) ): ?>
+    function scrollTo(elemId, returnTop=40, delay=500){
+      var offset = $( elemId ).offset();
+      if( !offset )
+        offset = $('a[name='+elemId.slice(1)+']').offset();
 
-  JQScript::custom($smooth_scroll_script);
-}
+      if(offset)
+        $('html, body').animate({ scrollTop: offset.top - returnTop }, delay);
+      else
+        console.log('Element not exists.');
+    }
+  <?php endif; ?>
+  <?php if( !empty($smooth_scroll) ): ?>
+    $('a[href^=#]').click( function(event){
+      event.preventDefault();
+
+      if( $(this).attr('rel') != 'noScroll' )
+        scrollTo( $(this).attr('href'), <?php echo $smooth_scroll; ?> );
+    });
+  <?php endif; ?>
+
+  <?php if( !empty($scroll_after_load) ): ?>
+    var id = split('#', 'window.location.href');
+
+    if ( id.length >= 1 )
+      setTimeout(function(){ scrollTo( '#' + id[id.length-1], <?php echo $scroll_after_load; ?> ) }, 200);
+  <?php endif; ?>
+
+<?php
+$scrollCode = ob_get_clean();
+if($scrollCode)
+  JQScript::custom($scrollCode);
 
 // sticky
 if( isset( $sticky ) ){
