@@ -8,7 +8,10 @@ if( is_wp_debug() !== false )
 
 if( isset( $smooth_scroll ) ){
   $smooth_scroll_script = "function scrollTo(\$elem, returnTop={$smooth_scroll}, delay=500){
-    \$('html, body').animate({ scrollTop: \$elem.offset().top - returnTop }, delay);
+    if( \$elem.offset() )
+      \$('html, body').animate({ scrollTop: \$elem.offset().top - returnTop }, delay);
+    else
+      console.log('Обьект не найден: ' + \$elem.selector);
   }
   \$('a[href^=\"#\"]').click( function(){
     if( \$(this).attr('rel') != 'noScroll' ){
