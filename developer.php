@@ -89,7 +89,6 @@ class DevelopersTools
     $includes = array(
       'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode',
       'remove-images'       => DT_DIR_INCLUDES . 'admin-remove-images',
-      'custom-query'        => DT_DIR_INCLUDES . 'custom-query',
       'second-title'        => DT_DIR_INCLUDES . 'second-title',
       'sc-code'             => DT_DIR_INCLUDES . 'sc-code',
       'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis',
