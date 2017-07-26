@@ -32,7 +32,7 @@ register_activation_hook(__FILE__, function(){
 });
 
 /**
-* 
+*
 */
 class DevelopersTools
 {
@@ -49,7 +49,7 @@ class DevelopersTools
   private function define_constants() {
     define( 'DT_PLUGIN_NAME', 'DevelopersTools');
     define( 'DT_PLUGIN_PAGENAME', 'advanced-options');
-    
+
     define( 'DT_BASE_URL',   trailingslashit( plugins_url( basename(__DIR__) ) ) );
     define( 'DT_ASSETS_URL', trailingslashit( DT_BASE_URL . 'assets' )  );
 
@@ -66,7 +66,7 @@ class DevelopersTools
     if ( class_exists( 'WooCommerce' ) ) {
       $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings';
     }
-    
+
     if( is_admin() ){
       $classes['DTForm']             = DT_DIR_CLASSES . '/dt-form-render';
       $classes['dt_AdminCallBacks']  = DT_DIR_CLASSES . '/admin-callback-page';
@@ -104,12 +104,12 @@ class DevelopersTools
       'countTo'       => $scripts,
       'back_top'      => $scripts,
       );
-    
+
     if(is_admin()){
       $includes['orign-image-resize'] = DT_DIR_INCLUDES . 'admin-orign-image-resize';
       $includes['bestsellers']        = $woo_inputs;
     }
-    
+
     // Подключить вышеперечисленные addon'ы которые задействованны в настройках
     $values = apply_filters( $this->prefix . 'enabled_values', $this->plugin_values );
     foreach ( $includes as $id => $path) {
@@ -120,7 +120,7 @@ class DevelopersTools
       }
     }
   }
-  
+
   private function set_defaults(){
     $defaults = array(
       'orign-image-resize'=>'default',
