@@ -59,9 +59,7 @@ class DevelopersTools
   }
 
   private function include_classes(){
-    $classes = array(
-      'AssetsEnqueuer'     => DT_DIR_CLASSES . '/assets_enqueuer'
-      );
+    $classes = array();
 
     if ( class_exists( 'WooCommerce' ) ) {
       $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings';
@@ -70,7 +68,6 @@ class DevelopersTools
     if( is_admin() ){
       $classes['DTForm']             = DT_DIR_CLASSES . '/dt-form-render';
       $classes['dt_AdminCallBacks']  = DT_DIR_CLASSES . '/admin-callback-page';
-      $classes['dt_CustomMetaBoxes'] = DT_DIR_CLASSES . '/admin-meta-boxes';
     }
 
     // Подключить вышеуказанные классы
@@ -112,6 +109,7 @@ class DevelopersTools
 
     // Подключить вышеперечисленные addon'ы которые задействованны в настройках
     $values = apply_filters( $this->prefix . 'enabled_values', $this->plugin_values );
+    // $includes = array_unique($includes);
     foreach ( $includes as $id => $path) {
       $path .= '.php';
       if ( is_readable( $path ) ) {

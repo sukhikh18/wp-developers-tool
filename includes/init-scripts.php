@@ -1,146 +1,58 @@
 <?php
-JQScript::$assets_dir = DT_ASSETS_URL;
+add_action( 'wp_enqueue_scripts', 'dtools_assets' );
+function dtools_assets() {
+  $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
+  $settings = get_option( DT_PLUGIN_NAME );
+  $url = DT_ASSETS_URL;
 
-extract( get_option( DT_PLUGIN_NAME ) );
-$suffix = '.min';
-if( is_wp_debug() !== false )
-  $suffix = '';
+  $sticky = isset($settings['sticky']) ? $settings['sticky'] : false;
+  if(wp_is_mobile() && $sticky == 'phone_only' || $sticky == 'forever')
+    wp_enqueue_script( 'sticky', $url . 'sticky/jquery.sticky'.$suffix.'.js', array( 'jquery' ), '1.0.4', true);
 
-ob_start();
-?>
-  <?php if( !empty($smooth_scroll) || !empty($scroll_after_load) ): ?>
-    function scrollTo(elemId, returnTop=40, delay=500){
-      var offset = $( elemId ).offset();
-      if( !offset )
-        offset = $('a[name='+elemId.slice(1)+']').offset();
+  if( isset($settings['countTo']) )
+    wp_enqueue_script('countTo', $url . 'countTo/jquery.countTo'.$suffix.'.js', array( 'jquery' ), false, true);
 
-      if(offset)
-        $('html, body').animate({ scrollTop: offset.top - returnTop }, delay);
-      else
-        console.log('Element not exists.');
-    }
-  <?php endif; ?>
-  <?php if( !empty($smooth_scroll) ): ?>
-    $('a[href^=#]').click( function(event){
-      event.preventDefault();
+  if( isset($settings['appearJs']) )
+    wp_enqueue_script('appear', $url . 'jquery.appear.js', array( 'jquery' ), false, true);
 
-      if( $(this).attr('rel') != 'noScroll' )
-        scrollTo( $(this).attr('href'), <?php echo $smooth_scroll; ?> );
-    });
-  <?php endif; ?>
+  if( isset($settings['animate']) )
+    wp_enqueue_style( 'animate', $url . 'animate'.$suffix.'.css', false, '3.5.1' );
 
-  <?php if( !empty($scroll_after_load) ): ?>
-    var id = split('#', 'window.location.href');
+  if( isset($settings['font_awesome']) )
+    wp_enqueue_style( 'font_awesome', $url . 'font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
 
-    if ( id.length >= 1 )
-      setTimeout(function(){ scrollTo( '#' + id[id.length-1], <?php echo $scroll_after_load; ?> ) }, 200);
-  <?php endif; ?>
+  if( isset($settings['fancybox']) )
+    dtools_fancybox($settings);
 
-<?php
-$scrollCode = ob_get_clean();
-if($scrollCode)
-  JQScript::custom($scrollCode);
-
-// sticky
-if( isset( $sticky ) ){
-  JQScript::enqueue( 'sticky', 'sticky/jquery.sticky'.$suffix.'.js', '1.0.4', true );
-
-  if ( !empty($sticky_selector) && ( (wp_is_mobile() && $sticky == 'phone_only' ) || $sticky == 'forever' ) ){
-    add_action( 'admin_bar_menu', function(){
-      if( function_exists('is_admin_bar_showing') && is_admin_bar_showing() )
-        echo "<style>.admin-bar .is-sticky > div, .admin-bar .is-sticky > ul, .admin-bar .is-sticky > nav { top: 32px !important; }</style>";
-    });
-    
-    $sticky_script = "
-      var \$container = \$('{$sticky_selector}');
-      \$container.sticky({topSpacing:0,zIndex:666});
-      \$container.parent('.sticky-wrapper').css('margin-bottom', \$container.css('margin-bottom') );\n";
-
-    JQScript::custom( $sticky_script );
-  }   
+  $settings['is_mobile'] = wp_is_mobile();
+  wp_enqueue_script(  'dtools-public', $url . 'public.js', array( 'jquery' ), '1.0', true);
+  wp_localize_script( 'dtools-public', 'DTools', $settings );
 }
 
-// animate
-if( isset( $animate ) )
-  JQScript::style('animate', 'animate'.$suffix.'.css', '3.5.1');
-
-// font-awesome
-if( isset( $font_awesome ) )
-  JQScript::style('font_awesome', 'font-awesome/css/font-awesome'.$suffix.'.css', '4.7.0');
-
-// fancybox
-if( isset( $fancybox ) ){
-  add_action( 'wp_enqueue_scripts', function(){
-    wp_deregister_style('gllr_fancybox_stylesheet');
-    foreach (array('gllr_fancybox_js', 'fancybox-script', 'fancybox', 'jquery.fancybox', 'jquery_fancybox', 'jquery-fancybox') as $value) { wp_deregister_script($value); }
-  }, 660 );
-
-  JQScript::style( 'fancybox', 'fancybox/jquery.fancybox'.$suffix.'.css' );
-  JQScript::enqueue('fancybox', 'fancybox/jquery.fancybox'.$suffix.'.js', '1.6');
-
-  if(isset($fancybox_thumb)){
-    JQScript::style( 'fancybox-thumb', 'fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.css', '1.0.7');
-    JQScript::enqueue('fancybox-thumb', 'fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.js', '1.0.7');
-  }
-
-  if(isset($fancybox_mousewheel))
-    JQScript::enqueue('mousewheel', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js', '3.1.13');
-
-  $fancy_opts = array(
-    'nextEffect' => 'none',
-    'prevEffect' => 'none',
-    'helpers' => array(
-      'title' => array('type' => 'inside'),
-      'thumbs' => array('width' => 120, 'height' => 80)
-      )
+function dtools_fancybox($settings){
+  $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
+  $url = DT_ASSETS_URL;
+  wp_deregister_style('gllr_fancybox_stylesheet');
+  $dg = array(
+    'gllr_fancybox_js',
+    'fancybox-script',
+    'fancybox',
+    'jquery.fancybox',
+    'jquery_fancybox',
+    'jquery-fancybox',
     );
-  JQScript::common($fancybox, 'fancybox', $fancy_opts);
-}
-
-if( isset($countTo) ){
-  JQScript::enqueue('countTo', 'countTo/jquery.countTo'.$suffix.'.js');
-  if( isset($appearJs) ){
-    JQScript::enqueue('appear', 'jquery.appear.js');
-    $appear = '
-    $("'.$countTo.'").appear();
-    $("'.$countTo.'").on("appear", function(event, $all_appeared_elements) {
-      console.log($(this).attr("data-appeared"));
-      if( !$(this).attr("data-appeared") )
-        $(this).countTo();
-
-      $(this).attr("data-appeared", 1);
-    });
-    ';
-
-    JQScript::custom( $appear );
-  } else {
-    JQScript::common( $countTo, 'countTo' );
+  foreach ($dg as $value) {
+    wp_deregister_script($value);
   }
-  
-}
 
+  wp_enqueue_style( 'fancybox', $url . 'fancybox/jquery.fancybox'.$suffix.'.css');
+  wp_enqueue_script('fancybox', $url . 'fancybox/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
 
-if( isset($back_top) ){
-  $back_top_script = '
-  var offset = 200;
-  var selector = "#back-top";
+  if( isset($settings['fancybox_thumb']) ){
+    wp_enqueue_style( 'fancybox-thumb', $url . 'fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.css', false, '1.0.7');
+    wp_enqueue_script('fancybox-thumb', $url . 'fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.js', array( 'jquery' ), '1.0.7', true);
+  }
 
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > offset) {
-      $(selector).fadeIn(400);
-    } else {
-      $(selector).fadeOut(400);
-    }
-  });
-  $(selector).click(function(event) {
-    event.preventDefault();
-    $("html, body").animate({scrollTop: 0}, 600);
-    return false;
-  });' . "\n";
-  JQScript::custom( $back_top_script );
-  add_action( 'wp_footer', function(){
-    $option = get_option( DT_PLUGIN_NAME );
-
-    echo "<a href='#' id='back-top'>{$option['back_top']}</a>";
-  });
+  if( isset($settings['fancybox_mousewheel']) )
+    wp_enqueue_script('mousewheel', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel'.$suffix.'.js', null, '3.1.13');
 }
