@@ -18,7 +18,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access
 
-define( 'DTOOLS_DEBUG', true );
+if(!defined('DTOOLS_DEBUG'))
+  define( 'DTOOLS_DEBUG', true );
 // DevelopersTools::write_debug($msg, __FILE__);
 
 // DevelopersTools::$settings;
@@ -63,6 +64,9 @@ class DevelopersTools {
     if(!defined('DTOOLS_DEBUG') || !DTOOLS_DEBUG)
       return;
 
+    $dir = str_replace(DT_DIR_PATH, '', $dir);
+    $msg = str_replace(DT_DIR_PATH, '', $msg);
+
     $date = new DateTime();
     $date_str = $date->format(DateTime::RSS);
 
@@ -72,14 +76,21 @@ class DevelopersTools {
   }
 
   public static function load_file_if_exists($file_array){
-    foreach ( $classes as $id => $path ) {
-      if ( is_readable( $path ) ) {
-        if(! class_exists( $id ))
-          require_once( $path );
+    foreach ( $file_array as $id => $path ) {
+      if( class_exists( $id ) ){
+        // DevelopersTools::write_debug('Класс ' . $path . ' ('.$id.') уже был подключен', __FILE__);
+        continue;
       }
-    }
 
+      if ( ! is_readable( $path ) ){
+        DevelopersTools::write_debug('Файл ' . $path . ' не может быть подключен', __FILE__);
+        continue;
+      }
+
+      require_once( $path );
+    }
   }
+
   private static function define_constants(){
     define( 'DT_DIR_PATH', rtrim( plugin_dir_path( __FILE__ ), '/') );
     define( 'DT_DIR_CLASSES', DT_DIR_PATH . '/classes' );
@@ -93,27 +104,26 @@ class DevelopersTools {
     $classes = array();
 
     if( is_admin() ){
-      $classes['WPForm']             = DT_DIR_CLASSES . '/class-wp-form-render.php';
+      $classes['WPForm'] = DT_DIR_CLASSES . '/class-wp-form-render.php';
       $classes['WPAdminPageRender']  = DT_DIR_CLASSES . '/class-wp-admin-page-render.php';
-      $classes['DToolsForm']  = DT_DIR_CLASSES . 'dtools-form.php';
+      $classes['DToolsForm'] = DT_DIR_CLASSES . '/dtools-form.php';
     }
 
     if ( class_exists( 'WooCommerce' ) ) {
-      $classes['WCProductSettings']  = DT_DIR_CLASSES . '/admin-wc-product-settings.php';
+      $classes['WCProductSettings'] = DT_DIR_CLASSES . '/class-wc-product-settings.php';
     }
 
     self::load_file_if_exists( $classes );
   }
 
   private static function include_addons(){
-    $scripts = DT_DIR_INCLUDES . 'init-scripts.php';
-    $woo_inputs = DT_DIR_INCLUDES . 'woo-inputs.php';
+    $scripts = DT_DIR_INCLUDES . '/init-scripts.php';
+    $woo_inputs = DT_DIR_INCLUDES . '/woo-inputs.php';
     $includes = array(
-      'maintenance-mode'    => DT_DIR_INCLUDES . 'maintenance-mode.php',
-      'remove-images'       => DT_DIR_INCLUDES . 'admin-remove-images.php',
-      'second-title'        => DT_DIR_INCLUDES . 'second-title.php',
-      'sc-code'             => DT_DIR_INCLUDES . 'sc-code.php',
-      'remove-emojis'       => DT_DIR_INCLUDES . 'remove-emojis.php',
+      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode.php',
+      'remove-images'       => DT_DIR_INCLUDES . '/admin-remove-images.php',
+      'second-title'        => DT_DIR_INCLUDES . '/second-title.php',
+      'remove-emojis'       => DT_DIR_INCLUDES . '/remove-emojis.php',
 
       'wholesales'          => $woo_inputs,
       'product-val'         => $woo_inputs,
@@ -128,14 +138,14 @@ class DevelopersTools {
       );
 
     if(is_admin()){
-      $includes['orign-image-resize'] = DT_DIR_INCLUDES . 'admin-orign-image-resize.php';
+      $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize.php';
       $includes['bestsellers']        = $woo_inputs;
     }
 
     // Подключить только активные
-    $includes = apply_filters( self::PREFIX . 'enabled_values', $includes, $this->settings );
+    $includes = apply_filters( self::PREFIX . 'enabled_values', $includes, self::$settings );
 
-    $includes = load_file_if_exists( $includes );
+    $includes = self::load_file_if_exists( $includes );
   }
 
   /********************************* ADMIN SETTINGS PAGE ********************************/
@@ -156,9 +166,9 @@ class DevelopersTools {
           )
         ),
       array(
-        self::PREFIX . 'general'      => array($this, 'admin_settings_page'),
-        self::PREFIX . 'scripts'      => array($this, 'admin_settings_page_tab2'),
-        self::PREFIX . 'woo-settings' => array($this, 'admin_settings_page_tab3'),
+        self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page'),
+        self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
+        self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
         )
       );
 
@@ -166,20 +176,21 @@ class DevelopersTools {
     // $page->add_metabox( 'metabox2', 'second metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->set_metaboxes();
   }
-  function admin_settings_page(){
+  static function admin_settings_page(){
     $form = get_dtools_form('dp-general');
 
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
   }
-  function admin_settings_page_tab2(){
+
+  static function admin_settings_page_tab2(){
     $form = get_dtools_form('dt-scripts');
 
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
   }
 
-  function admin_settings_page_tab3(){
+  static function admin_settings_page_tab3(){
     $form = get_dtools_form('dt-woo-settings');
 
     $active = WPForm::active(self::SETTINGS, false, true);

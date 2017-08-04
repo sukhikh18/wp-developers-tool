@@ -6,9 +6,9 @@ function get_dtools_form($section){
   $args['dp-general'] = array(
     array(
       'id'        => 'orign-image-resize',
-      'title'     => 'Сжимать оригиналы изображений',
+      'label'     => 'Сжимать оригиналы изображений',
       'type'      => 'select',
-      'vals'      => array(
+      'options'      => array(
         ''        => 'Не сжимать',
         'default' => 'Сжимать стандартно (1600х1024)',
         'large'   => 'Сжимать до "Крупного" размера',
@@ -16,9 +16,9 @@ function get_dtools_form($section){
       ),
     array(
       'id'        => 'remove-images',
-      'title'     => 'Удалять прикрепленные изображения в след за записью',
+      'label'     => 'Удалять прикрепленные изображения в след за записью',
       'type'      => 'select',
-      'vals'      => array(
+      'options'      => array(
         ''        => 'Не удалять',
         'all'     => 'Удалять все',
         'post'    => 'Только для записей',
@@ -29,29 +29,29 @@ function get_dtools_form($section){
     array(
       'type'      => 'checkbox',
       'id'        => 'second-title',
-      'title'     => 'Включить дополнительные заголовки',
+      'label'     => 'Включить дополнительные заголовки',
       'desc'      => 'Изменяет заголовок на детальной странице записи, если указан второй заголовок. Укажите "false" если совсем не хотите выводить заголовок детальной страницы.',
       ),
     array(
       'type'      => 'textarea',
       'id'        => 'maintenance-mode',
-      'title'     => 'Включить техническое обслуживание',
+      'label'     => 'Включить техническое обслуживание',
       'placeholder'   => "Сайт находится на техническом обслуживании.\nПожалуйста, зайдите позже.",
       'desc'      => 'Техническое обслуживание времено закроет доступ к сайту (кроме пользователей с привелегией "edit_themes") с указанным сообщением.',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'remove-emojis',
-      'title'     => 'Отключить wp_emoji',
+      'label'     => 'Отключить wp_emoji',
       'desc'      => '',
       ),
     );
   $args['dt-scripts'] = array(
     array(
       'id'        => 'sticky',
-      'title'     => 'Использовать липкий контейнер',
+      'label'     => 'Использовать липкий контейнер',
       'type'      => 'select',
-      'vals'      => array(
+      'options'      => array(
         ''=>'Не использовать',
         'forever'=>'Использовать всегда',
         'phone_only'=>'Только для телефона',
@@ -61,7 +61,7 @@ function get_dtools_form($section){
     array(
       'type'      => 'text',
       'id'        => 'sticky_selector',
-      'title'     => 'Селектор липкого контейнера',
+      'label'     => 'Селектор липкого контейнера',
       'placeholder' =>  '.navbar-default',
       'desc'      => '<br> Введите jQuery сселектор (.ExampleClass или #ExampleID)',
       'default' =>  '.navbar-static-top',
@@ -69,66 +69,66 @@ function get_dtools_form($section){
     array(
       'type'      => 'number',
       'id'        => 'smooth_scroll',
-      'title'     => 'Плаваня прокрутка',
+      'label'     => 'Плаваня прокрутка',
       'desc'      => '<br> Плавно пролистает за указанное количество пикселей до начала объекта, если ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]',
       'placeholder'   => '40',
       ),
     array(
       'type'      => 'number',
       'id'        => 'scroll_after_load',
-      'title'     => 'Прокрутка после загрузки страницы',
+      'label'     => 'Прокрутка после загрузки страницы',
       'desc'      => '<br> Плавно пролистает за указанное количество пикселей до начала объекта, если адрес заканчивается на ID объекта [http://#obj]',
       'placeholder'   => '40',
       ),
     array(
       'type'      => 'text',
       'id'        => 'back_top',
-      'title'     => 'Содержимое кнопки "Наверх"',
+      'label'     => 'Содержимое кнопки "Наверх"',
       'desc'      => '<br>Задайте кнопке #back-top собственный стиль',
       'placeholder'   => '<i class=\'fa fa-angle-up\' aria-hidden=\'true\'></i>',
       ),
     array(
       'type'      => 'checkbox', 
       'id'        => 'font_awesome',
-      'title'     => 'FontAwesome шрифт',
+      'label'     => 'FontAwesome шрифт',
         //'desc'      => 'Подключить шрифтовые иконки <a href="http://fontawesome.io/get-started/">FontAwesome</a>',
       ),
     array(
         'type'      => 'checkbox', // тип
         'id'        => 'animate',
-        'title'     => 'Подключить анимацию.css',
+        'label'     => 'Подключить анимацию.css',
         'desc'      => 'Подключает всем известный файл animate.css',
         ),
     array(
       'type'      => 'text',
       'id'        => 'fancybox',
-      'title'     => 'Необычная коробка fancybox',
+      'label'     => 'Необычная коробка fancybox',
       'desc'      => '<br>Модальное окно (Галерея, всплывающее окно)',
       'placeholder'   => '.fancybox, .zoom',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'fancybox_thumb',
-      'title'     => 'Показывать превью',
+      'label'     => 'Показывать превью',
       'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'fancybox_mousewheel',
-      'title'     => 'Прокрутка мышью',
+      'label'     => 'Прокрутка мышью',
       'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
       ),
     array(
       'type'      => 'text',
       'id'        => 'countTo',
-      'title'     => 'Счетчик countTo',
+      'label'     => 'Счетчик countTo',
       'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"',
       'placeholder'   => '.timer',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'appearJs',
-      'title'     => 'Подключить appear',
+      'label'     => 'Подключить appear',
       'desc'      => '',
       ),
     );
@@ -136,8 +136,8 @@ function get_dtools_form($section){
     array(
       'type'      => 'select',
       'id'        => 'bestsellers',
-      'title'     => 'Популярный товар',
-      'vals'      => array(
+      'label'     => 'Популярный товар',
+      'options'      => array(
         ''=>'Не использовать',
         'personal'=>'Использовать вручную',
         'views'=>'Сортировать по просмотрам',
@@ -148,13 +148,15 @@ function get_dtools_form($section){
     array(
       'type'      => 'checkbox',
       'id'        => 'wholesales',
-      'title'     => 'Оптовые продажи',
+      'label'     => 'Оптовые продажи',
       'desc'      => 'Разрешить продажу от.. шт.',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'product-val',
-      'title'     => 'Добавить товару ед. измерения',
+      'label'     => 'Добавить товару ед. измерения',
       ),
     );
+
+  return isset($args[$section]) ? $args[$section] : $args;
 }

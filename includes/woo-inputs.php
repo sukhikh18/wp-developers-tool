@@ -74,12 +74,12 @@ if( isset($options['product-val']) ){
 		'description' => 'На сайте это будет отображаться примерно как "Цена ## руб. / шт."',
 		) );
 
-	add_filter( 'woocommerce_sale_price_html', array($this, 'add_price_value'), 10, 2 );
-	add_filter( 'woocommerce_price_html', array($this, 'add_price_value'), 10, 2 );
-	add_filter( 'woocommerce_variable_sale_price_html', array($this, 'add_price_value'), 10, 2 );
-	add_filter( 'woocommerce_variable_price_html', array($this, 'add_price_value'), 10, 2 );
+	add_filter( 'woocommerce_sale_price_html', 'dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_price_html', 'dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_variable_sale_price_html', 'dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_variable_price_html', 'dt_add_price_value', 10, 2 );
 
-	function add_price_value( $price, $product ) {
+	function dt_add_price_value( $price, $product ) {
 		$affix = sanitize_text_field( $product->get_meta('pr_value') );
 		if($affix)
 			$price.= '/' . $affix;
