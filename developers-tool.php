@@ -174,6 +174,8 @@ class DevelopersTools {
         )
       );
 
+    add_action($page->page . '_after_form_inputs', 'submit_button' );
+
     // $page->add_metabox( 'metabox1', 'first metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->add_metabox( 'metabox2', 'second metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->set_metaboxes();
