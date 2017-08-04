@@ -56,35 +56,35 @@ function get_dtools_form($section){
         'forever'=>'Использовать всегда',
         'phone_only'=>'Только для телефона',
         ),
-      'desc'      => '<br> При прокрутке вниз, контейнер прилипает к верхней части экрана',
+      'desc'      => 'При прокрутке вниз, контейнер прилипает к верхней части экрана',
       ),
     array(
       'type'      => 'text',
       'id'        => 'sticky_selector',
       'label'     => 'Селектор липкого контейнера',
       'placeholder' =>  '.navbar-default',
-      'desc'      => '<br> Введите jQuery сселектор (.ExampleClass или #ExampleID)',
+      'desc'      => 'Введите jQuery сселектор (.ExampleClass или #ExampleID)',
       'default' =>  '.navbar-static-top',
       ),
     array(
       'type'      => 'number',
       'id'        => 'smooth_scroll',
       'label'     => 'Плаваня прокрутка',
-      'desc'      => '<br> Плавно пролистает за указанное количество пикселей до начала объекта, если ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]',
+      'desc'      => 'Плавно пролистает за указанное количество пикселей до начала объекта, если ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]',
       'placeholder'   => '40',
       ),
     array(
       'type'      => 'number',
       'id'        => 'scroll_after_load',
       'label'     => 'Прокрутка после загрузки страницы',
-      'desc'      => '<br> Плавно пролистает за указанное количество пикселей до начала объекта, если адрес заканчивается на ID объекта [http://#obj]',
+      'desc'      => 'Плавно пролистает за указанное количество пикселей до начала объекта, если адрес заканчивается на ID объекта [http://#obj]',
       'placeholder'   => '40',
       ),
     array(
       'type'      => 'text',
       'id'        => 'back_top',
       'label'     => 'Содержимое кнопки "Наверх"',
-      'desc'      => '<br>Задайте кнопке #back-top собственный стиль',
+      'desc'      => 'Задайте кнопке #back-top собственный стиль',
       'placeholder'   => '<i class="fa fa-angle-up" aria-hidden="true"></i>',
       ),
     array(
@@ -103,7 +103,7 @@ function get_dtools_form($section){
       'type'      => 'text',
       'id'        => 'countTo',
       'label'     => 'Счетчик countTo',
-      'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"',
+      'desc'      => 'Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"',
       'placeholder'   => '.timer',
       ),
     array(
@@ -113,25 +113,38 @@ function get_dtools_form($section){
       'desc'      => '',
       ),
     );
-  $args['dt-modal'] = array(array(
-    'type'      => 'text',
-    'id'        => 'fancybox',
-    'label'     => 'Необычная коробка fancybox',
-    'desc'      => '<br>Модальное окно (Галерея, всплывающее окно)',
-    'placeholder'   => '.fancybox, .zoom',
-    ),
-  array(
-    'type'      => 'checkbox',
-    'id'        => 'fancybox_thumb',
-    'label'     => 'Показывать превью',
-    'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
-    ),
-  array(
-    'type'      => 'checkbox',
-    'id'        => 'fancybox_mousewheel',
-    'label'     => 'Прокрутка мышью',
-    'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
-    ),
+  $args['dt-modal'] = array(
+    array(
+      'type' => 'select',
+      'id'   => 'modal_type',
+      'label'=> 'Тип модального окна',
+      'options' => array(
+        ''   => 'Fancybox 2',
+        // 'fancybox3'  => 'Fancybox 3',
+        // 'magnific'   => 'Magnific Popup',
+        // 'photoswipe' => 'PhotoSwipe',
+        // 'lightgallery' => https://sachinchoolur.github.io/lightgallery.js/
+        ),
+      ),
+    array(
+      'type'      => 'text',
+      'id'        => 'fancybox',
+      'label'     => 'Необычная коробка fancybox',
+      'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
+      'placeholder'   => '.fancybox, .zoom',
+      ),
+    array(
+      'type'      => 'checkbox',
+      'id'        => 'fancybox_thumb',
+      'label'     => 'Показывать превью',
+      'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
+      ),
+    array(
+      'type'      => 'checkbox',
+      'id'        => 'fancybox_mousewheel',
+      'label'     => 'Прокрутка мышью',
+      'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
+      ),
   );
   $args['dt-woo-settings'] = array(
     array(
@@ -144,7 +157,7 @@ function get_dtools_form($section){
         'views'=>'Сортировать по просмотрам',
         'sales'=>'Сортировать по продажам'
         ),
-      'desc'      => '<br> 1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
+      'desc'      => ' 1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
       ),
     array(
       'type'      => 'checkbox',
