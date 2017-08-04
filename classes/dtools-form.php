@@ -113,6 +113,13 @@ function get_dtools_form($section){
       'desc'      => '',
       ),
     );
+
+  $fancybox_animates = array(
+    'none' => 'Без эффекта',
+    "elastic" => 'Эластичность',
+    "fade" => 'Затухание',
+    );
+
   $args['dt-modal'] = array(
     array(
       'type' => 'select',
@@ -144,6 +151,30 @@ function get_dtools_form($section){
       'id'        => 'fancybox_mousewheel',
       'label'     => 'Прокрутка мышью',
       'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
+      ),
+    array(
+      'type'      => 'select',
+      'id'        => 'fancybox_props][openEffect',
+      'label'     => 'Анимация при открытии',
+      'options'   => $fancybox_animates,
+      ),
+    array(
+      'type'      => 'select',
+      'id'        => 'fancybox_props][closeEffect',
+      'label'     => 'Анимация при закрытии',
+      'options'   => $fancybox_animates,
+      ),
+    array(
+      'type'      => 'select',
+      'id'        => 'fancybox_props][nextEffect',
+      'label'     => 'Эфект при перелистывании вперед',
+      'options'   => $fancybox_animates,
+      ),
+    array(
+      'type'      => 'select',
+      'id'        => 'fancybox_props][prevEffect',
+      'label'     => 'Эфект при перелистывании назад',
+      'options'   => $fancybox_animates,
       ),
   );
   $args['dt-woo-settings'] = array(

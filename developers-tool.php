@@ -204,7 +204,11 @@ class DevelopersTools {
   }
 
   static function admin_settings_page_tab4(){
-    $form = get_dtools_form('dt-modal');
+    /**
+     * Менять Аяксом при изменении типа
+     */
+    $ajax_prop = 'dt-modal';
+    $form = get_dtools_form($ajax_prop);
 
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
