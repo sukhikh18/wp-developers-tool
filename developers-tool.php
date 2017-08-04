@@ -172,6 +172,9 @@ class DevelopersTools {
         self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
         self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
         )
+      ,
+      self::SETTINGS,
+      array(__CLASS__, 'validate_options')
       );
 
     add_action($page->page . '_after_form_inputs', 'submit_button' );
@@ -211,6 +214,17 @@ class DevelopersTools {
   // function metabox_cb(){
   //   echo "METABOX";
   // }
+
+  static function validate_options( $inputs ){
+    // $inputs = array_map_recursive( 'sanitize_text_field', $inputs );
+    $inputs = array_filter_recursive($inputs);
+
+    foreach (get_dtools_form( 'dt-scripts' ) as $input) {
+      if(isset($inputs[$input['id']]))
+        $inputs[$input['id']] = esc_js($inputs[$input['id']]);
+    }
+    return $inputs;
+  }
 }
 
 add_action( 'plugins_loaded', array('DevelopersTools', 'get_instance') );

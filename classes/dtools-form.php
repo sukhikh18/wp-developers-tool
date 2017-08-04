@@ -85,10 +85,10 @@ function get_dtools_form($section){
       'id'        => 'back_top',
       'label'     => 'Содержимое кнопки "Наверх"',
       'desc'      => '<br>Задайте кнопке #back-top собственный стиль',
-      'placeholder'   => '<i class=\'fa fa-angle-up\' aria-hidden=\'true\'></i>',
+      'placeholder'   => '<i class="fa fa-angle-up" aria-hidden="true"></i>',
       ),
     array(
-      'type'      => 'checkbox', 
+      'type'      => 'checkbox',
       'id'        => 'font_awesome',
       'label'     => 'FontAwesome шрифт',
         //'desc'      => 'Подключить шрифтовые иконки <a href="http://fontawesome.io/get-started/">FontAwesome</a>',
