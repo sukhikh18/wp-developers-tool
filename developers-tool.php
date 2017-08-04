@@ -171,8 +171,7 @@ class DevelopersTools {
         self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
         self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
         self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
-        )
-      ,
+        ),
       self::SETTINGS,
       array(__CLASS__, 'validate_options')
       );
@@ -219,10 +218,6 @@ class DevelopersTools {
     // $inputs = array_map_recursive( 'sanitize_text_field', $inputs );
     $inputs = array_filter_recursive($inputs);
 
-    foreach (get_dtools_form( 'dt-scripts' ) as $input) {
-      if(isset($inputs[$input['id']]))
-        $inputs[$input['id']] = esc_js($inputs[$input['id']]);
-    }
     return $inputs;
   }
 }
