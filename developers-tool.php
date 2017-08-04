@@ -3,7 +3,7 @@
 Plugin Name: Дополнительные настройки разработчика
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.0.0 alpha
+Version: 5.1 beta
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
@@ -163,12 +163,14 @@ class DevelopersTools {
           self::PREFIX . 'general'      => __('Главная'),
           self::PREFIX . 'scripts'      => __('Скрипты'),
           self::PREFIX . 'woo-settings' => __('WooCommerce'),
+          self::PREFIX . 'modal'        => __('Модальное окно'),
           )
         ),
       array(
-        self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page'),
+        self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
         self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
         self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
+        self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
         )
       );
 
@@ -176,7 +178,7 @@ class DevelopersTools {
     // $page->add_metabox( 'metabox2', 'second metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->set_metaboxes();
   }
-  static function admin_settings_page(){
+  static function admin_settings_page_tab1(){
     $form = get_dtools_form('dp-general');
 
     $active = WPForm::active(self::SETTINGS, false, true);
@@ -192,6 +194,13 @@ class DevelopersTools {
 
   static function admin_settings_page_tab3(){
     $form = get_dtools_form('dt-woo-settings');
+
+    $active = WPForm::active(self::SETTINGS, false, true);
+    WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
+  }
+
+  static function admin_settings_page_tab4(){
+    $form = get_dtools_form('dt-modal');
 
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );

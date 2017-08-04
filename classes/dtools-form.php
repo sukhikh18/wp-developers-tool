@@ -101,25 +101,6 @@ function get_dtools_form($section){
         ),
     array(
       'type'      => 'text',
-      'id'        => 'fancybox',
-      'label'     => 'Необычная коробка fancybox',
-      'desc'      => '<br>Модальное окно (Галерея, всплывающее окно)',
-      'placeholder'   => '.fancybox, .zoom',
-      ),
-    array(
-      'type'      => 'checkbox',
-      'id'        => 'fancybox_thumb',
-      'label'     => 'Показывать превью',
-      'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
-      ),
-    array(
-      'type'      => 'checkbox',
-      'id'        => 'fancybox_mousewheel',
-      'label'     => 'Прокрутка мышью',
-      'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
-      ),
-    array(
-      'type'      => 'text',
       'id'        => 'countTo',
       'label'     => 'Счетчик countTo',
       'desc'      => '<br>Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"',
@@ -132,6 +113,26 @@ function get_dtools_form($section){
       'desc'      => '',
       ),
     );
+  $args['dt-modal'] = array(array(
+    'type'      => 'text',
+    'id'        => 'fancybox',
+    'label'     => 'Необычная коробка fancybox',
+    'desc'      => '<br>Модальное окно (Галерея, всплывающее окно)',
+    'placeholder'   => '.fancybox, .zoom',
+    ),
+  array(
+    'type'      => 'checkbox',
+    'id'        => 'fancybox_thumb',
+    'label'     => 'Показывать превью',
+    'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
+    ),
+  array(
+    'type'      => 'checkbox',
+    'id'        => 'fancybox_mousewheel',
+    'label'     => 'Прокрутка мышью',
+    'desc'      => 'Прокручивать изображения в fancybox окне колесом мыши',
+    ),
+  );
   $args['dt-woo-settings'] = array(
     array(
       'type'      => 'select',
