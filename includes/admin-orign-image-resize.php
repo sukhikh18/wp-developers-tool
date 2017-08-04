@@ -1,15 +1,12 @@
 <?php
-    $options = get_option( DT_PLUGIN_NAME );
+if( DevelopersTools::$settings['orign-image-resize'] == 'default' ){
 
-if( $options['orign-image-resize'] == 'default' ){
-    // 1600х1024
     add_image_size( 'default', 1600, 1024, $resize = 1 );
 }
 
 function replace_uploaded_image($image_data){
-    $options = get_option( DT_PLUGIN_NAME );
     // default
-    $size = $options['orign-image-resize'];
+    $size = DevelopersTools::$settings['orign-image-resize'];
 
     // if there is no large image : return
     if ( !$size || !isset($image_data['sizes'][$size]) )

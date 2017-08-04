@@ -2,7 +2,7 @@
 add_action( 'wp_enqueue_scripts', 'dtools_assets' );
 function dtools_assets() {
   $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
-  $settings = get_option( DT_PLUGIN_NAME );
+  $settings = DevelopersTools::$settings;
   $url = DT_ASSETS_URL;
 
   $sticky = isset($settings['sticky']) ? $settings['sticky'] : false;
@@ -22,16 +22,18 @@ function dtools_assets() {
     wp_enqueue_style( 'font_awesome', $url . 'font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
 
   if( isset($settings['fancybox']) )
-    dtools_fancybox($settings);
+    dtools_fancybox();
 
   $settings['is_mobile'] = wp_is_mobile();
   wp_enqueue_script(  'dtools-public', $url . 'public.js', array( 'jquery' ), '1.0', true);
   wp_localize_script( 'dtools-public', 'DTools', $settings );
 }
 
-function dtools_fancybox($settings){
+function dtools_fancybox(){
   $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
+  $settings = DevelopersTools::$settings;
   $url = DT_ASSETS_URL;
+
   wp_deregister_style('gllr_fancybox_stylesheet');
   $dg = array(
     'gllr_fancybox_js',

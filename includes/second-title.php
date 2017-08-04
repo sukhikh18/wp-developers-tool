@@ -21,12 +21,12 @@ function render_second_title(){
 		width: 100%;
 		outline: 0;
 		margin: 0 0 3px;
-		background-color: #fff; 
+		background-color: #fff;
 	}
 	</style><br>
 	<input type="text" id="second-title" name="second-title" value="'.$val.'" placeholder="Введите дополнительный заголовок" size="25"/>';
 }
- 
+
 function save_second_title($post_id){
 	// if ( ! wp_verify_nonce( $_POST['second-title'], 'st' ) )
 	//   return $post_id;
@@ -38,7 +38,7 @@ function save_second_title($post_id){
 		// Фильтруем и записываем данные
 	update_post_meta( $post_id, '_second_title', sanitize_text_field( $_POST['second-title'] ) );
 }
-	
+
 // фронт second_title функции (get_second_title() && the_second_title() )
 function get_second_title($id=false, $before='', $after=''){
 	global $post;
