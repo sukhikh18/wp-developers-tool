@@ -120,30 +120,31 @@ function get_dtools_form($section){
     "elastic" => 'Эластичность',
     "fade" => 'Затухание',
     );
-
-  $args['dt-modal'] = array(
-    array(
-      'type' => 'select',
-      'id'   => 'modal_type',
-      'label'=> 'Тип модального окна',
-      'options' => array(
-        ''   => 'Fancybox 2',
-        // 'fancybox3'  => 'Fancybox 3',
-        // 'magnific'   => 'Magnific Popup',
-        // 'photoswipe' => 'PhotoSwipe',
+  $modal_types = array(
+    ''   => 'Fancybox 2',
+    'fancybox3'  => 'Fancybox 3',
+    'magnific'   => 'Magnific Popup',
+    'photoswipe' => 'PhotoSwipe',
         // 'lightgallery' => https://sachinchoolur.github.io/lightgallery.js/
-        ),
+    );
+
+  $args['fancybox'] = array(
+    array(
+      'type'    => 'select',
+      'id'      => 'modal_type',
+      'label'   => 'Тип модального окна',
+      'options' => $modal_types,
       ),
     array(
-      'type'      => 'text',
-      'id'        => 'fancybox',
-      'label'     => 'Необычная коробка fancybox',
-      'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
-      'placeholder'   => '.fancybox, .zoom',
+      'type'        => 'text',
+      'id'          => 'modal_selector',
+      'label'       => 'jQuery Селектор',
+      'desc'        => 'Модальное окно (Галерея, всплывающее окно)',
+      'placeholder' => '.fancybox, .zoom',
       ),
     array(
       'type'      => 'checkbox',
-      'id'        => 'fancybox_thumb',
+      'id'        => 'fancybox_props][thumb',
       'label'     => 'Показывать превью',
       'desc'      => 'Показывать превью, если определена галерея атрибутом rel',
       ),
@@ -178,6 +179,58 @@ function get_dtools_form($section){
       'options'   => $fancybox_animates,
       ),
   );
+
+  $args['fancybox3'] = array(
+    array(
+      'type' => 'select',
+      'id'   => 'modal_type',
+      'label'=> 'Тип модального окна',
+      'options' => $modal_types,
+      'default' => 'fancybox3',
+      ),
+    array(
+      'type'      => 'text',
+      'id'        => 'fancybox3',
+      'label'     => 'jQuery Селектор',
+      'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
+      'placeholder'   => '.fancybox, .zoom',
+      ),
+     );
+
+  $args['magnific'] = array(
+    array(
+      'type' => 'select',
+      'id'   => 'modal_type',
+      'label'=> 'Тип модального окна',
+      'options' => $modal_types,
+      'default' => 'magnific',
+      ),
+    array(
+      'type'      => 'text',
+      'id'        => 'magnific',
+      'label'     => 'jQuery Селектор',
+      'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
+      'placeholder'   => '.magnific, .zoom',
+      ),
+    );
+
+  $args['photoswipe'] = array(
+    array(
+      'type' => 'select',
+      'id'   => 'modal_type',
+      'label'=> 'Тип модального окна',
+      'options' => $modal_types,
+      'default' => 'photoswipe',
+      ),
+    array(
+      'type'      => 'text',
+      'id'        => 'photoswipe',
+      'label'     => 'jQuery Селектор',
+      'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
+      'placeholder'   => '.photoswipe, .zoom',
+      ),
+    );
+
   $args['dt-woo-settings'] = array(
     array(
       'type'      => 'select',

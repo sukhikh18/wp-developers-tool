@@ -49,9 +49,7 @@ class DevelopersTools {
       ) );
   }
 
-  public static function uninstall(){
-    delete_option(self::SETTINGS);
-  }
+  public static function uninstall(){ delete_option(self::SETTINGS); }
 
   private function __construct() {
     self::define_constants();
@@ -98,8 +96,8 @@ class DevelopersTools {
     define( 'DT_DIR_CLASSES', DT_DIR_PATH . '/classes' );
     define( 'DT_DIR_INCLUDES', DT_DIR_PATH . '/includes' );
 
-    define( 'DT_BASE_URL', plugins_url( __FILE__ ) );
-    define( 'DT_ASSETS_URL', DT_BASE_URL . 'assets' );
+    define( 'DT_BASE_URL', plugins_url( basename(__DIR__) ) );
+    define( 'DT_ASSETS_URL', DT_BASE_URL . '/assets' );
   }
 
   private static function include_classes(){
@@ -192,11 +190,18 @@ class DevelopersTools {
       );
 
     add_action($page->page . '_after_form_inputs', 'submit_button' );
-
+    add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_assets'));
+    add_action('wp_ajax_change_modal_type', array(__CLASS__, 'admin_settings_page_tab4') );
     // $page->add_metabox( 'metabox1', 'first metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->add_metabox( 'metabox2', 'second metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->set_metaboxes();
   }
+
+  static function admin_enqueue_assets(){
+    wp_enqueue_script(self::PREFIX . 'admin_js', DT_ASSETS_URL . '/admin.js', array('jquery'), false, true);
+    wp_localize_script( self::PREFIX . 'admin_js', self::PREFIX . 'admin_js', array('nonce' => wp_create_nonce('modal') ) );
+  }
+
   static function admin_settings_page_tab1(){
     $form = get_dtools_form('dp-general');
 
@@ -219,14 +224,26 @@ class DevelopersTools {
   }
 
   static function admin_settings_page_tab4(){
+    if( defined('DOING_AJAX') && DOING_AJAX ){
+      if( ! wp_verify_nonce( $_POST['nonce'], 'modal' ) )
+        wp_die('Ошибка! нарушены правила безопасности');
+
+      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'fancybox';
+    }
+    else {
+      $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ? self::$settings['modal_type'] : 'fancybox';
+    }
+    var_dump($modal_type);
     /**
      * Менять Аяксом при изменении типа
      */
-    $ajax_prop = 'dt-modal';
-    $form = get_dtools_form($ajax_prop);
+
+    $form = get_dtools_form($modal_type);
 
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
+    if( defined('DOING_AJAX') && DOING_AJAX )
+      wp_die();
   }
 
   // function metabox_cb(){

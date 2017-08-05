@@ -23,7 +23,9 @@ jQuery(document).ready(function($) {
     if ( id.length > 1 ){
       id = id[id.length-1].match(/\w+/gi);
 
-      setTimeout(function(){ scrollTo( '#' + id[id.length-1], DTools.scroll_after_load ) }, 200);
+      setTimeout(function(){
+        scrollTo( '#' + id[id.length-1], DTools.scroll_after_load )
+      }, 200);
     }
   }
 
@@ -70,19 +72,22 @@ jQuery(document).ready(function($) {
     });
   }
 
-  if( DTools.fancybox ){
-    $( DTools.fancybox ).fancybox({
-      nextEffect : 'none',
-      prevEffect : 'none',
-      helpers:  {
-        title : {
-          type : 'inside'
-        },
-        thumbs : {
-          width: 120,
-          height: 80
+  console.log( DTools );
+  if( DTools.modal_type == 'any' ){
+
+  }
+  else if(DTools.modal_type) {
+    if( DTools.modal_selector ){
+      $( DTools.modal_selector ).fancybox({
+        openEffect : DTools.fancybox_props.openEffect,
+        closeEffect : DTools.fancybox_props.closeEffect,
+        nextEffect : DTools.fancybox_props.nextEffect,
+        prevEffect : DTools.fancybox_props.prevEffect,
+        helpers: {
+          title : { type : 'inside' },
+          thumbs : DTools.fancybox_props.thumb ? { width: 120, height: 80 } : false
         }
-      }
-    });
+      });
+    }
   }
 });
