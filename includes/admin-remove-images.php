@@ -1,5 +1,7 @@
 <?php
-add_action('before_delete_post', 'delete_attachments_with_post');
+namespace DTools;
+
+add_action('before_delete_post', 'DTools\delete_attachments_with_post');
 function delete_attachments_with_post( $postid ){
   $_post = get_post($postid);
 

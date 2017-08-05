@@ -1,4 +1,5 @@
 <?php
+namespace DTools;
 
 function get_dtools_form($section){
   $args = array();

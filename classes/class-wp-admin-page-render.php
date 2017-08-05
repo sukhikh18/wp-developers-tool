@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Name: WPAdminPageRender
  * Class URI: https://github.com/nikolays93/classes.git
@@ -10,6 +9,7 @@
  * License: GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
+namespace DTools;
 
 if ( !function_exists('array_filter_recursive') ) {
 	function array_filter_recursive($input){

@@ -1,10 +1,12 @@
 <?php
+namespace DTools;
+
 /**
  * Дополнительный заголовок
  */
 
-add_action('edit_form_after_title', 'render_second_title');
-add_action('save_post', 'save_second_title');
+add_action('edit_form_after_title', 'DTools\render_second_title');
+add_action('save_post', 'DTools\save_second_title');
 
 function render_second_title(){
   global $post;
@@ -81,7 +83,7 @@ function the_second_title($id='', $before='<h1 class="entry-title">', $after='</
   echo get_second_title($id, $before, $after);
 }
 
-add_filter( 'the_title', 'advanced_get_the_title', 10, 2 );
+add_filter( 'the_title', 'DTools\advanced_get_the_title', 10, 2 );
 function advanced_get_the_title($title, $id){
   if( is_admin() || ! is_singular() || ! in_the_loop() )
     return $title;

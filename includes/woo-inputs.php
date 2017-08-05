@@ -1,4 +1,5 @@
 <?php
+namespace DTools;
 
 if( ! class_exists('WCProductSettings') )
 	return;
@@ -30,7 +31,7 @@ if( isset($options['bestsellers']) ){
 			if( defined('WP_DEBUG_DISPLAY') && WP_DEBUG_DISPLAY )
 				print_r('<pre>(Режим отладки) Популярность товара: '.$views.'</pre>');
 		}
-		add_action( 'woocommerce_after_single_product', 'add_woo_view_count', 50);
+		add_action( 'woocommerce_after_single_product', 'DTools\add_woo_view_count', 50);
 	}
 }
 
@@ -64,7 +65,7 @@ if( isset($options['wholesales']) ){
 		) );
 	}
 
-	add_filter( 'woocommerce_quantity_input_min', 'wholesales_min', 50, 2 );
+	add_filter( 'woocommerce_quantity_input_min', 'DTools\wholesales_min', 50, 2 );
 }
 
 if( isset($options['product-val']) ){
@@ -77,10 +78,10 @@ if( isset($options['product-val']) ){
 		'description' => 'На сайте это будет отображаться примерно как "Цена ## руб. / шт."',
 		) );
 
-	add_filter( 'woocommerce_sale_price_html', 'dt_add_price_value', 10, 2 );
-	add_filter( 'woocommerce_price_html', 'dt_add_price_value', 10, 2 );
-	add_filter( 'woocommerce_variable_sale_price_html', 'dt_add_price_value', 10, 2 );
-	add_filter( 'woocommerce_variable_price_html', 'dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_sale_price_html', 'DTools\dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_price_html', 'DTools\dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_variable_sale_price_html', 'DTools\dt_add_price_value', 10, 2 );
+	add_filter( 'woocommerce_variable_price_html', 'DTools\dt_add_price_value', 10, 2 );
 
 	function dt_add_price_value( $price, $product ) {
 		$affix = sanitize_text_field( $product->get_meta('pr_value') );

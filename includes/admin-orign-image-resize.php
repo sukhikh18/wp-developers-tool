@@ -1,8 +1,8 @@
 <?php
-if( DevelopersTools::$settings['orign-image-resize'] == 'default' ){
+namespace DTools;
 
+if( DevelopersTools::$settings['orign-image-resize'] == 'default' )
     add_image_size( 'default', 1600, 1024, $resize = 1 );
-}
 
 function replace_uploaded_image($image_data){
     // default
@@ -35,4 +35,4 @@ function replace_uploaded_image($image_data){
 
     return $image_data;
 }
-add_filter('wp_generate_attachment_metadata', 'replace_uploaded_image');
+add_filter('wp_generate_attachment_metadata', 'DTools\replace_uploaded_image');

@@ -10,6 +10,7 @@ Author EMAIL: nikolayS93@ya.ru
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+namespace DTools;
 
 /**
   * @todo  revrite enabled_values filter
@@ -232,7 +233,7 @@ class DevelopersTools {
   }
 }
 
-add_action( 'plugins_loaded', array('DevelopersTools', 'get_instance') );
-register_activation_hook( __FILE__, array( 'DevelopersTools', 'activate' ) );
+add_action( 'plugins_loaded', array('DTools\DevelopersTools', 'get_instance') );
+register_activation_hook( __FILE__, array( 'DTools\DevelopersTools', 'activate' ) );
 // register_deactivation_hook( __FILE__, array( 'DevelopersTools', 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( 'DevelopersTools', 'uninstall' ) );
+register_uninstall_hook( __FILE__, array( 'DTools\DevelopersTools', 'uninstall' ) );
