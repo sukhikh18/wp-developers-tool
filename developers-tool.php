@@ -163,6 +163,20 @@ class DevelopersTools {
       return;
     // for side metaboxes
     // add_filter( self::SETTINGS . '_columns', function(){return 2;} );
+    $sections = array(
+      self::PREFIX . 'general'      => __('Главная'),
+      self::PREFIX . 'scripts'      => __('Скрипты'),
+      self::PREFIX . 'modal'        => __('Модальное окно'),
+      );
+    $callbacks = array(
+      self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
+      self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
+      self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
+      );
+    if( class_exists('woocommerce') ){
+      $sections[self::PREFIX . 'woo-settings'] = __('WooCommerce');
+      $callbacks[self::PREFIX . 'woo-settings'] = array(__CLASS__, 'admin_settings_page_tab3');
+    }
 
     $page = new WPAdminPageRender(
       self::SETTINGS,
@@ -170,19 +184,9 @@ class DevelopersTools {
         'parent' => 'options-general.php',
         'title' => __('Дополнительные настройки'),
         'menu' => __('Ещё'),
-        'tab_sections' => array(
-          self::PREFIX . 'general'      => __('Главная'),
-          self::PREFIX . 'scripts'      => __('Скрипты'),
-          self::PREFIX . 'woo-settings' => __('WooCommerce'),
-          self::PREFIX . 'modal'        => __('Модальное окно'),
-          )
+        'tab_sections' => $sections,
         ),
-      array(
-        self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
-        self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
-        self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
-        self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
-        ),
+      $callbacks,
       self::SETTINGS,
       array(__CLASS__, 'validate_options')
       );
