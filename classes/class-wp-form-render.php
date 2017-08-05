@@ -9,6 +9,7 @@
  * License: GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
+namespace DTools;
 
 if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access

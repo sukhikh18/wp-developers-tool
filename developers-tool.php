@@ -10,6 +10,7 @@ Author EMAIL: nikolayS93@ya.ru
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
+namespace DTools;
 
 /**
   * @todo  revrite enabled_values filter
@@ -56,6 +57,7 @@ class DevelopersTools {
     self::define_constants();
     self::include_classes();
     self::$settings = get_option( self::SETTINGS, array() );
+    add_filter( self::PREFIX . 'enabled_values', array(__CLASS__, 'active_addons_filter'), 10, 1 );
     self::include_addons();
     self::add_admin_page();
   }
@@ -78,7 +80,7 @@ class DevelopersTools {
   public static function load_file_if_exists($file_array){
     foreach ( $file_array as $id => $path ) {
       if( class_exists( $id ) ){
-        // DevelopersTools::write_debug('Класс ' . $path . ' ('.$id.') уже был подключен', __FILE__);
+        DevelopersTools::write_debug('Класс ' . $path . ' ('.$id.') уже был подключен', __FILE__);
         continue;
       }
 
@@ -116,31 +118,38 @@ class DevelopersTools {
     self::load_file_if_exists( $classes );
   }
 
+  static function active_addons_filter( $non_filtred ){
+    $active = array();
+    foreach ($non_filtred as $key => $value) {
+      if(isset(self::$settings[$key]))
+        $active[$key] = $value;
+    }
+
+    return $active;
+  }
+
   private static function include_addons(){
     $scripts = DT_DIR_INCLUDES . '/init-scripts.php';
     $woo_inputs = DT_DIR_INCLUDES . '/woo-inputs.php';
     $includes = array(
-      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode.php',
-      'remove-images'       => DT_DIR_INCLUDES . '/admin-remove-images.php',
-      'second-title'        => DT_DIR_INCLUDES . '/second-title.php',
-      'remove-emojis'       => DT_DIR_INCLUDES . '/remove-emojis.php',
+      'maintenance-mode'   => DT_DIR_INCLUDES . '/maintenance-mode.php',
+      'remove-images'      => DT_DIR_INCLUDES . '/admin-remove-images.php',
+      'second-title'       => DT_DIR_INCLUDES . '/second-title.php',
+      'remove-emojis'      => DT_DIR_INCLUDES . '/remove-emojis.php',
+      'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
-      'wholesales'          => $woo_inputs,
-      'product-val'         => $woo_inputs,
+      'wholesales'         => $woo_inputs,
+      'product-val'        => $woo_inputs,
+      'bestsellers'        => $woo_inputs,
 
-      'smooth_scroll' => $scripts,
-      'sticky'        => $scripts,
-      'animate'       => $scripts,
-      'font_awesome'  => $scripts,
-      'fancybox'      => $scripts,
-      'countTo'       => $scripts,
-      'back_top'      => $scripts,
+      'smooth_scroll'      => $scripts,
+      'sticky'             => $scripts,
+      'animate'            => $scripts,
+      'font_awesome'       => $scripts,
+      'fancybox'           => $scripts,
+      'countTo'            => $scripts,
+      'back_top'           => $scripts,
       );
-
-    if(is_admin()){
-      $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize.php';
-      $includes['bestsellers']        = $woo_inputs;
-    }
 
     // Подключить только активные
     $includes = apply_filters( self::PREFIX . 'enabled_values', $includes, self::$settings );
@@ -150,8 +159,24 @@ class DevelopersTools {
 
   /********************************* ADMIN SETTINGS PAGE ********************************/
   static private function add_admin_page(){
+    if( ! is_admin() )
+      return;
     // for side metaboxes
     // add_filter( self::SETTINGS . '_columns', function(){return 2;} );
+    $sections = array(
+      self::PREFIX . 'general'      => __('Главная'),
+      self::PREFIX . 'scripts'      => __('Скрипты'),
+      self::PREFIX . 'modal'        => __('Модальное окно'),
+      );
+    $callbacks = array(
+      self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
+      self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
+      self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
+      );
+    if( class_exists('woocommerce') ){
+      $sections[self::PREFIX . 'woo-settings'] = __('WooCommerce');
+      $callbacks[self::PREFIX . 'woo-settings'] = array(__CLASS__, 'admin_settings_page_tab3');
+    }
 
     $page = new WPAdminPageRender(
       self::SETTINGS,
@@ -159,19 +184,9 @@ class DevelopersTools {
         'parent' => 'options-general.php',
         'title' => __('Дополнительные настройки'),
         'menu' => __('Ещё'),
-        'tab_sections' => array(
-          self::PREFIX . 'general'      => __('Главная'),
-          self::PREFIX . 'scripts'      => __('Скрипты'),
-          self::PREFIX . 'woo-settings' => __('WooCommerce'),
-          self::PREFIX . 'modal'        => __('Модальное окно'),
-          )
+        'tab_sections' => $sections,
         ),
-      array(
-        self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
-        self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
-        self::PREFIX . 'woo-settings' => array(__CLASS__, 'admin_settings_page_tab3'),
-        self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
-        ),
+      $callbacks,
       self::SETTINGS,
       array(__CLASS__, 'validate_options')
       );
@@ -226,7 +241,7 @@ class DevelopersTools {
   }
 }
 
-add_action( 'plugins_loaded', array('DevelopersTools', 'get_instance') );
-register_activation_hook( __FILE__, array( 'DevelopersTools', 'activate' ) );
+add_action( 'plugins_loaded', array('DTools\DevelopersTools', 'get_instance') );
+register_activation_hook( __FILE__, array( 'DTools\DevelopersTools', 'activate' ) );
 // register_deactivation_hook( __FILE__, array( 'DevelopersTools', 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( 'DevelopersTools', 'uninstall' ) );
+register_uninstall_hook( __FILE__, array( 'DTools\DevelopersTools', 'uninstall' ) );

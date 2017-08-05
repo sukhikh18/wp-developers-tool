@@ -1,8 +1,10 @@
 <?php
+namespace DTools;
+
 /**
  * Отключить стандартные смайлы Wordpress
  */
-function dt_remove_emojis() {
+function remove_emojis() {
   remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
   remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
   remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -11,4 +13,4 @@ function dt_remove_emojis() {
   remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
   remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 }
-add_action( 'init', 'dt_remove_emojis');
+add_action( 'init', 'DTools\remove_emojis');

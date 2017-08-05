@@ -1,5 +1,7 @@
 <?php
-add_action( 'wp_enqueue_scripts', 'dtools_assets' );
+namespace DTools;
+
+add_action( 'wp_enqueue_scripts', 'DTools\dtools_assets' );
 function dtools_assets() {
   $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
   $settings = DevelopersTools::$settings;

@@ -1,4 +1,6 @@
 <?php
+namespace DTools;
+
 class WCProductSettings {
 	protected $fields = array();
 
