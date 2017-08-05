@@ -1,6 +1,9 @@
 <?php
-$options = DevelopersTools::$settings;
 
+if( ! class_exists('WCProductSettings') )
+	return;
+
+$options = DevelopersTools::$settings;
 $wc_fields = new WCProductSettings();
 
 if( isset($options['bestsellers']) ){

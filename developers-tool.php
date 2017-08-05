@@ -56,6 +56,7 @@ class DevelopersTools {
     self::define_constants();
     self::include_classes();
     self::$settings = get_option( self::SETTINGS, array() );
+    add_filter( self::PREFIX . 'enabled_values', array(__CLASS__, 'active_addons_filter'), 10, 1 );
     self::include_addons();
     self::add_admin_page();
   }
@@ -78,7 +79,7 @@ class DevelopersTools {
   public static function load_file_if_exists($file_array){
     foreach ( $file_array as $id => $path ) {
       if( class_exists( $id ) ){
-        // DevelopersTools::write_debug('Класс ' . $path . ' ('.$id.') уже был подключен', __FILE__);
+        DevelopersTools::write_debug('Класс ' . $path . ' ('.$id.') уже был подключен', __FILE__);
         continue;
       }
 
@@ -116,31 +117,38 @@ class DevelopersTools {
     self::load_file_if_exists( $classes );
   }
 
+  static function active_addons_filter( $non_filtred ){
+    $active = array();
+    foreach ($non_filtred as $key => $value) {
+      if(isset(self::$settings[$key]))
+        $active[$key] = $value;
+    }
+
+    return $active;
+  }
+
   private static function include_addons(){
     $scripts = DT_DIR_INCLUDES . '/init-scripts.php';
     $woo_inputs = DT_DIR_INCLUDES . '/woo-inputs.php';
     $includes = array(
-      'maintenance-mode'    => DT_DIR_INCLUDES . '/maintenance-mode.php',
-      'remove-images'       => DT_DIR_INCLUDES . '/admin-remove-images.php',
-      'second-title'        => DT_DIR_INCLUDES . '/second-title.php',
-      'remove-emojis'       => DT_DIR_INCLUDES . '/remove-emojis.php',
+      'maintenance-mode'   => DT_DIR_INCLUDES . '/maintenance-mode.php',
+      'remove-images'      => DT_DIR_INCLUDES . '/admin-remove-images.php',
+      'second-title'       => DT_DIR_INCLUDES . '/second-title.php',
+      'remove-emojis'      => DT_DIR_INCLUDES . '/remove-emojis.php',
+      'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
-      'wholesales'          => $woo_inputs,
-      'product-val'         => $woo_inputs,
+      'wholesales'         => $woo_inputs,
+      'product-val'        => $woo_inputs,
+      'bestsellers'        => $woo_inputs,
 
-      'smooth_scroll' => $scripts,
-      'sticky'        => $scripts,
-      'animate'       => $scripts,
-      'font_awesome'  => $scripts,
-      'fancybox'      => $scripts,
-      'countTo'       => $scripts,
-      'back_top'      => $scripts,
+      'smooth_scroll'      => $scripts,
+      'sticky'             => $scripts,
+      'animate'            => $scripts,
+      'font_awesome'       => $scripts,
+      'fancybox'           => $scripts,
+      'countTo'            => $scripts,
+      'back_top'           => $scripts,
       );
-
-    if(is_admin()){
-      $includes['orign-image-resize'] = DT_DIR_INCLUDES . '/admin-orign-image-resize.php';
-      $includes['bestsellers']        = $woo_inputs;
-    }
 
     // Подключить только активные
     $includes = apply_filters( self::PREFIX . 'enabled_values', $includes, self::$settings );
@@ -150,6 +158,8 @@ class DevelopersTools {
 
   /********************************* ADMIN SETTINGS PAGE ********************************/
   static private function add_admin_page(){
+    if( ! is_admin() )
+      return;
     // for side metaboxes
     // add_filter( self::SETTINGS . '_columns', function(){return 2;} );
 
