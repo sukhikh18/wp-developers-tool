@@ -3,7 +3,7 @@
 Plugin Name: Дополнительные настройки разработчика
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.1 beta
+Version: 5.2 beta
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
