@@ -160,24 +160,28 @@ function get_dtools_form($section){
       'id'        => 'fancybox_props][openEffect',
       'label'     => 'Анимация при открытии',
       'options'   => $fancybox_animates,
+      'defaults'  => 'elastic',
       ),
     array(
       'type'      => 'select',
       'id'        => 'fancybox_props][closeEffect',
       'label'     => 'Анимация при закрытии',
       'options'   => $fancybox_animates,
+      'defaults'  => 'elastic',
       ),
     array(
       'type'      => 'select',
       'id'        => 'fancybox_props][nextEffect',
       'label'     => 'Эфект при перелистывании вперед',
       'options'   => $fancybox_animates,
+      'defaults'  => 'fade',
       ),
     array(
       'type'      => 'select',
       'id'        => 'fancybox_props][prevEffect',
       'label'     => 'Эфект при перелистывании назад',
       'options'   => $fancybox_animates,
+      'defaults'  => 'fade',
       ),
   );
 
