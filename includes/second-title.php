@@ -45,7 +45,7 @@ function render_second_title(){
 }
 
 function save_second_title($post_id){
-  if ( ! wp_verify_nonce( $_POST['second-title-nonce'], 'st' ) )
+  if ( !isset($_POST['second-title-nonce']) || ! wp_verify_nonce( $_POST['second-title-nonce'], 'st' ) )
     return $post_id;
 
     // Убедимся что поле установлено.
