@@ -231,12 +231,9 @@ class DevelopersTools {
       $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'fancybox';
     }
     else {
-      $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ? self::$settings['modal_type'] : 'fancybox';
+      $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ?
+        self::$settings['modal_type'] : 'fancybox';
     }
-    var_dump($modal_type);
-    /**
-     * Менять Аяксом при изменении типа
-     */
 
     $form = get_dtools_form($modal_type);
 

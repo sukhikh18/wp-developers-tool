@@ -180,16 +180,9 @@ class WPAdminPageRender
 
 		echo "<script> jQuery(document).ready(function($){ postboxes.add_postbox_toggles(pagenow); });</script>";
 		if( !empty($this->args['tab_sections']) ):
-		$eg = __('e.g. '); ?>
+		?>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
-				$('input[type=\'text\'], input[type=\'number\'], textarea').on('focus', function(){
-					if($(this).val() == ''){
-						$(this).val($(this).attr('placeholder').replace('<?php echo $eg; ?>', '') );
-						$(this).select();
-					}
-				});
-
 				$('a.nav-tab').on('click', function(e){
 					e.preventDefault();
 					if($(this).hasClass('nav-tab-active'))

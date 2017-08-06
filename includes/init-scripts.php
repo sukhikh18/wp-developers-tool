@@ -23,10 +23,9 @@ function dtools_assets() {
   if( isset($settings['font_awesome']) )
     wp_enqueue_style( 'font_awesome', $url . '/font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
 
-  var_dump($settings['modal_type']);
   if( isset($settings['modal_type']) ){
-    if( $settings['modal_type'] == 'any' ){
-
+    if( $settings['modal_type'] == 'fancybox3' ){
+      dtools_fancybox(3);
     }
     else {
       dtools_fancybox();
@@ -38,7 +37,7 @@ function dtools_assets() {
   wp_localize_script( 'dtools-public', 'DTools', $settings );
 }
 
-function dtools_fancybox(){
+function dtools_fancybox($ver=2){
   $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
   $settings = DevelopersTools::$settings;
   $url = DT_ASSETS_URL;
@@ -56,14 +55,21 @@ function dtools_fancybox(){
     wp_deregister_script($value);
   }
 
-  wp_enqueue_style( 'fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.css');
-  wp_enqueue_script('fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
+  if($ver == 2) {
+    wp_enqueue_style( 'fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.css');
+    wp_enqueue_script('fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
 
-  if( isset($settings['fancybox_thumb']) ){
-    wp_enqueue_style( 'fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.css', false, '1.0.7');
-    wp_enqueue_script('fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.js', array( 'jquery' ), '1.0.7', true);
+    if( isset($settings['fancybox_thumb']) ){
+      wp_enqueue_style( 'fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.css', false, '1.0.7');
+      wp_enqueue_script('fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.js', array( 'jquery' ), '1.0.7', true);
+    }
+
+    if( isset($settings['fancybox_mousewheel']) )
+      wp_enqueue_script('mousewheel', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel'.$suffix.'.js', null, '3.1.13');
   }
-
-  if( isset($settings['fancybox_mousewheel']) )
-    wp_enqueue_script('mousewheel', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel'.$suffix.'.js', null, '3.1.13');
+  elseif($ver == 3) {
+    wp_enqueue_style( 'fancybox', $url . '/fancybox3/jquery.fancybox'.$suffix.'.css');
+    // jQuery 3+ is preferred, but fancyBox works with jQuery 1.9.1+ and jQuery 2+
+    wp_enqueue_script('fancybox', $url . '/fancybox3/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
+  }
 }

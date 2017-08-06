@@ -414,6 +414,9 @@ class WPForm {
   public static function render_select( $input, $active_id, $is_table, $label = '' ){
     $result = '';
     $options = _isset_false($input['options'], 1);
+    if( isset($input['value']) && $input['value'] !== false && $input['value'] !== NULL )
+      $active_id = $input['value'];
+
     if(! $options )
       return false;
 

@@ -116,24 +116,25 @@ function get_dtools_form($section){
     );
 
   $fancybox_animates = array(
-    'none' => 'Без эффекта',
+    'none'    => 'Без эффекта',
     "elastic" => 'Эластичность',
-    "fade" => 'Затухание',
+    "fade"    => 'Угасание',
     );
   $modal_types = array(
-    ''   => 'Fancybox 2',
+    'fancybox2'   => 'Fancybox 2',
     'fancybox3'  => 'Fancybox 3',
-    'magnific'   => 'Magnific Popup',
-    'photoswipe' => 'PhotoSwipe',
+    // 'magnific'   => 'Magnific Popup',
+    // 'photoswipe' => 'PhotoSwipe',
         // 'lightgallery' => https://sachinchoolur.github.io/lightgallery.js/
     );
 
-  $args['fancybox'] = array(
+  $args['fancybox2'] = array(
     array(
       'type'    => 'select',
       'id'      => 'modal_type',
       'label'   => 'Тип модального окна',
       'options' => $modal_types,
+      'value'   => 'modal_type',
       ),
     array(
       'type'        => 'text',
@@ -182,18 +183,50 @@ function get_dtools_form($section){
 
   $args['fancybox3'] = array(
     array(
-      'type' => 'select',
-      'id'   => 'modal_type',
-      'label'=> 'Тип модального окна',
+      'type'    => 'select',
+      'id'      => 'modal_type',
+      'label'   => 'Тип модального окна',
       'options' => $modal_types,
-      'default' => 'fancybox3',
+      'value'   => 'fancybox3',
       ),
     array(
       'type'      => 'text',
-      'id'        => 'fancybox3',
+      'id'        => 'modal_selector',
       'label'     => 'jQuery Селектор',
       'desc'      => 'Модальное окно (Галерея, всплывающее окно)',
       'placeholder'   => '.fancybox, .zoom',
+      ),
+    array(
+      'type'    => 'select',
+      'id'      => 'fancybox_props][openCloseEffect',
+      'label'   => 'Эффект открытия',
+      'options' => array(
+        'false'     => 'Без эффекта',
+        'zoom'        => 'Увеличение от объекта',
+        'fade'        => 'Угасание',
+        'zoom-in-out' => 'Увеличение из вне',
+        ),
+      'default' => 'zoom',
+      ),
+    array(
+      'type'    => 'select',
+      'id'      => 'fancybox_props][nextPrevEffect',
+      'label'   => 'Эффект перелистывания',
+      'options' => array(
+        'false'       => 'Без эффекта',
+        'fade'        => 'Угасание',
+        'slide'       => 'Увеличение от объекта',
+        'circular'    => 'Угасание',
+        'tube'        => 'Туба',
+        'zoom-in-out' => 'Увеличение из вне',
+        'rotate'      => 'Переворот',
+        ),
+      'default' => 'fade',
+      ),
+     array(
+      'type'    => 'html',
+      'id'      => 'for_group',
+      'value'   => 'Для группировки объектов используйте <em>data-fancybox</em>'
       ),
      );
 
@@ -203,7 +236,7 @@ function get_dtools_form($section){
       'id'   => 'modal_type',
       'label'=> 'Тип модального окна',
       'options' => $modal_types,
-      'default' => 'magnific',
+      'value' => 'magnific',
       ),
     array(
       'type'      => 'text',
@@ -220,7 +253,7 @@ function get_dtools_form($section){
       'id'   => 'modal_type',
       'label'=> 'Тип модального окна',
       'options' => $modal_types,
-      'default' => 'photoswipe',
+      'value' => 'photoswipe',
       ),
     array(
       'type'      => 'text',
@@ -237,10 +270,10 @@ function get_dtools_form($section){
       'id'        => 'bestsellers',
       'label'     => 'Популярный товар',
       'options'      => array(
-        ''=>'Не использовать',
-        'personal'=>'Использовать вручную',
-        'views'=>'Сортировать по просмотрам',
-        'sales'=>'Сортировать по продажам'
+        ''         =>'Не использовать',
+        'personal' =>'Использовать вручную',
+        'views'    =>'Сортировать по просмотрам',
+        'sales'    =>'Сортировать по продажам'
         ),
       'desc'      => ' 1. Убедитесь что [query] запросы включены. <br> 2. Используйте <strong> [query type="top-sales"] </strong>',
       ),
