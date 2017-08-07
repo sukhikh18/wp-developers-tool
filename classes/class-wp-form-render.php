@@ -161,6 +161,9 @@ class WPForm {
       return $inputs;
 
     foreach ( $inputs as &$input ) {
+      if ( ! isset($input['id']) && ! isset($input['name']) )
+        continue;
+
       if( isset($input['name']) )
         $input['name'] = "{$option_name}[{$input['name']}]";
       else

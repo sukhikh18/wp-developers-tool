@@ -121,20 +121,28 @@ function get_dtools_form($section){
     "fade"    => 'Угасание',
     );
   $modal_types = array(
-    'fancybox2'   => 'Fancybox 2',
-    'fancybox3'  => 'Fancybox 3',
+    ''          => 'Не использовать',
+    'fancybox2' => 'Fancybox 2',
+    'fancybox3' => 'Fancybox 3',
     // 'magnific'   => 'Magnific Popup',
     // 'photoswipe' => 'PhotoSwipe',
         // 'lightgallery' => https://sachinchoolur.github.io/lightgallery.js/
     );
 
+  $args['dismodal'] = array(
+    'type'    => 'select',
+    'id'      => 'modal_type',
+    'label'   => 'Тип модального окна',
+    'options' => $modal_types,
+    'value'   => '',
+    );
   $args['fancybox2'] = array(
     array(
       'type'    => 'select',
       'id'      => 'modal_type',
       'label'   => 'Тип модального окна',
       'options' => $modal_types,
-      'value'   => 'modal_type',
+      'value'   => 'fancybox2',
       ),
     array(
       'type'        => 'text',

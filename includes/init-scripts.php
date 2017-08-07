@@ -27,8 +27,8 @@ function dtools_assets() {
     if( $settings['modal_type'] == 'fancybox3' ){
       dtools_fancybox(3);
     }
-    else {
-      dtools_fancybox();
+    elseif( $settings['modal_type'] == 'fancybox2' ) {
+      dtools_fancybox(2);
     }
   }
 

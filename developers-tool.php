@@ -228,11 +228,11 @@ class DevelopersTools {
       if( ! wp_verify_nonce( $_POST['nonce'], 'modal' ) )
         wp_die('Ошибка! нарушены правила безопасности');
 
-      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'fancybox2';
+      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'dismodal';
     }
     else {
       $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ?
-        self::$settings['modal_type'] : 'fancybox2';
+        self::$settings['modal_type'] : 'dismodal';
     }
 
     $form = get_dtools_form($modal_type);
