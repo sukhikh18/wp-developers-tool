@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
           set_focus_trigger();
         }
       }).fail(function() {
-        console.log('jQuery ajax fail!');
+        console.log('jQuery AJAX FAIL!');
       });
     });
   }

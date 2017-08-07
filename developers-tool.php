@@ -3,7 +3,7 @@
 Plugin Name: Дополнительные настройки разработчика
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.2 beta
+Version: 5.1 beta
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
@@ -67,8 +67,8 @@ class DevelopersTools {
     $dir = str_replace(DT_DIR_PATH, '', $dir);
     $msg = str_replace(DT_DIR_PATH, '', $msg);
 
-    $date = new DateTime();
-    $date_str = $date->format(DateTime::RSS);
+    $date = new \DateTime();
+    $date_str = $date->format(\DateTime::RSS);
 
     $handle = fopen(DT_DIR_PATH . "/debug.log", "a+");
     fwrite($handle, "[{$date_str}] {$msg} ({$dir})\r\n");
@@ -104,8 +104,8 @@ class DevelopersTools {
     $classes = array();
 
     if( is_admin() ){
-      $classes['WPForm'] = DT_DIR_CLASSES . '/class-wp-form-render.php';
-      $classes['WPAdminPageRender']  = DT_DIR_CLASSES . '/class-wp-admin-page-render.php';
+      $classes['DTools\WPForm'] = DT_DIR_CLASSES . '/class-wp-form-render.php';
+      $classes['DTools\WPAdminPageRender']  = DT_DIR_CLASSES . '/class-wp-admin-page-render.php';
       $classes['DToolsForm'] = DT_DIR_CLASSES . '/dtools-form.php';
     }
 
@@ -228,11 +228,11 @@ class DevelopersTools {
       if( ! wp_verify_nonce( $_POST['nonce'], 'modal' ) )
         wp_die('Ошибка! нарушены правила безопасности');
 
-      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'fancybox';
+      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'fancybox2';
     }
     else {
       $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ?
-        self::$settings['modal_type'] : 'fancybox';
+        self::$settings['modal_type'] : 'fancybox2';
     }
 
     $form = get_dtools_form($modal_type);

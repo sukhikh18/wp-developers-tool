@@ -235,6 +235,12 @@ class WPForm {
         $html[] = $args['form_wrap'][0];
 
     foreach ( $render_data as $input ) {
+      if ( ! isset($input['id']) && ! isset($input['name']) )
+        continue;
+
+      if( ! isset( $input['type'] ) )
+        $input['type'] = 'checkbox';
+
       $label   = _isset_false($input['label'], 1);
       $before  = _isset_empty($input['before'], 1);
       $after   = _isset_empty($input['after'], 1);
