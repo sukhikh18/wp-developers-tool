@@ -144,7 +144,7 @@ class DevelopersTools {
       'sticky'             => $scripts,
       'animate'            => $scripts,
       'font_awesome'       => $scripts,
-      'fancybox'           => $scripts,
+      'modal_type'         => $scripts,
       'countTo'            => $scripts,
       'back_top'           => $scripts,
       );
