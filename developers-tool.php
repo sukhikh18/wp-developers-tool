@@ -198,6 +198,10 @@ class DevelopersTools {
   }
 
   static function admin_enqueue_assets(){
+    $screen = get_current_screen();
+    if( !isset($screen->id) || $screen->id !== 'settings_page_DTools' )
+      return;
+
     wp_enqueue_script(self::PREFIX . 'admin_js', DT_ASSETS_URL . '/admin.js', array('jquery'), false, true);
     wp_localize_script( self::PREFIX . 'admin_js', self::PREFIX . 'admin_js', array('nonce' => wp_create_nonce('modal') ) );
   }
