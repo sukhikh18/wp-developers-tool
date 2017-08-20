@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
   // sticky
   if( DTools.sticky_selector ){
     if( DTools.is_mobile && DTools.sticky == 'phone_only' || DTools.sticky == 'forever' ){
-      var space = ( $(document).has('#wpadminbar') ) ? 32 : 0;
+      var space = ( $(document).has('#wpadminbar').lenght ) ? 32 : 0;
 
       var $container = $( DTools.sticky_selector );
       $container.sticky({topSpacing:space,zIndex:1100});
