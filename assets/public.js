@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
   // sticky
   if( DTools.sticky_selector ){
     if( DTools.is_mobile && DTools.sticky == 'phone_only' || DTools.sticky == 'forever' ){
-      var space = ( $(document).has('#wpadminbar').lenght ) ? 32 : 0;
+      var space = ( $('#wpadminbar').length ) ? 32 : 0;
 
       var $container = $( DTools.sticky_selector );
       $container.sticky({topSpacing:space,zIndex:1100});
@@ -71,7 +71,6 @@ jQuery(document).ready(function($) {
       else btnBack.fadeOut(400);
     });
   }
-  console.log( DTools );
   if( DTools.modal_selector ){
    if( DTools.modal_type == 'fancybox3' ){
     var fancyModal = $( DTools.modal_selector ).fancybox({
