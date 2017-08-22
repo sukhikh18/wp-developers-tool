@@ -1,8 +1,6 @@
 jQuery(document).ready(function($) {
   function scrollTo(elemId, returnTop=40, delay=500){
-    var offset = $( elemId ).offset();
-    if( !offset )
-      offset = $('a[name='+elemId.slice(1)+']').offset();
+    var offset = $( elemId ).offset() || $('a[name='+elemId.slice(1)+']').offset();
 
     if(offset)
       $('html, body').animate({ scrollTop: offset.top - returnTop }, delay);
@@ -12,10 +10,12 @@ jQuery(document).ready(function($) {
 
   if( DTools.smooth_scroll ){
     $('a[href^=#]').click( function(event){
-      event.preventDefault();
+      var elemId = $(this).attr('href');
+      if($(this).attr('rel') != 'noScroll' && elemId.indexOf('#') == 0 && elemId.slice(1).length >= 1){
+        event.preventDefault();
 
-      if( $(this).attr('rel') != 'noScroll' )
-        scrollTo( $(this).attr('href'), DTools.smooth_scroll );
+        scrollTo( elemId, DTools.smooth_scroll );
+      }
     });
   }
   if( DTools.scroll_after_load ){
