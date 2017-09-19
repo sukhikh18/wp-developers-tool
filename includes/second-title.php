@@ -66,7 +66,7 @@ function save_second_title($post_id){
     }
 
     if( $posted['second-title-empty'] ) {
-        update_post_meta( $post_id, '_second_title_empty', $clear );
+        update_post_meta( $post_id, '_second_title_empty', 1 );
     }
     else {
         delete_post_meta( $post_id, '_second_title_empty' );
@@ -77,16 +77,18 @@ function save_second_title($post_id){
 function get_second_title($id=false, $before='', $after='') {
     global $post;
 
-    if( $id === false ) {
+    if( ! $id ) {
         $id = isset( $post->ID ) ? $post->ID : false;
     }
 
     if( $id ) {
-        if( get_post_meta( $id, '_second_title_empty', true ) )
+        if( get_post_meta( $id, '_second_title_empty', true ) ) {
             return $before . '' . $after;
+        }
 
-        if( $s_title = get_post_meta($id, '_second_title', true) )
+        if( $s_title = get_post_meta($id, '_second_title', true) ) {
             return $before . $s_title . $after;
+        }
     }
 
     return false;
@@ -99,8 +101,13 @@ function the_second_title($id='', $before='<h1 class="entry-title">', $after='</
 
 add_filter( 'the_title', __NAMESPACE__ . '\advanced_get_the_title', 10, 2 );
 function advanced_get_the_title($title, $id){
-    if( is_admin() || ! is_singular() || ! in_the_loop() )
+    if( is_admin() || ! is_singular() || ! in_the_loop() ) {
         return $title;
+    }
 
-    return ( $new_title = get_second_title($id) ) ? $new_title : $title;
+    if( false !== $new_title = get_second_title($id) ) {
+        $title = $new_title;
+    }
+
+    return $title;
 }
