@@ -3,7 +3,7 @@
 Plugin Name: Дополнительные настройки разработчика
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.1 beta
+Version: 5.2 beta
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
@@ -136,9 +136,9 @@ class DevelopersTools {
       'remove-emojis'      => DT_DIR_INCLUDES . '/remove-emojis.php',
       'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
+      'bestsellers'        => DT_DIR_INCLUDES . '/woocommerce-bestsellers.php',
       'wholesales'         => $woo_inputs,
       'product-val'        => $woo_inputs,
-      'bestsellers'        => $woo_inputs,
 
       'smooth_scroll'      => $scripts,
       'sticky'             => $scripts,
