@@ -278,6 +278,12 @@ function get_dtools_form($section){
 
   $args['dt-woo-settings'] = array(
     array(
+      'type'      => 'checkbox',
+      'id'        => 'woo_cat_content_bottom',
+      'label'     => 'Показывать описание категории снизу страницы',
+      'desc'      => 'Описание категории будет показываться после вывода товаров.',
+      ),
+    array(
       'type'      => 'select',
       'id'        => 'bestsellers',
       'label'     => 'Популярный товар',
