@@ -2,6 +2,7 @@
 
 namespace DTools;
 
+
 add_filter( 'easy_queries_args', __NAMESPACE__ . '\top_sales_query_args', 10, 1 );
 function top_sales_query_args( $args ) {
     if( $args['post_type'] == 'top-sales' ){
@@ -10,7 +11,7 @@ function top_sales_query_args( $args ) {
         $options = DevelopersTools::$settings;
 
         // must have becouse included
-        switch ($options['bestsallers']) {
+        switch ($options['bestsellers']) {
             case 'personal':
                 $meta = array(
                     'key' => 'top_sale_product',
@@ -43,7 +44,8 @@ function top_sales_query_args( $args ) {
     return $args;
 }
 
-if($options['bestsellers'] == 'views'){
+
+if( DevelopersTools::$settings['bestsellers'] == 'views' ) {
     add_action( 'woocommerce_after_single_product', __NAMESPACE__ . '\add_woo_view_count', 50);
     function add_woo_view_count(){
         global $post;
@@ -65,7 +67,7 @@ if( ! class_exists('DTools\WCProductSettings') ) {
 }
 
 if( is_admin() ){
-    if($options['bestsellers'] == 'personal'){
+    if( DevelopersTools::$settings['bestsellers'] == 'personal' ) {
 
         $wc_fields = new WCProductSettings();
         $wc_fields->add_field( array(
@@ -74,5 +76,6 @@ if( is_admin() ){
             'label'       => 'Популярный товар',
             'description' => 'Этот товар будет показываться в блоке популярных товаров',
             ) );
+        $wc_fields->set_fields();
     }
 }
