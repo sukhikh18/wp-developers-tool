@@ -128,7 +128,7 @@ class DevelopersTools {
 
   private static function include_addons(){
     $scripts = DT_DIR_INCLUDES . '/init-scripts.php';
-    $woo_inputs = DT_DIR_INCLUDES . '/woo-inputs.php';
+    $woo_inputs = DT_DIR_INCLUDES . '/woocommerce/woo-inputs.php';
     $includes = array(
       'maintenance-mode'   => DT_DIR_INCLUDES . '/maintenance-mode.php',
       'remove-images'      => DT_DIR_INCLUDES . '/admin-remove-images.php',
@@ -136,10 +136,12 @@ class DevelopersTools {
       'remove-emojis'      => DT_DIR_INCLUDES . '/remove-emojis.php',
       'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
-      'woo_cat_content_bottom' => DT_DIR_INCLUDES . '/cat-content-bottom.php',
-      'bestsellers'        => DT_DIR_INCLUDES . '/woocommerce-bestsellers.php',
-      'wholesales'         => $woo_inputs,
-      'product-val'        => $woo_inputs,
+      'woo_cat_content_bottom' => DT_DIR_INCLUDES . '/woocommerce/cat-content-bottom.php',
+      'product-measure-unit'   => DT_DIR_INCLUDES . '/woocommerce/measure-unit.php',
+      'per-pack'               => DT_DIR_INCLUDES . '/woocommerce/per-pack.php',
+      'plus-minus-buttons'     => DT_DIR_INCLUDES . '/woocommerce/plus-minus-buttons.php',
+      'wholesales'             => DT_DIR_INCLUDES . '/woocommerce/wholesales.php',
+      'bestsellers'            => DT_DIR_INCLUDES . '/woocommerce/bestsellers.php',
 
       'smooth_scroll'      => $scripts,
       'sticky'             => $scripts,
@@ -154,6 +156,21 @@ class DevelopersTools {
     $includes = apply_filters( self::PREFIX . 'enabled_values', $includes, self::$settings );
 
     $includes = self::load_file_if_exists( $includes );
+
+    function function_placeholders() {
+      if( ! function_exists('get_pack_qty') ) {
+        function get_pack_qty () { return false; }
+      }
+      if( ! function_exists('get_pack_regular_price') ) {
+        function get_pack_regular_price () { return false; }
+      }
+      if( ! function_exists('get_pack_sale_price') ) {
+        function get_pack_sale_price () { return false; }
+      }
+      if( ! function_exists('get_pack_price') ) {
+        function get_pack_price () { return false; }
+      }
+    }
   }
 
   /********************************* ADMIN SETTINGS PAGE ********************************/

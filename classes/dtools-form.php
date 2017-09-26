@@ -302,9 +302,24 @@ function get_dtools_form($section){
       'desc'      => 'Разрешить продажу от.. шт.',
       ),
     array(
-      'type'      => 'checkbox',
-      'id'        => 'product-val',
+      'type'      => 'text',
+      'id'        => 'product-measure-unit',
       'label'     => 'Добавить товару ед. измерения',
+      'desc'      => 'Укажите стандартную величину',
+      'default'   => 'шт.',
+      ),
+    array(
+      'type'      => 'text',
+      'id'        => 'per-pack',
+      'label'     => 'Стоимость за упаковку',
+      'desc'      => 'Укажите метку перед значением',
+      'default'   => 'Стоимость за упаковку:',
+      ),
+    array(
+      'type'      => 'checkbox',
+      'id'        => 'plus-minus-buttons',
+      'label'     => 'Добавить +/-',
+      'desc'      => 'Добавить кнопки + и - для увеличения/уменьшения количество покупки',
       ),
     );
 
