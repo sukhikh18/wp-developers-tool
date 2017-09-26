@@ -93,8 +93,8 @@ class DevelopersTools {
 
   private static function define_constants(){
     define( 'DT_DIR_PATH', rtrim( plugin_dir_path( __FILE__ ), '/') );
-    define( 'DT_DIR_CLASSES', DT_DIR_PATH . '/classes' );
     define( 'DT_DIR_INCLUDES', DT_DIR_PATH . '/includes' );
+    define( 'DT_DIR_CLASSES', DT_DIR_INCLUDES . '/libs' );
 
     define( 'DT_BASE_URL', plugins_url( basename(__DIR__) ) );
     define( 'DT_ASSETS_URL', DT_BASE_URL . '/assets' );
