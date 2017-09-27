@@ -137,8 +137,9 @@ class DevelopersTools {
       'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
       'product-measure-unit'   => DT_DIR_INCLUDES . '/woocommerce/measure-unit.php',
-      'per-pack'               => DT_DIR_INCLUDES . '/woocommerce/per-pack.php',
       'plus-minus-buttons'     => DT_DIR_INCLUDES . '/woocommerce/plus-minus-buttons.php',
+      'pack-qty'               => DT_DIR_INCLUDES . '/woocommerce/pack-qty.php',
+      'pack-qty-changes'       => DT_DIR_INCLUDES . '/woocommerce/pack-qty-changes.php',
       'wholesales'             => DT_DIR_INCLUDES . '/woocommerce/wholesales.php',
       'bestsellers'            => DT_DIR_INCLUDES . '/woocommerce/bestsellers.php',
 

@@ -7,7 +7,19 @@ function plus_minus_buttons_start() {
   <style type="text/css">
     div.product #plus-minus-qty-wrapper .minus,
     div.product #plus-minus-qty-wrapper .plus {
+      display: inline-block;
+      width: 25px;
+      font-weight: 700;
+      font-size: 15px;
+      text-align: center;
+      background: #ededed;
+      padding: 2px 0;
+      border-radius: 2px;
+      box-shadow: 0 2px 0 #dcdcdc;
       cursor: pointer;
+      position: relative;
+      vertical-align: middle;
+      top: -2px;
     }
     div.product #plus-minus-qty-wrapper div.quantity {
       float: none;
@@ -36,7 +48,7 @@ function plus_minus_buttons_end() {
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var $qty = $('[name="quantity"]');
-      $qty_step = $qty.attr('step') > 1 ? $qty.attr('step') : 1;
+      var qty_step = $qty.attr('step') > 1 ? $qty.attr('step') : 1;
 
       $('#plus-minus-qty-wrapper').prepend('<span class="minus">-</span>');
       $('#plus-minus-qty-wrapper').append( '<span class="plus">+</span>');
@@ -45,16 +57,18 @@ function plus_minus_buttons_end() {
         event.preventDefault();
         $qty.val( function( val ){
           var min = $qty.attr('min') || 0;
-          return ( $qty.val() <= min ) ? min : +$qty.val() - 1;
+          return ( +$qty.val() <= min ) ? min : +$qty.val() - +qty_step;
         } );
+        $qty.trigger('change');
       });
 
       $('#plus-minus-qty-wrapper .plus').on('click', function(event) {
         event.preventDefault();
         $qty.val( function( val ){
-          var max = $qty.attr('max');
-          return ( max && $qty.val() > max ) ? max : +$qty.val() + 1;
+          var max = +$qty.attr('max');
+          return ( max && +$qty.val() > max ) ? max : +$qty.val() + +qty_step;
         } );
+        $qty.trigger('change');
       });
 
       // $('.plus').on('click', function(event) {

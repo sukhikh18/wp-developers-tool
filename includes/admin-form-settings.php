@@ -278,12 +278,6 @@ function get_dtools_form($section){
 
   $args['dt-woo-settings'] = array(
     array(
-      'type'      => 'checkbox',
-      'id'        => 'woo_cat_content_bottom',
-      'label'     => 'Показывать описание категории снизу страницы',
-      'desc'      => 'Описание категории будет показываться после вывода товаров.',
-      ),
-    array(
       'type'      => 'select',
       'id'        => 'bestsellers',
       'label'     => 'Популярный товар',
@@ -309,17 +303,22 @@ function get_dtools_form($section){
       'default'   => 'шт.',
       ),
     array(
-      'type'      => 'text',
-      'id'        => 'per-pack',
-      'label'     => 'Стоимость за упаковку',
-      'desc'      => 'Укажите метку перед значением',
-      'default'   => 'Стоимость за упаковку:',
+      'type'      => 'checkbox',
+      'id'        => 'pack-qty',
+      'label'     => 'Добавить количество в упаковке',
+      'desc'      => '',
       ),
     array(
       'type'      => 'checkbox',
       'id'        => 'plus-minus-buttons',
       'label'     => 'Добавить +/-',
       'desc'      => 'Добавить кнопки + и - для увеличения/уменьшения количество покупки',
+      ),
+    array(
+      'type'      => 'checkbox',
+      'id'        => 'pack-qty-changes',
+      'label'     => 'Изменять количетсво по упаковкам',
+      'desc'      => 'Шаг изменений при нажатии + / - (Вверх, Вниз) будет равен указанным количеством в упаковке (Не противодействует вводу в ручную)',
       ),
     );
 
