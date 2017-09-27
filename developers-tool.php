@@ -136,7 +136,6 @@ class DevelopersTools {
       'remove-emojis'      => DT_DIR_INCLUDES . '/remove-emojis.php',
       'orign-image-resize' => DT_DIR_INCLUDES . '/admin-orign-image-resize.php',
 
-      'woo_cat_content_bottom' => DT_DIR_INCLUDES . '/woocommerce/cat-content-bottom.php',
       'product-measure-unit'   => DT_DIR_INCLUDES . '/woocommerce/measure-unit.php',
       'per-pack'               => DT_DIR_INCLUDES . '/woocommerce/per-pack.php',
       'plus-minus-buttons'     => DT_DIR_INCLUDES . '/woocommerce/plus-minus-buttons.php',
