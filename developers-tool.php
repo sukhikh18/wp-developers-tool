@@ -106,7 +106,7 @@ class DevelopersTools {
     if( is_admin() ){
       $classes['DTools\WPForm'] = DT_DIR_CLASSES . '/class-wp-form-render.php';
       $classes['DTools\WPAdminPageRender']  = DT_DIR_CLASSES . '/class-wp-admin-page-render.php';
-      $classes['DToolsForm'] = DT_DIR_CLASSES . '/dtools-form.php';
+      $classes['DToolsForm'] = DT_DIR_INCLUDES . '/admin-form-settings.php';
     }
 
     if ( class_exists( 'WooCommerce' ) ) {
