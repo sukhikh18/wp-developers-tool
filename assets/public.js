@@ -2,19 +2,38 @@ jQuery(document).ready(function($) {
   function scrollTo(elemId, returnTop=40, delay=500){
     var offset = $( elemId ).offset() || $('a[name='+elemId.slice(1)+']').offset();
 
-    if(offset)
-      $('html, body').animate({ scrollTop: offset.top - returnTop }, delay);
-    else
+    barheight = $('body').hasClass('admin-bar') ? 32 : 0;
+    if( offset ) {
+      $('html, body').animate({ scrollTop: offset.top - returnTop - barheight }, delay);
+    }
+    else {
       console.log('Element not exists.');
+    }
   }
 
   if( DTools.smooth_scroll ){
-    $('a[href^=#]').click( function(event){
-      var elemId = $(this).attr('href');
-      if($(this).attr('rel') != 'noScroll' && elemId.indexOf('#') == 0 && elemId.slice(1).length >= 1){
-        event.preventDefault();
+    var arrLocHref = window.location.href.split('#', 2);
+    if( arrLocHref.length >= 2 ) {
+      scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
+    }
 
-        scrollTo( elemId, DTools.smooth_scroll );
+    $('a[href^=#], .scroll').click( function(event){
+      var linkHref = $(this).attr('href');
+      if( ! linkHref ) {
+        linkHref = $(this).find('a').attr('href');
+      }
+
+      var finded = linkHref.indexOf('#');
+      if( finded >= 0 ) {
+        if( $(this).attr('rel') != 'noScroll' && linkHref.slice(finded).length >= 1 ) {
+          var arrLinkHref = linkHref.split( '#', 2 );
+
+          if( arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
+            event.preventDefault();
+
+            scrollTo( '#' + arrLinkHref[1], DTools.smooth_scroll );
+          }
+        }
       }
     });
   }
