@@ -90,24 +90,4 @@ jQuery(document).ready(function($) {
       else btnBack.fadeOut(400);
     });
   }
-  if( DTools.modal_selector ){
-   if( DTools.modal_type == 'fancybox3' ){
-    var fancyModal = $( DTools.modal_selector ).fancybox({
-      animationEffect : DTools.fancybox_props.openCloseEffect,
-      transitionEffect : DTools.fancybox_props.nextPrevEffect,
-    });
-   }
-   else if(DTools.modal_type) {
-    var fancyModal = $( DTools.modal_selector ).fancybox({
-      openEffect : DTools.fancybox_props.openEffect,
-      closeEffect : DTools.fancybox_props.closeEffect,
-      nextEffect : DTools.fancybox_props.nextEffect,
-      prevEffect : DTools.fancybox_props.prevEffect,
-      helpers: {
-        title : { type : 'inside' },
-        thumbs : DTools.fancybox_props.thumb ? { width: 120, height: 80 } : false
-      }
-    });
-  }
-}
 });

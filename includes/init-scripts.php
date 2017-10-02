@@ -23,53 +23,7 @@ function dtools_assets() {
   if( isset($settings['font_awesome']) )
     wp_enqueue_style( 'font_awesome', $url . '/font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
 
-  if( isset($settings['modal_type']) ){
-    if( $settings['modal_type'] == 'fancybox3' ){
-      dtools_fancybox(3);
-    }
-    elseif( $settings['modal_type'] == 'fancybox2' ) {
-      dtools_fancybox(2);
-    }
-  }
-
   $settings['is_mobile'] = wp_is_mobile();
   wp_enqueue_script(  'dtools-public', $url . '/public.js', array( 'jquery' ), '1.0', true);
   wp_localize_script( 'dtools-public', 'DTools', $settings );
-}
-
-function dtools_fancybox($ver=2){
-  $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
-  $settings = DevelopersTools::$settings;
-  $url = DT_ASSETS_URL;
-
-  wp_deregister_style('gllr_fancybox_stylesheet');
-  $dg = array(
-    'gllr_fancybox_js',
-    'fancybox-script',
-    'fancybox',
-    'jquery.fancybox',
-    'jquery_fancybox',
-    'jquery-fancybox',
-    );
-  foreach ($dg as $value) {
-    wp_deregister_script($value);
-  }
-
-  if($ver == 2) {
-    wp_enqueue_style( 'fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.css');
-    wp_enqueue_script('fancybox', $url . '/fancybox/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
-
-    if( isset($settings['fancybox_thumb']) ){
-      wp_enqueue_style( 'fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.css', false, '1.0.7');
-      wp_enqueue_script('fancybox-thumb', $url . '/fancybox/helpers/jquery.fancybox-thumbs'.$suffix.'.js', array( 'jquery' ), '1.0.7', true);
-    }
-
-    if( isset($settings['fancybox_mousewheel']) )
-      wp_enqueue_script('mousewheel', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel'.$suffix.'.js', null, '3.1.13');
-  }
-  elseif($ver == 3) {
-    wp_enqueue_style( 'fancybox', $url . '/fancybox3/jquery.fancybox'.$suffix.'.css');
-    // jQuery 3+ is preferred, but fancyBox works with jQuery 1.9.1+ and jQuery 2+
-    wp_enqueue_script('fancybox', $url . '/fancybox3/jquery.fancybox'.$suffix.'.js', array( 'jquery' ), false, true);
-  }
 }

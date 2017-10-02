@@ -147,7 +147,6 @@ class DevelopersTools {
       'sticky'             => $scripts,
       'animate'            => $scripts,
       'font_awesome'       => $scripts,
-      'modal_type'         => $scripts,
       'countTo'            => $scripts,
       'back_top'           => $scripts,
       );
@@ -182,12 +181,10 @@ class DevelopersTools {
     $sections = array(
       self::PREFIX . 'general'      => __('Главная'),
       self::PREFIX . 'scripts'      => __('Скрипты'),
-      self::PREFIX . 'modal'        => __('Модальное окно'),
       );
     $callbacks = array(
       self::PREFIX . 'general'      => array(__CLASS__, 'admin_settings_page_tab1'),
       self::PREFIX . 'scripts'      => array(__CLASS__, 'admin_settings_page_tab2'),
-      self::PREFIX . 'modal'        => array(__CLASS__, 'admin_settings_page_tab4'),
       );
     if( class_exists('woocommerce') ){
       $sections[self::PREFIX . 'woo-settings'] = __('WooCommerce');
@@ -209,7 +206,6 @@ class DevelopersTools {
 
     add_action($page->page . '_after_form_inputs', 'submit_button' );
     add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_assets'));
-    add_action('wp_ajax_change_modal_type', array(__CLASS__, 'admin_settings_page_tab4') );
     // $page->add_metabox( 'metabox1', 'first metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->add_metabox( 'metabox2', 'second metabox', array($this, 'metabox_cb'), $position = 'side');
     // $page->set_metaboxes();
@@ -221,7 +217,6 @@ class DevelopersTools {
       return;
 
     wp_enqueue_script(self::PREFIX . 'admin_js', DT_ASSETS_URL . '/admin.js', array('jquery'), false, true);
-    wp_localize_script( self::PREFIX . 'admin_js', self::PREFIX . 'admin_js', array('nonce' => wp_create_nonce('modal') ) );
   }
 
   static function admin_settings_page_tab1(){
@@ -244,30 +239,6 @@ class DevelopersTools {
     $active = WPForm::active(self::SETTINGS, false, true);
     WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
   }
-
-  static function admin_settings_page_tab4(){
-    if( defined('DOING_AJAX') && DOING_AJAX ){
-      if( ! wp_verify_nonce( $_POST['nonce'], 'modal' ) )
-        wp_die('Ошибка! нарушены правила безопасности');
-
-      $modal_type = (isset($_POST['modal_type']) && $_POST['modal_type']) ? $_POST['modal_type']: 'dismodal';
-    }
-    else {
-      $modal_type = (isset(self::$settings['modal_type']) && self::$settings['modal_type']) ?
-        self::$settings['modal_type'] : 'dismodal';
-    }
-
-    $form = get_dtools_form($modal_type);
-
-    $active = WPForm::active(self::SETTINGS, false, true);
-    WPForm::render( $form, $active, true, array('admin_page' => self::SETTINGS) );
-    if( defined('DOING_AJAX') && DOING_AJAX )
-      wp_die();
-  }
-
-  // function metabox_cb(){
-  //   echo "METABOX";
-  // }
 
   static function validate_options( $inputs ){
     // $inputs = array_map_recursive( 'sanitize_text_field', $inputs );
