@@ -1,12 +1,15 @@
 <?php
-namespace DTools;
 
-if( DevelopersTools::$settings['orign-image-resize'] == 'default' )
+namespace CDevelopers\tool;
+
+$DTools = DTools::get_instance();
+if( $DTools->get( 'orign-image-resize' ) == 'default' ) {
     add_image_size( 'default', 1600, 1024, $resize = 1 );
+}
 
 function replace_uploaded_image($image_data){
-    // default
-    $size = DevelopersTools::$settings['orign-image-resize'];
+    $DTools = DTools::get_instance();
+    $size = $DTools->get( 'orign-image-resize' );
 
     // if there is no large image : return
     if ( !$size || !isset($image_data['sizes'][$size]) )
@@ -35,4 +38,4 @@ function replace_uploaded_image($image_data){
 
     return $image_data;
 }
-add_filter('wp_generate_attachment_metadata', 'DTools\replace_uploaded_image');
+add_filter('wp_generate_attachment_metadata', __NAMESPACE__ . '\replace_uploaded_image');

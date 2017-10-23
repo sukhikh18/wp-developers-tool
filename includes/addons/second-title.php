@@ -1,5 +1,5 @@
 <?php
-namespace DTools;
+namespace CDevelopers\tool;
 
 /**
  * Дополнительный заголовок
@@ -18,7 +18,7 @@ function render_second_title(){
             position: relative;
         }
         #second-title {
-            padding: 3px 8px;
+            padding: 3px 150px 3px 8px;
             font-size: 1.7em;
             line-height: 100%;
             height: 1.7em;
@@ -96,12 +96,22 @@ function get_second_title($id=false, $before='', $after='') {
 
 function the_second_title($id='', $before='<h1 class="entry-title">', $after='</h1>') {
 
-  echo get_second_title($id, $before, $after);
+    echo get_second_title($id, $before, $after);
 }
 
 add_filter( 'the_title', __NAMESPACE__ . '\advanced_get_the_title', 10, 2 );
 function advanced_get_the_title($title, $id){
-    if( is_admin() || ! is_singular() || ! in_the_loop() ) {
+    $DTools = DTools::get_instance();
+
+    if( is_admin() ) {
+        return $title;
+    }
+
+    if( 'loop' == $DTools->get('second-title') && ! in_the_loop() ) {
+        return $title;
+    }
+
+    if( 'detail' == $DTools->get('second-title') && ! is_singular() ) {
         return $title;
     }
 

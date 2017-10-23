@@ -1,5 +1,5 @@
 <?php
-namespace DTools;
+namespace CDevelopers\tool;
 
 class WCProductSettings {
 	protected $fields = array();

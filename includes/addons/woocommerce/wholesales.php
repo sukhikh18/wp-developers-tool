@@ -1,6 +1,6 @@
 <?php
 
-namespace DTools;
+namespace CDevelopers\tool;
 
 function get_product_wholesale_min( $product ) {
     if( ! is_a($product, 'WC_Product') )

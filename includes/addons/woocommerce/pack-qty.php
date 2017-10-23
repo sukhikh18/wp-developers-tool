@@ -40,9 +40,9 @@ function get_pack_price() {
     return get_pack_qty() * $product->get_price();
 }
 
-if( is_admin() && class_exists( 'DTools\WCProductSettings') ) {
-    $wc_fields = new DTools\WCProductSettings();
-    $wc_fields->add_field(array(
+if( is_admin() && class_exists( 'CDevelopers\tool\WCProductSettings') ) {
+    $wc_fields = new CDevelopers\tool\WCProductSettings();
+    $wc_fields->add_field( array(
         'type'        => 'number',
         'id'          => 'pack_qty',
         'label'       => 'Кол-во в упаковке',
