@@ -103,13 +103,8 @@ add_filter( 'the_title', __NAMESPACE__ . '\advanced_get_the_title', 10, 2 );
 function advanced_get_the_title($title, $id){
     $DTools = DTools::get_instance();
 
-    if( is_admin() ) {
-        return $title;
-    }
-
-    if( 'loop' == $DTools->get('second-title') && ! in_the_loop() ) {
-        return $title;
-    }
+    if( is_admin() ) return $title;
+    if( ! in_the_loop() ) return $title;
 
     if( 'detail' == $DTools->get('second-title') && ! is_singular() ) {
         return $title;
