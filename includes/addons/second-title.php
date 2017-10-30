@@ -99,12 +99,17 @@ function the_second_title($id='', $before='<h1 class="entry-title">', $after='</
     echo get_second_title($id, $before, $after);
 }
 
-add_filter( 'the_title', __NAMESPACE__ . '\advanced_get_the_title', 10, 2 );
-function advanced_get_the_title($title, $id){
+add_filter( 'the_title', __NAMESPACE__ . '\advanced_get_the_title', 10, 3 );
+function advanced_get_the_title($title, $id = null, $enable_second_title = false){
+    global $post;
     $DTools = DTools::get_instance();
 
-    if( is_admin() ) return $title;
-    if( ! in_the_loop() ) return $title;
+    if( ! $enable_second_title ) {
+        if( is_admin() ) return $title;
+        if( ! in_the_loop() ) return $title;
+    }
+
+    if( ! $id ) $id = $post->ID;
 
     if( 'detail' == $DTools->get('second-title') && ! is_singular() ) {
         return $title;
