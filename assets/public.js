@@ -12,11 +12,11 @@ jQuery(document).ready(function($) {
   }
 
   if( DTools.smooth_scroll ){
-    var arrLocHref = window.location.href.split('#', 2);
-    if( arrLocHref.length >= 2 ) {
-      scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
-    }
-
+    // replaced to scroll_after_load
+    // var arrLocHref = window.location.href.split('#', 2);
+    // if( arrLocHref.length >= 2 ) {
+    //   scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
+    // }
     $('a[href^=#], .scroll').click( function(event){
       var linkHref = $(this).attr('href');
       if( ! linkHref ) {
