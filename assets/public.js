@@ -28,7 +28,11 @@ jQuery(document).ready(function($) {
         if( $(this).attr('rel') != 'noScroll' && linkHref.slice(finded).length >= 1 ) {
           var arrLinkHref = linkHref.split( '#', 2 );
 
-          if( arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
+          /**
+           * fancy fix '' == arrLinkHref[0]
+           * @todo: test it
+           */
+          if( '' == arrLinkHref[0] || arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
             event.preventDefault();
 
             scrollTo( '#' + arrLinkHref[1], DTools.smooth_scroll );
