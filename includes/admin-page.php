@@ -20,7 +20,7 @@ class DTools_Page
                 DTools::PREFIX . 'general' => array(__CLASS__, 'general_settings_tab'),
                 DTools::PREFIX . 'scripts' => array(__CLASS__, 'scripts_settings_tab'),
             ),
-            // 'validate'    => array($this, 'validate_options'),
+            'validate'    => array(__CLASS__, 'validate_options'),
             'columns'     => 1,
             ) ) );
 
@@ -44,11 +44,11 @@ class DTools_Page
         echo (new WP_Admin_Forms( DTools::get_settings('scripts'), true ))->render();
     }
 
-    // static function validate_options( $inputs ){
-    //     // $inputs = array_map_recursive( 'sanitize_text_field', $inputs );
-    //     $inputs = array_filter_recursive($inputs);
+    static function validate_options( $inputs ){
+        // $inputs = array_map_recursive( 'sanitize_text_field', $inputs );
+        $inputs = WP_Admin_Page::array_filter_recursive($inputs);
 
-    //     return $inputs;
-    // }
+        return $inputs;
+    }
 }
 new DTools_Page();
