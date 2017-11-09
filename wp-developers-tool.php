@@ -73,6 +73,7 @@ class DTools {
             'second-title'       => $addons . '/second-title.php',
             'remove-emojis'      => $addons . '/remove-emojis.php',
             'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
+            'empty-content'      => $addons . '/empty-content.php',
 
             'smooth_scroll' => $scripts,
             'sticky'        => $scripts,
