@@ -89,8 +89,8 @@ class DTools {
         }
 
         // includes
-        self::load_file_if_exists( DIR_INCLUDES . '/admin-page.php' );
         self::load_file_if_exists( DIR_INCLUDES . '/woocommerce.php' );
+        self::load_file_if_exists( DIR_INCLUDES . '/admin-page.php' );
     }
 
     /**
