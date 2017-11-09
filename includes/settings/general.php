@@ -1,9 +1,11 @@
 <?php
 
+namespace CDevelopers\tool;
+
 $args = array(
     array(
         'id'        => 'orign-image-resize',
-        'label'     => 'Сжимать оригиналы изображений',
+        'label'     => __('Сжимать оригиналы изображений', DOMAIN),
         'type'      => 'select',
         'options'      => array(
             ''        => 'Не сжимать',
@@ -13,7 +15,7 @@ $args = array(
     ),
     array(
         'id'        => 'remove-images',
-        'label'     => 'Удалять прикрепленные изображения в след за записью',
+        'label'     => __('Удалять прикрепленные изображения в след за записью', DOMAIN),
         'type'      => 'select',
         'options'      => array(
             ''        => 'Не удалять',
@@ -31,20 +33,24 @@ $args = array(
             'detail' => 'На детальной странице',
         ),
         'id'        => 'second-title',
-        'label'     => 'Включить дополнительные заголовки',
+        'label'     => __('Включить дополнительные заголовки', DOMAIN),
         'desc'      => 'Изменить заголовок ..',
+        'custom_attributes' => array(
+            'cols' => 80,
+            'rows' => 3,
+            )
     ),
     array(
         'type'      => 'textarea',
         'id'        => 'maintenance-mode',
-        'label'     => 'Включить техническое обслуживание',
+        'label'     => __('Включить техническое обслуживание', DOMAIN),
         'placeholder'   => "Сайт находится на техническом обслуживании.\nПожалуйста, зайдите позже.",
         'desc'      => 'Техническое обслуживание времено закроет доступ к сайту (кроме пользователей с привелегией "edit_themes") с указанным сообщением.',
     ),
     array(
         'type'      => 'checkbox',
         'id'        => 'remove-emojis',
-        'label'     => 'Отключить wp_emoji',
+        'label'     => __('Отключить wp_emoji', DOMAIN),
         'desc'      => '',
     ),
 );

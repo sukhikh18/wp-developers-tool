@@ -2,27 +2,20 @@
 
 namespace CDevelopers\tool;
 
-if( ! class_exists( __NAMESPACE__ . '\WCProductSettings') ) {
-	return;
-}
-
 add_action( 'woocommerce_after_add_to_cart_quantity',
 	__NAMESPACE__ . '\add_unit_after_add_to_cart_quantity', 30 );
-
 function add_unit_after_add_to_cart_quantity() {
 	global $product;
 
-	if( ! is_a($product, 'WC_Product') ) {
-		return false;
-	}
+	if( ! is_a($product, 'WC_Product') ) return false;
 
-	$DTools = DTools::get_instance();
-	$unit = $product->get_meta('unit') ? $product->get_meta('unit') : $DTools->get( 'product-measure-unit' );
+	$unit = $product->get_meta('unit') ?
+		$product->get_meta('unit') : DTools::get( 'product-measure-unit' );
 
 	echo sprintf("<span class='qty-unit'>%s</span>", esc_html( $unit ) );
 }
 
-if( is_admin() ) {
+if( is_admin() && class_exists( __NAMESPACE__ . '\WCProductSettings') ) {
 	$wc_fields = new WCProductSettings();
 	$wc_fields->add_field( array(
 		'type'        => 'text',

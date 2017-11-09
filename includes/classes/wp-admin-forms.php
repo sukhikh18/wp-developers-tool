@@ -2,6 +2,9 @@
 
 namespace CDevelopers\tool;
 
+if ( ! defined( 'ABSPATH' ) )
+  exit; // disable direct access
+
 /**
  * @todo: add defaults
  */
@@ -274,8 +277,10 @@ class WP_Admin_Forms {
                 $input .= $field['value'];
                 break;
             case 'textarea' :
-                $rows = empty( $field['custom_attributes']['rows'] ) ? ' rows="5"' : '';
-                $cols = empty( $field['custom_attributes']['cols'] ) ? ' cols="40"' : '';
+                $rows = ! empty( $field['custom_attributes']['rows'] ) ?
+                    ' rows="'.$field['custom_attributes']['rows'].'"' : ' rows="5"';
+                $cols = ! empty( $field['custom_attributes']['cols'] ) ?
+                    ' cols="'.$field['custom_attributes']['cols'].'"' : ' cols="40"';
 
                 $input .= $label;
                 $input .= "<textarea ";

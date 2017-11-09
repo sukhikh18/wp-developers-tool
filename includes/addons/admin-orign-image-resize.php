@@ -2,14 +2,12 @@
 
 namespace CDevelopers\tool;
 
-$DTools = DTools::get_instance();
-if( $DTools->get( 'orign-image-resize' ) == 'default' ) {
+if( DTools::get( 'orign-image-resize' ) == 'default' ) {
     add_image_size( 'default', 1600, 1024, $resize = 1 );
 }
 
 function replace_uploaded_image($image_data){
-    $DTools = DTools::get_instance();
-    $size = $DTools->get( 'orign-image-resize' );
+    $size = DTools::get( 'orign-image-resize' );
 
     // if there is no large image : return
     if ( !$size || !isset($image_data['sizes'][$size]) )

@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
     // if( arrLocHref.length >= 2 ) {
     //   scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
     // }
-    $('a[href^=#], .scroll').click( function(event){
+    $('a[href^="#"], .scroll').click( function(event){
       var linkHref = $(this).attr('href');
       if( ! linkHref ) {
         linkHref = $(this).find('a').attr('href');

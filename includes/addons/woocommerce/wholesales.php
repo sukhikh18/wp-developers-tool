@@ -38,7 +38,7 @@ function wholesales_field_validation( $passed_validation, $product_id ) {
     return $passed_validation;
 }
 
-if( is_admin() ){
+if( is_admin() && class_exists(__NAMESPACE__ . '\WCProductSettings') ){
     $wc_fields = new WCProductSettings();
     $wc_fields->add_field( array(
         'type'        => 'number',
@@ -47,5 +47,6 @@ if( is_admin() ){
         'desc_tip'    => 'true',
         'description' => 'Разрешить продажи от этого количества',
         ) );
+
     $wc_fields->set_fields();
 }

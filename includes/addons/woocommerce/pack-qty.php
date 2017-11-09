@@ -1,43 +1,39 @@
 <?php
 
-function get_pack_qty() {
-    global $product;
+if( !function_exists('get_pack_qty') ) {
+    function get_pack_qty() {
+        global $product;
+        if( ! is_a($product, 'WC_Product') ) return false;
 
-    if( ! is_a($product, 'WC_Product') ) {
-        return false;
+        return $product->get_meta('pack_qty');
     }
-
-    return $product->get_meta('pack_qty');
 }
 
-function get_pack_regular_price() {
-    global $product;
+if( !function_exists('get_pack_regular_price') ) {
+    function get_pack_regular_price() {
+        global $product;
+        if( ! is_a($product, 'WC_Product') ) return false;
 
-    if( ! is_a($product, 'WC_Product') ) {
-        return false;
+        return get_pack_qty() * $product->get_regular_price();
     }
-
-    return get_pack_qty() * $product->get_regular_price();
 }
 
-function get_pack_sale_price() {
-    global $product;
+if( !function_exists('get_pack_sale_price') ) {
+    function get_pack_sale_price() {
+        global $product;
+        if( ! is_a($product, 'WC_Product') ) return false;
 
-    if( ! is_a($product, 'WC_Product') ) {
-        return false;
+        return get_pack_qty() * $product->get_sale_price();
     }
-
-    return get_pack_qty() * $product->get_sale_price();
 }
 
-function get_pack_price() {
-    global $product;
+if( !function_exists('get_pack_price') ) {
+    function get_pack_price() {
+        global $product;
+        if( ! is_a($product, 'WC_Product') ) return false;
 
-    if( ! is_a($product, 'WC_Product') ) {
-        return false;
+        return get_pack_qty() * $product->get_price();
     }
-
-    return get_pack_qty() * $product->get_price();
 }
 
 if( is_admin() && class_exists( 'CDevelopers\tool\WCProductSettings') ) {

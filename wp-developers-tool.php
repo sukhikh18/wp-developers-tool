@@ -3,7 +3,7 @@
 Plugin Name: Дополнительные настройки разработчика
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.3.1 beta
+Version: 5.4 beta
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
@@ -16,81 +16,48 @@ namespace CDevelopers\tool;
 if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access
 
-if( ! defined('DTOOLS_DEBUG') ) {
-    define( 'DTOOLS_DEBUG', apply_filters( 'dtools_debug', true ) );
+if( ! defined('CDT_DEBUG') ) {
+    define( 'CDT_DEBUG', apply_filters( 'dtools_debug', true ) );
 }
 
-define('LANG', basename(__FILE__, '.php') );
+const DOMAIN = 'wp-developers-tool';
 
-define('DIR', rtrim( plugin_dir_path( __FILE__ ), '/') );
-define('DIR_INCLUDES', DIR . '/includes' );
-define('URL', rtrim(plugins_url(basename(__DIR__)), '/') );
-define('URL_ASSETS', URL . '/assets' );
-
-register_activation_hook( __FILE__, array( __NAMESPACE__ . '\DTools', 'activate' ) );
-register_uninstall_hook( __FILE__, array( __NAMESPACE__ . '\DTools', 'uninstall' ) );
-
-add_action( 'plugins_loaded', array( __NAMESPACE__ . '\DTools', 'get_instance' ), 1200 );
 class DTools {
     const PREFIX = 'dt_';
-    const SETTINGS = 'DTools';
+    const OPTION = 'DTools';
 
-    private $settings = array();
+    private static $initialized;
+    private static $settings;
 
-    private static $_instance = null;
     private function __construct() {}
     private function __clone() {}
-    static function uninstall() { delete_option(self::SETTINGS); }
+    static function uninstall() { delete_option(self::OPTION); }
     static function activate()
     {
-        add_option( self::SETTINGS, array(
+        add_option( self::OPTION, array(
             'orign-image-resize' => 'default',
             'remove-emojis' => 'on',
         ) );
     }
 
-    public static function get_instance()
-    {
-        if( ! self::$_instance ) {
-            self::$_instance = new self();
-            self::$_instance->initialize();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
-     * Запуск плагина (определяется сразу после создания класса)
-     */
-    private function initialize()
-    {
-        // $locale = is_admin() ? get_user_locale() : get_locale();
-        // $path = DIR . '/languages/' . LANG . '-' . $locale . '.mo';
-        load_plugin_textdomain( LANG, false, LANG . '/languages' );
-        $this->settings = get_option( self::SETTINGS, array() );
-        self::include_required_files();
-        self::include_addons();
-    }
-
-    /**
-     * Подклчаем классы и управляющие ими файлы
-     */
     private static function include_required_files()
     {
-        $classes = apply_filters( 'dtools_classes', array(
-            __NAMESPACE__ . '\WP_Admin_Page'      => 'wp-admin-page.php',
-            __NAMESPACE__ . '\WP_Admin_Forms'     => 'wp-admin-forms.php',
-            ) );
+        $class_dir = self::get_plugin_dir('classes');
+        $includes = self::get_plugin_dir('includes');
+        $classes = array(
+            __NAMESPACE__ . '\WP_Admin_Page'      => $class_dir . '/wp-admin-page.php',
+            __NAMESPACE__ . '\WP_Admin_Forms'     => $class_dir . '/wp-admin-forms.php',
+            );
 
-        foreach ($classes as $classname => $file) {
+        foreach ($classes as $classname => $path) {
             if( ! class_exists($classname) ) {
-                self::load_file_if_exists( DIR_INCLUDES . '/classes/' . $file );
+                 self::load_file_if_exists( $path );
             }
         }
 
         // includes
-        self::load_file_if_exists( DIR_INCLUDES . '/woocommerce.php' );
-        self::load_file_if_exists( DIR_INCLUDES . '/admin-page.php' );
+        self::load_file_if_exists( $includes . '/woocommerce.php' );
+        self::load_file_if_exists( $includes . '/admin-page.php' );
     }
 
     /**
@@ -98,13 +65,14 @@ class DTools {
      */
     private static function include_addons()
     {
-        $scripts = DIR_INCLUDES . '/addons/init-scripts.php';
+        $addons = self::get_plugin_dir('includes/addons');
+        $scripts = $addons . '/init-scripts.php';
         $includes = apply_filters( 'dtools_active', array(
-            'maintenance-mode'   => DIR_INCLUDES . '/addons/maintenance-mode.php',
-            'remove-images'      => DIR_INCLUDES . '/addons/admin-remove-images.php',
-            'second-title'       => DIR_INCLUDES . '/addons/second-title.php',
-            'remove-emojis'      => DIR_INCLUDES . '/addons/remove-emojis.php',
-            'orign-image-resize' => DIR_INCLUDES . '/addons/admin-orign-image-resize.php',
+            'maintenance-mode'   => $addons . '/maintenance-mode.php',
+            'remove-images'      => $addons . '/admin-remove-images.php',
+            'second-title'       => $addons . '/second-title.php',
+            'remove-emojis'      => $addons . '/remove-emojis.php',
+            'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
 
             'smooth_scroll' => $scripts,
             'sticky'        => $scripts,
@@ -112,10 +80,23 @@ class DTools {
             'font_awesome'  => $scripts,
             'countTo'       => $scripts,
             'back_top'      => $scripts,
-        ), self::$_instance->get('all') );
+        ), self::get('all') );
 
         self::load_file_if_exists( $includes );
-        self::load_file_if_exists( DIR_INCLUDES . '/placeholders.php' );
+        self::load_file_if_exists( self::get_plugin_dir('includes') . '/placeholders.php' );
+    }
+
+    public static function initialize()
+    {
+        if( self::$initialized ) {
+            return false;
+        }
+
+        load_plugin_textdomain( DOMAIN, false, DOMAIN . '/languages/' );
+        self::include_required_files();
+        self::include_addons();
+
+        self::$initialized = true;
     }
 
     /**
@@ -123,34 +104,40 @@ class DTools {
      */
     public static function write_debug( $msg, $dir )
     {
-        if( ! defined('DTOOLS_DEBUG') || ! DTOOLS_DEBUG )
+        if( ! defined('WP_DEBUG_LOG') || ! WP_DEBUG_LOG )
             return;
 
-        $dir = str_replace(DIR, '', $dir);
-        $msg = str_replace(DIR, '', $msg);
+        $dir = str_replace(__DIR__, '', $dir);
+        $msg = str_replace(__DIR__, '', $msg);
 
         $date = new \DateTime();
-        $date_str = $date->format(\DateTime::RSS);
+        $date_str = $date->format(\DateTime::W3C);
 
-        $handle = fopen(DIR . "/debug.log", "a+");
-        fwrite($handle, "[{$date_str}] {$msg} ({$dir})\r\n");
-        fclose($handle);
+        if( $handle = @fopen(__DIR__ . "/debug.log", "a+") ) {
+            fwrite($handle, "[{$date_str}] {$msg} ({$dir})\r\n");
+            fclose($handle);
+        }
+        elseif (defined('WP_DEBUG_DISPLAY') && WP_DEBUG_DISPLAY) {
+            echo "Не удается получить доступ к файлу " . __DIR__ . "/debug.log";
+            echo "{$msg} ({$dir})";
+        }
     }
 
     /**
      * Загружаем файл если существует
      */
-    public static function load_file_if_exists( $file_array )
+    public static function load_file_if_exists( $file_array, $args = array() )
     {
-        $cant_be_loaded = __('The file %s can not be included', LANG);
+        $cant_be_loaded = __('The file %s can not be included', DOMAIN);
         if( is_array( $file_array ) ) {
+            $result = array();
             foreach ( $file_array as $id => $path ) {
                 if ( ! is_readable( $path ) ) {
                     self::write_debug(sprintf($cant_be_loaded, $path), __FILE__);
                     continue;
                 }
 
-                require_once( $path );
+                $result[] = include_once( $path );
             }
         }
         else {
@@ -159,32 +146,57 @@ class DTools {
                 return false;
             }
 
-            require_once( $file_array );
+            $result = include_once( $file_array );
         }
+
+        return $result;
+    }
+
+    public static function get_plugin_dir( $path = false )
+    {
+        $result = __DIR__;
+
+        switch ( $path ) {
+            case 'classes': $result .= '/includes/classes'; break;
+            case 'settings': $result .= '/includes/settings'; break;
+            default: $result .= '/' . $path;
+        }
+
+        return $result;
+    }
+
+    public static function get_plugin_url( $path = false )
+    {
+        $result = plugins_url(basename(__DIR__) );
+
+        switch ( $path ) {
+            default: $result .= '/' . $path;
+        }
+
+        return $result;
     }
 
     /**
-     * Загружает формы из файла
+     * Получает настройку из self::$settings или из кэша или из базы данных
      */
-    public static function get_settings( $filename )
+    public static function get( $prop_name, $default = false )
     {
+        if( ! self::$settings )
+            self::$settings = get_option( self::OPTION, array() );
 
-        return include DIR_INCLUDES . '/settings/' . $filename . '.php';
-    }
+        if( 'all' === $prop_name ) {
+            if( is_array(self::$settings) && count(self::$settings) )
+                return self::$settings;
 
-    /**
-     * Получает настройку из $this->settings
-     */
-    public function get( $prop_name )
-    {
-        if( $prop_name === 'all' ) {
-            if( $this->settings )
-                return $this->settings;
-
-            return false;
+            return $default;
         }
 
-        return isset( $this->settings[ $prop_name ] ) ? $this->settings[ $prop_name ] : false;
+        return isset( self::$settings[ $prop_name ] ) ? self::$settings[ $prop_name ] : $default;
+    }
+
+    public static function get_settings( $filename, $args = array() )
+    {
+        return self::load_file_if_exists( self::get_plugin_dir('includes/settings/') . $filename, $args );
     }
 }
 
@@ -194,10 +206,14 @@ class DTools {
 add_filter( 'dtools_active', __NAMESPACE__ . '\active_addons_filter', 10, 1 );
 function active_addons_filter( $active )
 {
-    $DTools = DTools::get_instance();
     foreach ($active as $k => $val) {
-        if( ! $DTools->get( $k ) ) unset( $active[ $k ] );
+        if( ! DTools::get( $k ) ) unset( $active[ $k ] );
     }
 
     return $active;
 }
+
+register_activation_hook( __FILE__, array( __NAMESPACE__ . '\DTools', 'activate' ) );
+register_uninstall_hook( __FILE__, array( __NAMESPACE__ . '\DTools', 'uninstall' ) );
+
+add_action( 'plugins_loaded', array( __NAMESPACE__ . '\DTools', 'initialize' ), 1200 );

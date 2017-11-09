@@ -1,9 +1,9 @@
 <?php
 
-# start qty
-add_action('woocommerce_before_add_to_cart_quantity', 'plus_minus_buttons_start', 10);
-function plus_minus_buttons_start() {
-    ?>
+namespace CDevelopers\tool;
+
+add_action( 'wp_head', __NAMESPACE__ . '\plus_minus_styles' );
+function plus_minus_styles() { ?>
     <style type="text/css">
         div.product #plus-minus-qty-wrapper .minus,
         div.product #plus-minus-qty-wrapper .plus {
@@ -36,12 +36,17 @@ function plus_minus_buttons_start() {
             -moz-appearance: textfield;
         }
     </style>
-    <div id="plus-minus-qty-wrapper">
     <?php
 }
 
+# start qty
+add_action('woocommerce_before_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_start', 10);
+function plus_minus_buttons_start() {
+    echo '<div id="plus-minus-qty-wrapper">';
+}
+
 # end qty
-add_action('woocommerce_after_add_to_cart_quantity', 'plus_minus_buttons_end', 10);
+add_action('woocommerce_after_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_end', 10);
 function plus_minus_buttons_end() {
     ?>
     </div>

@@ -7,8 +7,7 @@ function delete_attachments_with_post( $post_id ){
 
     if(is_wp_error($_post)) return;
 
-    $DTools = DTools::get_instance();
-    if( ! in_array($DTools->get( 'remove-images' ), array($_post->post_type, 'all') ) ) return;
+    if( ! in_array(DTools::get( 'remove-images' ), array($_post->post_type, 'all') ) ) return;
 
     $attachments = get_posts( array(
         'post_type' => 'attachment',
