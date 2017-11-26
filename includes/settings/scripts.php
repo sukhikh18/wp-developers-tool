@@ -56,6 +56,17 @@ $args = array(
         'desc'      => __('Подключает всем известный файл animate.css', DOMAIN),
     ),
     array(
+        'id'        => 'wow',
+        'label'     => __('Файл анимации WOW.js', DOMAIN),
+        'type'      => 'select',
+        'options'      => array(
+            ''           => 'Не подключать',
+            'forever'    => 'Всегда подключать',
+            'not_phone'  => 'Только на комьютерах',
+        ),
+        'desc'      => __('При прокрутке вниз, элементы изменяют класс для анимации (к примеру с помощью файла animate.css).<br>Обьекту задать класс:<i> wow </i> совместно со своим, дополнительно: <i>data-wow-duration="2s" data-wow-delay="5s" data-wow-offset="10"  data-wow-iteration="10"</i>', DOMAIN),
+    ),
+    array(
         'type'      => 'text',
         'id'        => 'countTo',
         'label'     => __('Счетчик countTo', DOMAIN),

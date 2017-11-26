@@ -27,6 +27,11 @@ function dtools_assets() {
             '/animate'.$suffix.'.css', false, '3.5.1' );
     }
 
+    if( DTools::get( 'wow' ) ) {
+        wp_enqueue_script( 'wow', $assets .
+            '/WOW/wow'.$suffix.'.js', array( 'jquery' ), '1.3.0', true );
+    }
+
     if( DTools::get( 'font_awesome' ) ) {
         wp_enqueue_style( 'font_awesome', $assets .
             '/font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
@@ -34,6 +39,6 @@ function dtools_assets() {
 
     $settings = DTools::get( 'all' );
     $settings['is_mobile'] = wp_is_mobile();
-    wp_enqueue_script(  'dtools-public', $assets . '/public.js', array( 'jquery' ), '1.0', true);
+    wp_enqueue_script(  'dtools-public', $assets . '/public.js', array( 'jquery' ), '1.1', true);
     wp_localize_script( 'dtools-public', 'DTools', $settings );
 }

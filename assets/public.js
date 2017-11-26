@@ -63,6 +63,13 @@ jQuery(document).ready(function($) {
     }
   }
 
+  // sticky
+  if( DTools.wow ){
+    if( ! DTools.is_mobile && DTools.wow == 'not_phone' || DTools.wow == 'forever' ){
+      new WOW().init();
+    }
+  }
+
   if( DTools.appearJs ){
     if( DTools.countTo ){
       $( DTools.countTo ).appear();
