@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
     // if( arrLocHref.length >= 2 ) {
     //   scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
     // }
-    $('a[href^="#"], .scroll').click( function(event){
+    $('a[href*="#"], .scroll').click( function(event){
       var linkHref = $(this).attr('href');
       if( ! linkHref ) {
         linkHref = $(this).find('a').attr('href');
@@ -32,8 +32,10 @@ jQuery(document).ready(function($) {
            * fancy fix '' == arrLinkHref[0]
            * @todo: test it
            */
-          if( '' == arrLinkHref[0] || arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
-            event.preventDefault();
+          if( '/' == arrLinkHref[0] || '' == arrLinkHref[0] || arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
+            if( $( '#' + arrLinkHref[1] ).length ) {
+                event.preventDefault();
+            }
 
             scrollTo( '#' + arrLinkHref[1], DTools.smooth_scroll );
           }
