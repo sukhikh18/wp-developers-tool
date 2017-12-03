@@ -41,23 +41,6 @@ function top_sales_query_args( $args ) {
     return $args;
 }
 
-if( 'views' === DTools::get( 'bestsellers' )  ) {
-    add_action( 'woocommerce_after_single_product', __NAMESPACE__ . '\add_woo_view_count', 50);
-    function add_woo_view_count(){
-        $id = get_the_ID();
-
-        if( ! $views = get_post_meta( $id, 'total_views', true ) ) {
-            $views = 0;
-        }
-
-        update_post_meta( $id, 'total_views', $views + 1 );
-
-        if( defined('WP_DEBUG_DISPLAY') && WP_DEBUG_DISPLAY ) {
-            print_r('<pre>(Режим отладки) Популярность товара: '.$views.'</pre>');
-        }
-    }
-}
-
 if( 'personal' === DTools::get( 'bestsellers' ) && is_admin() ) {
     if( ! class_exists(__NAMESPACE__ . '\WCProductSettings') ) {
         DTools::write_debug('Класс WCProductSettings не найден', __FILE__);

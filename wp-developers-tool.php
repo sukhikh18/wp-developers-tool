@@ -69,8 +69,9 @@ class DTools {
         $scripts = $addons . '/init-scripts.php';
         $includes = apply_filters( 'dtools_active', array(
             'maintenance-mode'   => $addons . '/maintenance-mode.php',
-            'remove-images'      => $addons . '/admin-remove-images.php',
             'second-title'       => $addons . '/second-title.php',
+            'record-views'       => $addons . '/record-views.php',
+            'remove-images'      => $addons . '/admin-remove-images.php',
             'remove-emojis'      => $addons . '/remove-emojis.php',
             'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
             'empty-content'      => $addons . '/empty-content.php',
