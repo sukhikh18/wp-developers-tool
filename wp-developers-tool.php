@@ -37,6 +37,7 @@ class DTools {
         add_option( self::OPTION, array(
             'orign-image-resize' => 'default',
             'remove-emojis' => 'on',
+            'disable-comments' => 'on',
         ) );
     }
 
@@ -75,6 +76,7 @@ class DTools {
             'remove-emojis'      => $addons . '/remove-emojis.php',
             'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
             'empty-content'      => $addons . '/empty-content.php',
+            'disable-comments'   => $addons . '/disable-comments.php',
 
             'smooth_scroll' => $scripts,
             'sticky'        => $scripts,
