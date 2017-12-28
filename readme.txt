@@ -1,7 +1,8 @@
 === WordPress Developer's Tool ===
+
 Contributors: nikolays93
 Donate link: https://vk.com/nikolays_93
-Tags: advanced_functions, jetpack, theme_update, woocommerce, wc_upgrade
+Tags: advanced_functions, own_jetpack, theme_update, woocommerce, wc_upgrade, multitool
 Requires at least: 4.6
 Tested up to: 4.9.1
 Stable tag: 4.9.1
@@ -24,9 +25,9 @@ This set of add-ons which I created when developing websites.
     * Disable default emoji smiles
 
 === Scripts: ===
-    * Sticky block by Anthony Garand (Often used for navbar)
-    * Smooth scroll
-    * Back to top page button (without styles)
+    * Sticky blocks (Often used for navbar, http://stickyjs.com/ by Anthony Garand)
+    * Smooth scroll (own development @need jQuery)
+    * Back to top page button (without styles, own development @need jQuery)
     * Enable Font Awesome (http://fontawesome.io/ by Dave Gandy)
     * Enqueue animate.css (https://daneden.github.io/animate.css/ by Daniel Eden)
     * Enqueue wow.js (http://mynameismatthieu.com/WOW/ by Matt Dellac)
