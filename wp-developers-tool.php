@@ -9,8 +9,6 @@ Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-@todo: localize
 */
 
 namespace CDevelopers\tool;
