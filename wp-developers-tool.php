@@ -1,14 +1,16 @@
 <?php
 /*
-Plugin Name: Дополнительные настройки разработчика
+Plugin Name: WordPress Developer's Tool
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
-Description: Плагин добавляет дополнительные настройки в WordPress.
-Version: 5.4 beta
+Description: Add more advanced functions for your Wordpress site.
+Version: 1.0
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+@todo: localize
 */
 
 namespace CDevelopers\tool;

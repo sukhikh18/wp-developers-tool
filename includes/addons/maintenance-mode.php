@@ -1,4 +1,8 @@
 <?php
+/**
+ * Не пускать не авторизированных админов
+ */
+
 namespace CDevelopers\tool;
 
 add_action('get_header', __NAMESPACE__ . '\wp_maintenance_mode', 1);

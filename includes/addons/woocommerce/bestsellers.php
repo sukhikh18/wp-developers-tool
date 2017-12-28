@@ -2,14 +2,14 @@
 
 namespace CDevelopers\tool;
 
-
 add_filter( 'easy_queries_args', __NAMESPACE__ . '\top_sales_query_args', 10, 1 );
 function top_sales_query_args( $args ) {
-    if( $args['post_type'] == 'top-sales' ){
+    if( $args['post_type'] == 'top-sales' ) {
         $args['post_type'] = 'product';
 
         switch ( DTools::get( 'bestsellers' ) ) {
             case 'personal':
+                $args['meta_key'] = 'top_sale_product';
                 $meta = array(
                     'key' => 'top_sale_product',
                     'value' => 'yes',
@@ -17,6 +17,7 @@ function top_sales_query_args( $args ) {
                     );
                 break;
             case 'views':
+                $args['meta_key'] = 'total_views';
                 $meta = array(
                     'key' => 'total_views',
                     'value' => 0,
@@ -25,6 +26,7 @@ function top_sales_query_args( $args ) {
                 break;
             case 'sales':
             default:
+                $args['meta_key'] = 'total_sales';
                 $meta = array(
                     'key' => 'total_sales',
                     'value' => 0,
@@ -33,7 +35,6 @@ function top_sales_query_args( $args ) {
                 break;
         }
 
-        $args['meta_key']   = 'total_sales';
         $args['orderby']    = 'meta_value_num';
         $args['meta_query'] = array($meta);
     }
@@ -43,15 +44,18 @@ function top_sales_query_args( $args ) {
 
 if( 'personal' === DTools::get( 'bestsellers' ) && is_admin() ) {
     if( ! class_exists(__NAMESPACE__ . '\WCProductSettings') ) {
-        DTools::write_debug('Класс WCProductSettings не найден', __FILE__);
+        DTools::write_debug('Class WCProductSettings not found', __FILE__);
         return;
     }
+
     $wc_fields = new WCProductSettings();
+
     $wc_fields->add_field( array(
         'type'        => 'checkbox',
         'id'          => 'top_sale_product',
-        'label'       => 'Популярный товар',
-        'description' => 'Этот товар будет показываться в блоке популярных товаров',
+        'label'       => __( 'Popularity product', DOMAIN ), // 'Популярный товар'
+        'description' => __( 'Show it on popular block', DOMAIN ), // 'Этот товар будет показываться в блоке популярных товаров'
     ) );
+
     $wc_fields->set_fields();
 }

@@ -41,14 +41,14 @@ function plus_minus_styles() { ?>
 
 # start qty
 add_action('woocommerce_before_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_start', 10);
-function plus_minus_buttons_start() {
-    echo '<div id="plus-minus-qty-wrapper">';
+function plus_minus_buttons_start() { ?>
+    <div id="plus-minus-qty-wrapper">
+    <?php
 }
 
 # end qty
 add_action('woocommerce_after_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_end', 10);
-function plus_minus_buttons_end() {
-    ?>
+function plus_minus_buttons_end() { ?>
     </div>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -82,5 +82,5 @@ function plus_minus_buttons_end() {
             // });
         });
     </script>
-<?php
+    <?php
 }

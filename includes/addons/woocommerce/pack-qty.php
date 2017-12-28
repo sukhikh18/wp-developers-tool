@@ -1,50 +1,56 @@
 <?php
 
-if( !function_exists('get_pack_qty') ) {
-    function get_pack_qty() {
-        global $product;
-        if( ! is_a($product, 'WC_Product') ) return false;
+namespace CDevelopers\tool {
+    if( is_admin() && class_exists( __NAMESPACE__ . '\WCProductSettings') ) {
+        $wc_fields = new WCProductSettings();
 
-        return $product->get_meta('pack_qty');
+        $wc_fields->add_field( array(
+            'id'          => 'pack_qty',
+            'type'        => 'number',
+            'label'       => __('Pack qty', DOMAIN), // Кол-во в упаковке
+            // 'description' => __('На сайте это будет отображаться примерно как "Цена ## руб. за шт."', DOMAIN),
+            // 'placeholder' => __('К примеру: "шт."', DOMAIN),
+            // 'desc_tip'    => 'true',
+            ) );
+
+        $wc_fields->set_fields();
     }
 }
 
-if( !function_exists('get_pack_regular_price') ) {
-    function get_pack_regular_price() {
-        global $product;
-        if( ! is_a($product, 'WC_Product') ) return false;
+namespace {
+    if( !function_exists('get_pack_qty') ) {
+        function get_pack_qty() {
+            global $product;
+            if( ! is_a($product, 'WC_Product') ) return false;
 
-        return get_pack_qty() * $product->get_regular_price();
+            return $product->get_meta('pack_qty');
+        }
     }
-}
 
-if( !function_exists('get_pack_sale_price') ) {
-    function get_pack_sale_price() {
-        global $product;
-        if( ! is_a($product, 'WC_Product') ) return false;
+    if( !function_exists('get_pack_regular_price') ) {
+        function get_pack_regular_price() {
+            global $product;
+            if( ! is_a($product, 'WC_Product') ) return false;
 
-        return get_pack_qty() * $product->get_sale_price();
+            return get_pack_qty() * $product->get_regular_price();
+        }
     }
-}
 
-if( !function_exists('get_pack_price') ) {
-    function get_pack_price() {
-        global $product;
-        if( ! is_a($product, 'WC_Product') ) return false;
+    if( !function_exists('get_pack_sale_price') ) {
+        function get_pack_sale_price() {
+            global $product;
+            if( ! is_a($product, 'WC_Product') ) return false;
 
-        return get_pack_qty() * $product->get_price();
+            return get_pack_qty() * $product->get_sale_price();
+        }
     }
-}
 
-if( is_admin() && class_exists( 'CDevelopers\tool\WCProductSettings') ) {
-    $wc_fields = new CDevelopers\tool\WCProductSettings();
-    $wc_fields->add_field( array(
-        'type'        => 'number',
-        'id'          => 'pack_qty',
-        'label'       => 'Кол-во в упаковке',
-        // 'desc_tip'    => 'true',
-        // 'placeholder' => 'К примеру: "шт."',
-        // 'description' => 'На сайте это будет отображаться примерно как "Цена ## руб. за шт."',
-        ) );
-    $wc_fields->set_fields();
+    if( !function_exists('get_pack_price') ) {
+        function get_pack_price() {
+            global $product;
+            if( ! is_a($product, 'WC_Product') ) return false;
+
+            return get_pack_qty() * $product->get_price();
+        }
+    }
 }

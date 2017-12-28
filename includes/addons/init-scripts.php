@@ -1,4 +1,8 @@
 <?php
+/**
+ * Подключить нужные скрипты и стили
+ */
+
 namespace CDevelopers\tool;
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\dtools_assets' );

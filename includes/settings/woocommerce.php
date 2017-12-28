@@ -4,47 +4,47 @@ namespace CDevelopers\tool;
 
 $args = array(
     array(
-        'type'      => 'select',
-        'id'        => 'bestsellers',
-        'label'     => __('Популярный товар', DOMAIN),
+        'id'      => 'bestsellers',
+        'type'    => 'select',
+        'label'   => __('Popular product', DOMAIN), // 'Популярный товар'
+        'desc'    => '', // __('Установите плагин easy-wp-queries и исользуете <strong> [query type="top-sales"] </strong>', DOMAIN),
         'options' => array(
-            ''         => 'Не использовать',
-            'personal' => 'Использовать вручную',
-            'views'    => 'Сортировать по просмотрам',
-            'sales'    => 'Сортировать по продажам',
+            ''         => __('Do not use'), // __('Не использовать'),
+            'personal' => __('Use manually'), // __('Использовать вручную'),
+            'views'    => __('Sort by Views'), // __('Сортировать по просмотрам'),
+            'sales'    => __('Sort by sales'), // __('Сортировать по продажам'),
         ),
-        'desc'      => __('Установите плагин easy-wp-queries и исользуете <strong> [query type="top-sales"] </strong>', DOMAIN),
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'wholesales',
-        'label'     => __('Оптовые продажи', DOMAIN),
-        'desc'      => __('Разрешить продажу от.. шт.', DOMAIN),
+        'id'    => 'wholesales',
+        'type'  => 'checkbox',
+        'label' => __('Wholesales', DOMAIN), // Оптовые продажи
+        'desc'  => __('Allow sell out bigger only, than..', DOMAIN), // Разрешить продажу от.. шт.
     ),
     array(
-        'type'      => 'text',
-        'id'        => 'product-measure-unit',
-        'label'     => __('Добавить товару ед. измерения', DOMAIN),
-        'desc'      => __('Укажите стандартную величину', DOMAIN),
-        'default'   => 'шт.',
+        'id'          => 'product-measure-unit',
+        'type'        => 'text',
+        'label'       => __('Add measure unit', DOMAIN), // Добавить товару ед. измерения
+        'desc'        => __('Set default unit', DOMAIN), // Укажите стандартную величину
+        'placeholder' => __('pcs'), // шт.
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'pack-qty',
-        'label'     => __('Добавить количество в упаковке', DOMAIN),
-        'desc'      => '',
+        'id'    => 'pack-qty',
+        'type'  => 'checkbox',
+        'label' => __('Add qty in pack', DOMAIN), // Добавить количество в упаковке
+        'desc'  => '',
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'plus-minus-buttons',
-        'label'     => __('Добавить +/-', DOMAIN),
-        'desc'      => __('Добавить кнопки + и - для увеличения/уменьшения количество покупки', DOMAIN),
+        'id'    => 'plus-minus-buttons',
+        'type'  => 'checkbox',
+        'label' => __('Add +/-', DOMAIN), // Добавить +/-
+        'desc'  => __('Add +/- buttons for qty increase/decrease', DOMAIN), // Добавить кнопки + и - для увеличения/уменьшения количество покупки
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'pack-qty-changes',
-        'label'     => __('Изменять количетсво по упаковкам', DOMAIN),
-        'desc'      => __('Шаг изменений при нажатии + / - (Вверх, Вниз) будет равен указанным количеством в упаковке (Не противодействует вводу в ручную)', DOMAIN),
+        'id'    => 'pack-qty-changes',
+        'type'  => 'checkbox',
+        'label' => __('Increase step size', DOMAIN), // Изменять количетсво по упаковкам
+        'desc'  => __('The step change by pressing + / - (Up, Down) will be equal to the specified quantity in the package (Do not oppose entry into the manual)', DOMAIN), // Шаг изменений при нажатии + / - (Вверх, Вниз) будет равен указанным количеством в упаковке (Не противодействует вводу в ручную)
     ),
 );
 

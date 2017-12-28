@@ -1,4 +1,7 @@
 <?php
+/**
+ * Выводить вместо the_content если "Контент" пуст.
+ */
 
 namespace CDevelopers\tool;
 
@@ -8,6 +11,9 @@ function empty_content( $content ) {
         return $content;
     }
 
+    /**
+     * @todo: Только для записей и страниц?
+     */
     if( ! in_array(get_post_type(), array('post', 'page')) ) {
         return $content;
     }

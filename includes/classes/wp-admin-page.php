@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) )
 
 /**
  * Class Name: WP_Admin_Page
- * Class URI: https://github.com/nikolays93/WPAdminPage
  * Description: Create a new custom admin page.
  * Version: 2.2
  * Author: NikolayS93

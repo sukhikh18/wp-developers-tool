@@ -6,8 +6,17 @@ if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access
 
 /**
- * @todo: add defaults
+ * Class Name: WP_Admin_Forms
+ * Description: Create a new custom admin page.
+ * Version: 3.0.1
+ * Author: NikolayS93
+ * Author URI: https://vk.com/nikolays_93
+ * License: GNU General Public License v2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @todo  : add defaults
  */
+
 class WP_Admin_Forms {
     static $clear_value = false;
     protected $inputs, $args, $is_table, $active;
@@ -488,20 +497,3 @@ class WP_Admin_Forms {
         return $fields;
     }
 }
-
-// public static function render_fieldset( $input, $entry, $is_table, $label = '' ){
-//     $result = '';
-
-//     // <legend>Работа со временем</legend>
-
-//     foreach ($input['fields'] as $field) {
-//       if( !isset($field['name']) )
-//         $field['name'] = _isset_empty($field['id']);
-
-//       $field['id'] = str_replace('][', '_', $field['id']);
-
-//       $f_name = self::get_function_name($field['type']);
-//       $result .= self::$f_name( $field, $entry, $is_table, $label );
-//     }
-//     return $result;
-//   }

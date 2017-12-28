@@ -2,7 +2,7 @@
 
 namespace CDevelopers\tool;
 
-if ( class_exists( 'WooCommerce' ) ) {
+if ( class_exists( '\WooCommerce' ) ) {
     add_filter('dtools_classes', __NAMESPACE__ . '\dtools_woocommerce_class', 5, 1);
     add_filter('dtools_active',  __NAMESPACE__ . '\dtools_woocommerce_active', 5, 1);
     add_filter('dtools_page_args', __NAMESPACE__ . '\dtools_woocommerce_page_args', 5, 1);

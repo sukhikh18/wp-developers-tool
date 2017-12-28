@@ -4,80 +4,89 @@ namespace CDevelopers\tool;
 
 $args = array(
     array(
-        'id'        => 'sticky',
-        'label'     => __('Использовать липкий контейнер', DOMAIN),
-        'type'      => 'select',
-        'options'      => array(
-            ''           => 'Не использовать',
-            'forever'    => 'Использовать всегда',
-            'phone_only' => 'Только для телефона',
+        'id'      => 'sticky',
+        'type'    => 'select',
+        'label'   => __('Use sticky container', DOMAIN), // Использовать липкий контейнер
+        'desc'    => __('When you scroll down, the container sticks to the top of the screen', DOMAIN) . '(<a href="http://stickyjs.com/">Sticky site</a>)', // При прокрутке вниз, контейнер прилипает к верхней части экрана
+        'options' => array(
+            ''           => __('Do not use', DOMAIN), // 'Не использовать'
+            'forever'    => __('Use forever', DOMAIN), // Использовать всегда
+            'phone_only' => __('For mobile only', DOMAIN), // Только для телефона
         ),
-        'desc'      => __('При прокрутке вниз, контейнер прилипает к верхней части экрана', DOMAIN),
     ),
     array(
-        'type'      => 'text',
-        'id'        => 'sticky_selector',
-        'label'     => __('Селектор липкого контейнера', DOMAIN),
+        'id'          => 'sticky_selector',
+        'type'        => 'text',
+        'label'       => __('Sticky selector', DOMAIN), // Селектор липкого контейнера
+        'desc'        => __('Enter Jquery selector (for ex. .ExampleClass or #ExampleID)', DOMAIN), // Введите jQuery сселектор (.ExampleClass или #ExampleID)
         'placeholder' =>  '.navbar-default',
-        'desc'      => __('Введите jQuery сселектор (.ExampleClass или #ExampleID)', DOMAIN),
-        'default' =>  '.navbar-static-top',
     ),
     array(
-        'type'      => 'number',
-        'id'        => 'smooth_scroll',
-        'label'     => __('Плаваня прокрутка', DOMAIN),
-        'desc'      => __('Плавно пролистает за указанное количество пикселей до начала объекта, если ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]', DOMAIN),
-        'placeholder'   => '40',
+        'id'          => 'smooth_scroll',
+        'type'        => 'number',
+        'label'       => __('Smooth scroll', DOMAIN), // Плаваня прокрутка
+        'desc'        => __('Smoothly scrolls over a specified number of pixels before the start of the object if the reference starts with # (Specify the height-to-object distance)[href=#obj]', DOMAIN), // Плавно пролистает за указанное количество пикселей до начала объекта, если ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]
+        'placeholder' => '40',
     ),
     array(
-        'type'      => 'number',
-        'id'        => 'scroll_after_load',
-        'label'     => __('Прокрутка после загрузки страницы', DOMAIN),
-        'desc'      => __('Плавно пролистает за указанное количество пикселей до начала объекта, если адрес заканчивается на ID объекта [http://#obj]', DOMAIN),
-        'placeholder'   => '40',
+        'id'          => 'scroll_after_load',
+        'type'        => 'number',
+        'label'       => __('Scroll after page on load', DOMAIN), // Прокрутка после загрузки страницы
+        'desc'        => __('Smoothly scrolls over a specified number of pixels before the start of the object, if the address ends with object ID [http://#obj]', DOMAIN), // Плавно пролистает за указанное количество пикселей до начала объекта, если адрес заканчивается на ID объекта
+        'placeholder' => '40',
     ),
     array(
-        'type'      => 'text',
-        'id'        => 'back_top',
-        'label'     => __('Содержимое кнопки "Наверх"', DOMAIN),
-        'desc'      => __('Задайте кнопке #back-top собственный стиль', DOMAIN),
-        'placeholder'   => '<i class="fa fa-angle-up" aria-hidden="true"></i>',
+        'id'          => 'back_top',
+        'type'        => 'text',
+        'label'       => __('"On top" button content', DOMAIN), // Содержимое кнопки "Наверх"
+        'desc'        => __('Set style for #back-top', DOMAIN), // 'Задайте кнопке #back-top собственный стиль'
+        'placeholder' => '<i class="fa fa-angle-up" aria-hidden="true"></i>',
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'font_awesome',
-        'label'     => __('FontAwesome шрифт', DOMAIN),
-        //'desc'      => __('Подключить шрифтовые иконки <a href="http://fontawesome.io/get-started/">FontAwesome</a>', DOMAIN),
+        'id'    => 'font_awesome',
+        'type'  => 'checkbox',
+        'label' => __('FontAwesome fonts', DOMAIN), // FontAwesome шрифт
+        'desc'  => __('Enqueue <a target="_blank" href="http://fontawesome.io/get-started/">FontAwesome</a> fonts', DOMAIN), // Подключить шрифтовые иконки <a target="_blank" href="http://fontawesome.io/get-started/">FontAwesome</a>
     ),
     array(
-        'type'      => 'checkbox', // тип
-        'id'        => 'animate',
-        'label'     => __('Подключить анимацию.css', DOMAIN),
-        'desc'      => __('Подключает всем известный файл animate.css', DOMAIN),
+        'id'    => 'animate',
+        'type'  => 'checkbox', // тип
+        'label' => __('Enqueue animate.css', DOMAIN), // Подключить анимацию.css
+        'desc'  => __('Enqueue popular library <a target="_blank" href="https://daneden.github.io/animate.css/" >animate.css</a>', DOMAIN), // Подключает всем известный файл
     ),
     array(
-        'id'        => 'wow',
-        'label'     => __('Файл анимации WOW.js', DOMAIN),
-        'type'      => 'select',
-        'options'      => array(
-            ''           => 'Не подключать',
-            'forever'    => 'Всегда подключать',
-            'not_phone'  => 'Только на комьютерах',
+        'id'    => 'wow',
+        'type'  => 'select',
+        'label' => __('Animate lib WOW.js', DOMAIN), // Файл анимации WOW.js
+        'desc'  => sprintf('%s %s <i>
+            data-wow-duration="2s"
+            data-wow-delay="5s"
+            data-wow-offset="10"
+            data-wow-iteration="10"</i>',
+                __('When you scroll down, the items change class for animate (for example using animate.css).<br>Objects to specify a class: <a target="_blank" href="http://mynameismatthieu.com/WOW/" >wow</a> together with his. ', DOMAIN), // При прокрутке вниз, элементы изменяют класс для анимации (к примеру с помощью файла animate.css).<br>Обьекту задать класс: <a target="_blank" href="http://mynameismatthieu.com/WOW/">wow</a> совместно со своим.
+                __('advanced:', DOMAIN)
+            ),
+        'options' => array(
+            ''          => __('Do not use', DOMAIN), // 'Не подключать'
+            'forever'   => __('Use forever', DOMAIN), // Всегда подключать
+            'not_phone' => __('Use for desktop only', DOMAIN), // Только на комьютерах
         ),
-        'desc'      => __('При прокрутке вниз, элементы изменяют класс для анимации (к примеру с помощью файла animate.css).<br>Обьекту задать класс:<i> wow </i> совместно со своим, дополнительно: <i>data-wow-duration="2s" data-wow-delay="5s" data-wow-offset="10"  data-wow-iteration="10"</i>', DOMAIN),
     ),
     array(
-        'type'      => 'text',
-        'id'        => 'countTo',
-        'label'     => __('Счетчик countTo', DOMAIN),
-        'desc'      => __('Селектор счетчика, обьекту задать:<i> data-from="(int)" data-to="(int)"</i> дополнительно: data-speed="(int)" data-refresh-interval="(int)"', DOMAIN),
-        'placeholder'   => '.timer',
+        'id'    => 'countTo',
+        'type'  => 'text',
+        'label' => __('countTo lib', DOMAIN), // Счетчик countTo
+        'desc'  => sprintf('%s <i>data-from="(int)" data-to="(int)"</i> %s data-speed="(int)" data-refresh-interval="(int)"',
+            __('Use <a target="_blank" href="https://github.com/mhuggins/jquery-countTo">count</a> attributes:', DOMAIN),
+            __('Advanced:', DOMAIN) // Дополнительно:
+        ),
+        'placeholder' => '.timer',
     ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'appearJs',
-        'label'     => __('Подключить appear', DOMAIN),
-        'desc'      => '',
+        'id'    => 'appearJs',
+        'type'  => 'checkbox',
+        'label' => __('Enqueue appear', DOMAIN), // Подключить appear
+        'desc'  => __('Enqueue <a target="_blank" href="http://creativelive.github.io/appear/">appear</a> lib'), // Подключить библиотеку <a target="_blank" href="http://creativelive.github.io/appear/">appear</a>
     ),
 );
 

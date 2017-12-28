@@ -2,11 +2,12 @@
 
 namespace CDevelopers\tool;
 
-if( DTools::get( 'orign-image-resize' ) == 'default' ) {
+if( 'default' == DTools::get('orign-image-resize') ) {
     add_image_size( 'default', 1600, 1024, $resize = 1 );
 }
 
-function replace_uploaded_image($image_data){
+add_filter('wp_generate_attachment_metadata', __NAMESPACE__ . '\replace_uploaded_image');
+function replace_uploaded_image( $image_data ) {
     $size = DTools::get( 'orign-image-resize' );
 
     // if there is no large image : return
@@ -36,4 +37,3 @@ function replace_uploaded_image($image_data){
 
     return $image_data;
 }
-add_filter('wp_generate_attachment_metadata', __NAMESPACE__ . '\replace_uploaded_image');

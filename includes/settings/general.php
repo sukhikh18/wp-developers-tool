@@ -4,83 +4,85 @@ namespace CDevelopers\tool;
 
 $args = array(
     array(
-        'id'        => 'orign-image-resize',
-        'label'     => __('Сжимать оригиналы изображений', DOMAIN),
-        'type'      => 'select',
-        'options'      => array(
-            ''        => 'Не сжимать',
-            'default' => 'Сжимать стандартно (1600х1024)',
-            'large'   => 'Сжимать до "Крупного" размера',
+        'id'      => 'orign-image-resize',
+        'type'    => 'select',
+        'label'   => __('Compress original images', DOMAIN), // 'Сжимать оригиналы изображений'
+        'desc'    => __('If the size of the uploaded image exceeds this, the original will be deleted, and instead the image with the specified size will be renamed to the original.', DOMAIN), // Если размер загруженного изображения превышает указанный, оригинал будет удален, а вместо него изображение с указанным размером переименуется в оригинал.
+        'options' => array(
+            ''        => __('Do not compress', DOMAIN), // Не сжимать
+            'default' => __('Default compress', DOMAIN), // Сжимать стандартно (1600х1024)
+            // 'large'   => __('Сжимать до "Крупного" размера', DOMAIN),
+            ),
         ),
-    ),
     array(
-        'type'      => 'select',
-        'options'   => array(
-            ''       => 'Не использовать',
-            'loop'   => 'Для The loop',
-            'detail' => 'На детальной странице',
-        ),
-        'id'        => 'second-title',
-        'label'     => __('Включить дополнительные заголовки', DOMAIN),
-        'desc'      => 'Изменить заголовок ..',
+        'id'      => 'second-title',
+        'type'    => 'select',
+        'label'   => __('Enable second titles', DOMAIN), // Включить дополнительные заголовки
+        'desc'    => __('Change title ..', DOMAIN), // Изменить заголовок
+        'options' => array(
+            ''       => __('Do not use', DOMAIN), // Не использовать
+            'loop'   => __('For "The loop"', DOMAIN), // Для "The loop"
+            'detail' => __('For detail only', DOMAIN), // На детальной странице
+            ),
         'custom_attributes' => array(
             'cols' => 80,
             'rows' => 3,
             )
-    ),
-    array(
-        'id'        => 'record-views',
-        'label'     => __('Записывать количество просмотров', DOMAIN),
-        'desc'      => __('Записывать данные о количестве просмотров в доп. поле total_views'),
-        'type'      => 'select',
-        'options'      => array(
-            ''        => 'Не использовать',
-            'all'     => 'Записывать для всех',
-            'post'    => 'Только для записей',
-            'page'    => 'Только для страниц',
-            'product' => 'Только для товаров',
-        ),
-    ),
-    array(
-        'id'        => 'disable-comments',
-        'label'     => __('Отключить возможность отправлять комментарии', DOMAIN),
-        'desc'      => __('Отключает комментарии даже если они разрешены не изменяя базы данных (при этом не скрывает форму отправки, антиспам комментариев)', DOMAIN),
-        'type'      => 'checkbox'
         ),
     array(
-        'id'        => 'remove-images',
-        'label'     => __('Удалять прикрепленные изображения в след за записью', DOMAIN),
-        'type'      => 'select',
-        'options'      => array(
-            ''        => 'Не удалять',
-            'all'     => 'Удалять все',
-            'post'    => 'Только для записей',
-            'page'    => 'Только для страниц',
-            'product' => 'Только для товаров',
+        'id'      => 'record-views',
+        'type'    => 'select',
+        'label'   => __('Record views', DOMAIN), // Записывать количество просмотров
+        'desc'    => __('Record views data to meta field "total_views"', DOMAIN), // Записывать данные о количестве просмотров в дополнительное поле total_views
+        'options' => array(
+            ''        => __('Do not use', DOMAIN), // Не использовать
+            'all'     => __('For all post types', DOMAIN), // Записывать для всех
+            'post'    => __('For "post" only', DOMAIN), // Только для записей
+            'page'    => __('For "page" only', DOMAIN), // Только для страниц
+            'product' => __('For "product" only', DOMAIN), // Только для товаров
+            ),
         ),
-    ),
     array(
-        'type'    => 'text',
-        'id'      => 'empty-content',
-        'label'   => __('Сообщение пустой страницы', DOMAIN),
-        'desc'    => __('Если страница не заполнена, показывать сл. сообщение', DOMAIN),
-        'default' => '<h3>Страница находится в стадии разработки</h3>',
+        'id'    => 'disable-comments',
+        'type'  => 'checkbox',
+        'label' => __('Disable send comments', DOMAIN), // 'Отключить возможность отправлять комментарии'
+        'desc'  => __('Disable comments for antispam (uncheck it after set captha)', DOMAIN), // Отключает комментарии (выключите это когда установите captcha, антиспам комментариев)
+        ),
+    array(
+        'id'      => 'remove-images',
+        'type'    => 'select',
+        'label'   => __('Remove attached images', DOMAIN), // 'Удалять прикрепленные изображения'
+        'desc'    => __('Remove attached images, when post will be deleted', DOMAIN), // Если изображение привязано к записи, оно будет удалено, когда удалят запись
+        'options' => array(
+            ''        => __( 'Do not remove', DOMAIN ), // 'Не удалять'
+            'all'     => __( 'Remove all', DOMAIN ), // 'Удалять все'
+            'post'    => __( 'For post only', DOMAIN ), // Только для записей
+            'page'    => __( 'For page only', DOMAIN ), // Только для страниц
+            'product' => __( 'For products only', DOMAIN ), // Только для товаров
+            ),
+        ),
+    array(
+        'id'          => 'empty-content',
+        'type'        => 'text',
+        'label'       => __('Empty page message', DOMAIN), // Сообщение пустой страницы
+        'desc'        => __('Set message when page is empty', DOMAIN), // Если страница не заполнена, показывать сл. сообщение
+        'placeholder' => '<h3>Page be under development</h3>', // Страница находится в стадии разработки
         'input_class' => 'widefat',
-    ),
+        ),
     array(
-        'type'      => 'textarea',
-        'id'        => 'maintenance-mode',
-        'label'     => __('Включить техническое обслуживание', DOMAIN),
-        'placeholder'   => "Сайт находится на техническом обслуживании.\nПожалуйста, зайдите позже.",
-        'desc'      => 'Техническое обслуживание времено закроет доступ к сайту (кроме пользователей с привелегией "edit_themes") с указанным сообщением.',
+        'id'          => 'maintenance-mode',
+        'type'        => 'textarea',
+        'label'       => __('Enable maintenance', DOMAIN), // Включить техническое обслуживание
+        'desc'        => __('Maintenance for temporary close your site', DOMAIN), // Техническое обслуживание времено закроет доступ к сайту (кроме пользователей с привелегией "edit_themes") с указанным сообщением.
+        'placeholder' => __("The website is in maintenance.\nPlease check back later.", DOMAIN), // Сайт находится на техническом обслуживании.\nПожалуйста, зайдите позже.
         'input_class' => 'widefat',
-    ),
+        ),
     array(
-        'type'      => 'checkbox',
-        'id'        => 'remove-emojis',
-        'label'     => __('Отключить wp_emoji', DOMAIN),
-        'desc'      => '',
-    ),
-);
+        'id'    => 'remove-emojis',
+        'type'  => 'checkbox',
+        'label' => __('Disable wp_emoji', DOMAIN), // Отключить wp_emoji
+        'desc'  => __('Disable default Wordpress emoji smiles', DOMAIN), // Отключить стандартную функционал Wordpress поддерживающий Emoji смайлы
+        ),
+    );
 
 return apply_filters( 'dtools_settings', $args, 'general' );
