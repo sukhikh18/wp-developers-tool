@@ -63,7 +63,8 @@ namespace CDevelopers\tool {
         if ( ! isset($_POST['second-title-nonce']) )
             return $post_id;
 
-        if( ! wp_verify_nonce( $_POST['second-title-nonce'], 'save_second_title' ) )
+        $nonce = sanitize_text_field( $_POST['second-title-nonce'] );
+        if( ! wp_verify_nonce( $nonce, 'save_second_title' ) )
             return $post_id;
 
         $posted = wp_parse_args( $_POST, array(
@@ -83,7 +84,7 @@ namespace CDevelopers\tool {
             delete_post_meta( $post_id, '_second_title' );
         }
 
-        if( $posted['second-title-empty'] ) {
+        if( 'on' == $posted['second-title-empty'] ) {
             update_post_meta( $post_id, '_second_title_empty', 1 );
         }
         else {

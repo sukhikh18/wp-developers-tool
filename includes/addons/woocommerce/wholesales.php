@@ -30,7 +30,7 @@ add_filter( 'woocommerce_add_to_cart_validation', __NAMESPACE__ . '\wholesales_f
 function wholesales_field_validation( $passed_validation, $product_id ) {
     $product = wc_get_product( $product_id );
     $min = get_product_wholesale_min( $product );
-    if ( empty( $_REQUEST['quantity'] ) || $_REQUEST['quantity'] < $min ) {
+    if ( empty( $_REQUEST['quantity'] ) || intval($_REQUEST['quantity']) < $min ) {
         wc_add_notice( __('Invalid quantity value.', DOMAIN), 'error' ); // Недопустимое значение количества.
         return false;
     }

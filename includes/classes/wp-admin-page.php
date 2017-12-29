@@ -189,7 +189,7 @@ class WP_Admin_Page
 			$get = array();
 			foreach ($_GET as $key => $value) {
 				if( $key !== 'tab' ) {
-					$get[] = $key . '=' . $value;
+					$get[] = $key . '=' . sanitize_text_field( $value );
 				}
 			}
 			$get[] = 'tab=' . $section_key;

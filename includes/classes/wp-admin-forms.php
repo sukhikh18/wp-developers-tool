@@ -404,7 +404,7 @@ class WP_Admin_Forms {
 
         if( ( isset($args['admin_page']) && $args['admin_page'] !== false ) ||
             !isset($args['admin_page']) && is_admin() && !empty($_GET['page']) )
-            $defaults['admin_page'] = $_GET['page'];
+            $defaults['admin_page'] = sanitize_text_field( $_GET['page'] );
 
         $args = wp_parse_args( $args, $defaults );
 

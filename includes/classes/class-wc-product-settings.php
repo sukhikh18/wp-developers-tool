@@ -45,7 +45,8 @@ class WCProductSettings {
 
 	function woo_custom_general_fields_save( $post_id ){
 		foreach ($this->fields as $field){
-			$field_value = $_POST[ $field['id'] ];
+			$field_value = isset($_POST[ $field['id'] ]) ?
+				sanitize_text_field( $_POST[ $field['id'] ] ) : false;
 
 			if(!empty($field_value))
 				update_post_meta( $post_id, $field['id'], esc_attr( $field_value ) );
