@@ -30,11 +30,9 @@ This set of add-ons which I created when developing websites.
     * Back to top page button (without styles, own development @need jQuery)
     * Enable Font Awesome (http://fontawesome.io/ by Dave Gandy)
     * Enqueue animate.css (https://daneden.github.io/animate.css/ by Daniel Eden)
-    * Enqueue wow.js (http://mynameismatthieu.com/WOW/ by Matt Dellac)
+    * Enqueue wow.js (https://wowjs.uk/ by Thomas Grainger)
     * Enqueue countTo (https://github.com/mhuggins/jquery-countTo by Matt Huggins)
     * appearJs (http://creativelive.github.io/appear/ by Magicon)
-
-For personal use. Read more about commercial licensing for use it.
 
 === WooCoommerce: ===
     * Set BestSeller product
