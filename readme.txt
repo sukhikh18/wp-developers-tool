@@ -24,6 +24,7 @@ This set of add-ons which I created when developing websites.
     * Set maintenance mode
     * Disable default emoji smiles
 
+
 === Scripts: ===
     * Sticky blocks (Often used for navbar, http://stickyjs.com/ by Anthony Garand)
     * Smooth scroll (own development @need jQuery)
@@ -33,6 +34,7 @@ This set of add-ons which I created when developing websites.
     * Enqueue wow.js (https://wowjs.uk/ by Thomas Grainger)
     * Enqueue countTo (https://github.com/mhuggins/jquery-countTo by Matt Huggins)
     * appearJs (http://creativelive.github.io/appear/ by Magicon)
+
 
 === WooCoommerce: ===
     * Set BestSeller product
@@ -48,6 +50,8 @@ This set of add-ons which I created when developing websites.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.1 =
+    * Set fontawesome cdn
 
 = 1.0 =
     * Init plugin
