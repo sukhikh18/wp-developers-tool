@@ -66,7 +66,7 @@ $args = array(
         'type'        => 'text',
         'label'       => __('Empty page message', DOMAIN), // Сообщение пустой страницы
         'desc'        => __('Set message when page is empty', DOMAIN), // Если страница не заполнена, показывать сл. сообщение
-        'placeholder' => '<h3>Page be under development</h3>', // Страница находится в стадии разработки
+        'placeholder' => __('<h3>Page be under development</h3>', DOMAIN), // Страница находится в стадии разработки
         'input_class' => 'widefat',
         ),
     array(
