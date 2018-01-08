@@ -14,6 +14,7 @@ More advanced functions for your site.
 This plugin added some more advanced functions for your site.
 This set of add-ons which I created when developing websites.
 
+--
 === Plugin can: ===
     * Compress original big images
     * Work with second titles
@@ -24,7 +25,7 @@ This set of add-ons which I created when developing websites.
     * Set maintenance mode
     * Disable default emoji smiles
 
-
+--
 === Scripts: ===
     * Sticky blocks (Often used for navbar, http://stickyjs.com/ by Anthony Garand)
     * Smooth scroll (own development @need jQuery)
@@ -35,7 +36,7 @@ This set of add-ons which I created when developing websites.
     * Enqueue countTo (https://github.com/mhuggins/jquery-countTo by Matt Huggins)
     * appearJs (http://creativelive.github.io/appear/ by Magicon)
 
-
+--
 === WooCoommerce: ===
     * Set BestSeller product
     * WholeSales

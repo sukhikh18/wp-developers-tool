@@ -9,10 +9,10 @@ $args = array(
         'label'   => __('Popular product', DOMAIN), // 'Популярный товар'
         'desc'    => '', // __('Установите плагин easy-wp-queries и исользуете <strong> [query type="top-sales"] </strong>', DOMAIN),
         'options' => array(
-            ''         => __('Do not use'), // __('Не использовать'),
-            'personal' => __('Use manually'), // __('Использовать вручную'),
-            'views'    => __('Sort by Views'), // __('Сортировать по просмотрам'),
-            'sales'    => __('Sort by sales'), // __('Сортировать по продажам'),
+            ''         => __('Do not use', DOMAIN), // __('Не использовать'),
+            'personal' => __('Use manually', DOMAIN), // __('Использовать вручную'),
+            'views'    => __('Sort by Views', DOMAIN), // __('Сортировать по просмотрам'),
+            'sales'    => __('Sort by sales', DOMAIN), // __('Сортировать по продажам'),
         ),
     ),
     array(
@@ -26,7 +26,7 @@ $args = array(
         'type'        => 'text',
         'label'       => __('Add measure unit', DOMAIN), // Добавить товару ед. измерения
         'desc'        => __('Set default unit', DOMAIN), // Укажите стандартную величину
-        'placeholder' => __('pcs'), // шт.
+        'placeholder' => __('pcs', DOMAIN), // шт.
     ),
     array(
         'id'    => 'pack-qty',
