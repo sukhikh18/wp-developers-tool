@@ -37,8 +37,10 @@ function dtools_assets() {
     }
 
     if( DTools::get( 'font_awesome' ) ) {
-        wp_enqueue_style( 'font_awesome', $assets .
-            '/font-awesome/css/font-awesome'.$suffix.'.css', false, '4.7.0');
+        $link = apply_filters('dt_font_awesome_src',
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome$suffix.css");
+
+        wp_enqueue_style( 'font_awesome', $link, false, '4.7.0');
     }
 
     $settings = DTools::get( 'all' );
