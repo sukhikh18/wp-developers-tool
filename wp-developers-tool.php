@@ -16,10 +16,6 @@ namespace CDevelopers\tool;
 if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access
 
-if( ! defined('CDT_DEBUG') ) {
-    define( 'CDT_DEBUG', apply_filters( 'dtools_debug', true ) );
-}
-
 const DOMAIN = 'wp-developers-tool';
 
 class DTools {
