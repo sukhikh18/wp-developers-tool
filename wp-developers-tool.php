@@ -3,7 +3,7 @@
 Plugin Name: WordPress Developer's Tool
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Add more advanced functions for your Wordpress site.
-Version: 1.1.4
+Version: 1.2.0
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru

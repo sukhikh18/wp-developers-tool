@@ -51,6 +51,9 @@ This set of add-ons which I created when developing websites.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.2 =
+    * Excluded "Disable comments" as is not working as intended
+
 = 1.1 =
     * Set fontawesome cdn
 
