@@ -77,14 +77,14 @@ namespace CDevelopers\tool {
         }
 
         // Фильтруем и записываем данные
-        if( $posted['second-title'] ) {
+        if( !empty($posted['second-title']) ) {
             update_post_meta( $post_id, '_second_title', $posted['second-title'] );
         }
         else {
             delete_post_meta( $post_id, '_second_title' );
         }
 
-        if( 'on' == $posted['second-title-empty'] ) {
+        if( !empty($posted['second-title-empty']) && 'on' == $posted['second-title-empty'] ) {
             update_post_meta( $post_id, '_second_title_empty', 1 );
         }
         else {
