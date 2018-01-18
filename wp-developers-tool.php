@@ -3,7 +3,7 @@
 Plugin Name: WordPress Developer's Tool
 Plugin URI: https://github.com/nikolays93/wp-developers-tool
 Description: Add more advanced functions for your Wordpress site.
-Version: 1.1.3
+Version: 1.1.4
 Author: NikolayS93
 Author URI: https://vk.com/nikolays_93
 Author EMAIL: nikolayS93@ya.ru
@@ -33,7 +33,6 @@ class DTools {
         add_option( self::OPTION, array(
             'orign-image-resize' => 'default',
             'remove-emojis' => 'on',
-            'disable-comments' => 'on',
         ) );
     }
 
@@ -72,7 +71,6 @@ class DTools {
             'remove-emojis'      => $addons . '/remove-emojis.php',
             'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
             'empty-content'      => $addons . '/empty-content.php',
-            'disable-comments'   => $addons . '/disable-comments.php',
 
             'smooth_scroll' => $scripts,
             'sticky'        => $scripts,

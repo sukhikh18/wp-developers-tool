@@ -43,12 +43,6 @@ $args = array(
             ),
         ),
     array(
-        'id'    => 'disable-comments',
-        'type'  => 'checkbox',
-        'label' => __('Disable send comments', DOMAIN), // 'Отключить возможность отправлять комментарии'
-        'desc'  => __('Disable comments for antispam (uncheck it after set captha)', DOMAIN), // Отключает комментарии (выключите это когда установите captcha, антиспам комментариев)
-        ),
-    array(
         'id'      => 'remove-images',
         'type'    => 'select',
         'label'   => __('Remove attached images', DOMAIN), // 'Удалять прикрепленные изображения'
