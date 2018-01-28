@@ -26,7 +26,7 @@ function dtools_assets() {
     }
 
     if( DTools::get( 'appearJs' ) ) {
-        $countto_src = apply_filters('dt_appear_src',
+        $appear_src = apply_filters('dt_appear_src',
             $assets . '/jquery.appear.js', $suffix);
 
         wp_enqueue_script('appear', $appear_src, array( 'jquery' ), false, true);
