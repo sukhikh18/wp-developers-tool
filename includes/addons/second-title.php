@@ -3,7 +3,7 @@
  * Дополнительный заголовок
  */
 
-namespace CDevelopers\tool {
+namespace NikolayS93\Tool {
     add_action('edit_form_after_title', __NAMESPACE__ . '\render_second_title');
     function render_second_title() {
         global $post;

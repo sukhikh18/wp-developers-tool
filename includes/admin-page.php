@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 class DTools_Page
 {

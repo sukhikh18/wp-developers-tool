@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 if( 'default' == DTools::get('orign-image-resize') ) {
     add_image_size( 'default', 1600, 9999, $crop = false );

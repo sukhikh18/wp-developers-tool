@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 if ( class_exists( '\WooCommerce' ) ) {
     add_filter('dtools_classes', __NAMESPACE__ . '\dtools_woocommerce_class', 5, 1);

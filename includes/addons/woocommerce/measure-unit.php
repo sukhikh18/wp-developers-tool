@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 add_action( 'woocommerce_after_add_to_cart_quantity',
 	__NAMESPACE__ . '\add_unit_after_add_to_cart_quantity', 30 );

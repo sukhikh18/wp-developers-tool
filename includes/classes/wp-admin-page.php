@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 if ( ! defined( 'ABSPATH' ) )
   exit; // disable direct access

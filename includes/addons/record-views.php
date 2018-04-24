@@ -3,7 +3,7 @@
  * Записать количетсво просмотров в total_views
  */
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 add_action( 'wp_footer', __NAMESPACE__ . '\add_view_count', 50);
 function add_view_count() {

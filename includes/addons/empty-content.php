@@ -3,7 +3,7 @@
  * Выводить вместо the_content если "Контент" пуст.
  */
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 add_filter( 'the_content', __NAMESPACE__ . '\empty_content', 10, 1 );
 function empty_content( $content ) {

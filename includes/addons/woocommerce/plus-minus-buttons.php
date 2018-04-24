@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 add_action( 'wp_head', __NAMESPACE__ . '\plus_minus_styles' );
 function plus_minus_styles() { ?>

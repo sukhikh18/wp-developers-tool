@@ -3,7 +3,7 @@
  * Удалять прикрепленные картинки с записью
  */
 
-namespace CDevelopers\tool;
+namespace NikolayS93\Tool;
 
 add_action('before_delete_post', __NAMESPACE__ . '\delete_attachments_with_post');
 function delete_attachments_with_post( $post_id ){

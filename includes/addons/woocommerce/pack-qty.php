@@ -1,6 +1,6 @@
 <?php
 
-namespace CDevelopers\tool {
+namespace NikolayS93\Tool {
     if( is_admin() && class_exists( __NAMESPACE__ . '\WCProductSettings') ) {
         $wc_fields = new WCProductSettings();
 
