@@ -10,7 +10,7 @@ $args = array(
         'desc'    => __('If the size of the uploaded image exceeds this, the original will be deleted, and instead the image with the specified size will be renamed to the original.', DOMAIN), // Если размер загруженного изображения превышает указанный, оригинал будет удален, а вместо него изображение с указанным размером переименуется в оригинал.
         'options' => array(
             ''        => __('Do not compress', DOMAIN), // Не сжимать
-            'default' => __('Default compress', DOMAIN), // Сжимать стандартно (1600х1024)
+            'default' => __('Default compress (max-width: 1600)', DOMAIN), // Сжимать стандартно (1600)
             // 'large'   => __('Сжимать до "Крупного" размера', DOMAIN),
             ),
         ),

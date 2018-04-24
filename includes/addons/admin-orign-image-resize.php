@@ -3,7 +3,7 @@
 namespace CDevelopers\tool;
 
 if( 'default' == DTools::get('orign-image-resize') ) {
-    add_image_size( 'default', 1600, 1024, false );
+    add_image_size( 'default', 1600, 9999, $crop = false );
 }
 
 add_filter('wp_generate_attachment_metadata', __NAMESPACE__ . '\replace_uploaded_image');
