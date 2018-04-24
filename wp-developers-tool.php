@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) )
 
 const DOMAIN = 'wp-developers-tool';
 
+__("WordPress Developer\'s Tool", DOMAIN);
+__("Add more advanced functions for your Wordpress site.", DOMAIN);
+
 class DTools {
     const PREFIX = 'dt_';
     const OPTION = 'DTools';
@@ -90,7 +93,7 @@ class DTools {
             return false;
         }
 
-        load_plugin_textdomain( DOMAIN, false, DOMAIN . '/languages/' );
+        load_plugin_textdomain( DOMAIN, false, basename(__DIR__) . '/languages/' );
         self::include_required_files();
         self::include_addons();
 
