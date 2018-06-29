@@ -27,14 +27,8 @@ This set of add-ons which I created when developing websites.
 
 --
 === Scripts: ===
-    * Sticky blocks (Often used for navbar, http://stickyjs.com/ by Anthony Garand)
-    * Smooth scroll (own development @need jQuery)
-    * Back to top page button (without styles, own development @need jQuery)
-    * Enable Font Awesome (http://fontawesome.io/ by Dave Gandy)
-    * Enqueue animate.css (https://daneden.github.io/animate.css/ by Daniel Eden)
-    * Enqueue wow.js (https://wowjs.uk/ by Thomas Grainger)
-    * Enqueue countTo (https://github.com/mhuggins/jquery-countTo by Matt Huggins)
-    * appearJs (http://creativelive.github.io/appear/ by Magicon)
+    * Smooth scroll (@need jQuery)
+    * Back to top page button (without styles, @need jQuery)
 
 --
 === WooCoommerce: ===

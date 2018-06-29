@@ -76,10 +76,6 @@ class DTools {
             'empty-content'      => $addons . '/empty-content.php',
 
             'smooth_scroll' => $scripts,
-            'sticky'        => $scripts,
-            'animate'       => $scripts,
-            'font_awesome'  => $scripts,
-            'countTo'       => $scripts,
             'back_top'      => $scripts,
         ), self::get('all') );
 

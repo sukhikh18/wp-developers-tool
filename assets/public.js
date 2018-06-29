@@ -1,11 +1,13 @@
 jQuery(document).ready(function($) {
-  function scrollTo(elemId, returnTop=40, delay=500){
-    var offset = $( elemId ).offset() || $('a[name='+elemId.slice(1)+']').offset();
+  function scrollTo(selector, returnTop = 40, delay = 500) {
+    var offset = $( selector ).offset() || $('a[name='+selector.slice(1)+']').offset(),
+        barheight = $('body').hasClass('admin-bar') && $('#wpadminbar').length ?
+          $('#wpadminbar').height() : 0;
 
-    barheight = $('body').hasClass('admin-bar') ? 32 : 0;
     if( offset ) {
       $('html, body').animate({ scrollTop: offset.top - returnTop - barheight }, delay);
     }
+    // not found
     else {
       console.log('Element not exists.');
     }
@@ -17,90 +19,63 @@ jQuery(document).ready(function($) {
     // if( arrLocHref.length >= 2 ) {
     //   scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
     // }
-    $('a[href*="#"], .scroll').click( function(event){
-      var linkHref = $(this).attr('href');
-      if( ! linkHref ) {
-        linkHref = $(this).find('a').attr('href');
+    $('a[href*="#"], .scroll').click( function(event) {
+      var $self = $(this),
+          href = false,
+          pos = false;
+
+      try {
+        href = $self.attr('href') || $self.find('a').attr('href');
+      } catch(e) {
+        console.log(e);
       }
 
-      var finded = linkHref.indexOf('#');
-      if( finded >= 0 ) {
-        if( $(this).attr('rel') != 'noScroll' && linkHref.slice(finded).length >= 1 ) {
-          var arrLinkHref = linkHref.split( '#', 2 );
+      if( href )
+        pos = href.indexOf('#');
 
-          /**
-           * fancy fix '' == arrLinkHref[0]
-           * @todo: test it
-           */
-          if( '/' == arrLinkHref[0] || '' == arrLinkHref[0] || arrLinkHref[0] == window.location.href.split('#', 1)[0] ) {
-            if( $( '#' + arrLinkHref[1] ).length ) {
-                event.preventDefault();
-            }
+      if(pos >= 0 && $(this).attr('rel') != 'noScroll' && linkHref.slice(pos).length >= 1) {
+        var target = href.split( '#', 2 );
 
-            scrollTo( '#' + arrLinkHref[1], DTools.smooth_scroll );
+        if( '/' == target[0] || '' == target[0] || target[0] == window.location.href.split('#', 1)[0] ) {
+          // target element exists
+          if( $( '#' + target[1] ).length ) {
+            event.preventDefault();
           }
+
+          scrollTo( '#' + target[1], DTools.smooth_scroll );
         }
       }
     });
   }
-  if( DTools.scroll_after_load ){
-    var id = window.location.href.split('#');
-    if ( id.length > 1 ){
-      id = id[id.length-1].match(/\w+/gi);
 
-      setTimeout(function(){
-        scrollTo( '#' + id[id.length-1], DTools.scroll_after_load )
+  if( DTools.scroll_after_load ) {
+    var arrTarget = window.location.href.split('#');
+    if ( arrTarget.length > 1 ){
+      target = arrTarget[arrTarget.length-1].match(/\w+/gi);
+
+      // for disable twitchings on deprecated computers
+      setTimeout( function(){
+        scrollTo( '#' + target[target.length-1], DTools.scroll_after_load )
       }, 200);
     }
   }
 
-  // sticky
-  if( DTools.sticky_selector ){
-    if( DTools.is_mobile && DTools.sticky == 'phone_only' || DTools.sticky == 'forever' ){
-      var space = ( $('#wpadminbar').length ) ? 32 : 0;
-
-      var $container = $( DTools.sticky_selector );
-      $container.sticky({topSpacing:space,zIndex:1100});
-      $container.parent('.sticky-wrapper').css('margin-bottom', $container.css('margin-bottom') );
-    }
-  }
-
-  // sticky
-  if( DTools.wow ){
-    if( ! DTools.is_mobile && DTools.wow == 'not_phone' || DTools.wow == 'forever' ){
-      new WOW().init();
-    }
-  }
-
-  if( DTools.appearJs ){
-    if( DTools.countTo ){
-      $( DTools.countTo ).appear();
-      $( DTools.countTo ).on("appear", function(event, $all_appeared_elements) {
-        if( ! $(this).attr("data-appeared") )
-          $(this).countTo();
-
-        $(this).attr("data-appeared", 1);
-      });
-    }
-  }
-  if( DTools.countTo && !DTools.appearJs ){
-    $( DTools.countTo ).countTo();
-  }
-
   // Back To Top
-  if( DTools.back_top ){
-    var offset = 200;
+  if( DTools.back_top ) {
+    var $backButton = $("<a href='#' id='back-top'></a>"),
+        offset = 200;
 
-    var btnBack = $("<a href='#' id='back-top'></a>" );
-    btnBack.on('click', function(event) {
+    $backButton.on('click', function(event) {
       event.preventDefault();
+
       $("html, body").animate({scrollTop: 0}, 600);
     });
-    btnBack.append(DTools.back_top).appendTo('body');
+
+    $backButton.append(DTools.back_top).appendTo('body');
 
     $(window).scroll(function() {
-      if ($(this).scrollTop() > offset) btnBack.fadeIn(400);
-      else btnBack.fadeOut(400);
+      if ($(this).scrollTop() > offset) $backButton.fadeIn();
+      else $backButton.fadeOut();
     });
   }
 });
