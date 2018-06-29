@@ -45,6 +45,9 @@ This set of add-ons which I created when developing websites.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.3 =
+    * Exclude vendor scripts. Let's leave this fun for the "FrontEnd" developers or bower..
+
 = 1.2 =
     * Excluded "Disable comments" as is not working as intended
 
