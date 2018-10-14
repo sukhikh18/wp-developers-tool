@@ -13,11 +13,11 @@ jQuery(document).ready(function($) {
     }
   }
 
-  if( DTools.smooth_scroll ){
+  if( Utils.smooth_scroll ){
     // replaced to scroll_after_load
     // var arrLocHref = window.location.href.split('#', 2);
     // if( arrLocHref.length >= 2 ) {
-    //   scrollTo( '#' + arrLocHref[1], DTools.smooth_scroll, 1 );
+    //   scrollTo( '#' + arrLocHref[1], Utils.smooth_scroll, 1 );
     // }
     $('a[href*="#"], .scroll').click( function(event) {
       var $self = $(this),
@@ -42,26 +42,26 @@ jQuery(document).ready(function($) {
             event.preventDefault();
           }
 
-          scrollTo( '#' + target[1], DTools.smooth_scroll );
+          scrollTo( '#' + target[1], Utils.smooth_scroll );
         }
       }
     });
   }
 
-  if( DTools.scroll_after_load ) {
+  if( Utils.scroll_after_load ) {
     var arrTarget = window.location.href.split('#');
     if ( arrTarget.length > 1 ){
       target = arrTarget[arrTarget.length-1].match(/\w+/gi);
 
       // for disable twitchings on deprecated computers
       setTimeout( function(){
-        scrollTo( '#' + target[target.length-1], DTools.scroll_after_load )
+        scrollTo( '#' + target[target.length-1], Utils.scroll_after_load )
       }, 200);
     }
   }
 
   // Back To Top
-  if( DTools.back_top ) {
+  if( Utils.back_top ) {
     var $backButton = $("<a href='#' id='back-top'></a>"),
         offset = 200;
 
@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
       $("html, body").animate({scrollTop: 0}, 600);
     });
 
-    $backButton.append(DTools.back_top).appendTo('body');
+    $backButton.append(Utils.back_top).appendTo('body');
 
     $(window).scroll(function() {
       if ($(this).scrollTop() > offset) $backButton.fadeIn();

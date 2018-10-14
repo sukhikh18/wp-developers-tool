@@ -30,7 +30,7 @@ class Utils extends Plugin
      */
     public static function get_plugin_url( $path = '' )
     {
-        $url = plugins_url( basename(PLUGIN_DIR) ) . $path;
+        $url = plugins_url( basename(PLUGIN_DIR) ) . '/' . $path;
 
         return apply_filters( "get_{DOMAIN}_plugin_url", $url, $path );
     }

@@ -1,8 +1,9 @@
 <?php
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
-class WCProductSettings {
+class WCProductSettings
+{
 	protected $fields = array();
 
 	function add_field($args = array(), $product_type = 'simple'){

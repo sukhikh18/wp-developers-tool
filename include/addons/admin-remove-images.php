@@ -3,7 +3,7 @@
  * Удалять прикрепленные картинки с записью
  */
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_action('before_delete_post', __NAMESPACE__ . '\delete_attachments_with_post');
 function delete_attachments_with_post( $post_id ){
@@ -12,7 +12,7 @@ function delete_attachments_with_post( $post_id ){
     if(is_wp_error($_post))
         return;
 
-    if( ! in_array(DTools::get( 'remove-images' ), array($_post->post_type, 'all') ) )
+    if( ! in_array(Utils::get( 'remove-images' ), array($_post->post_type, 'all') ) )
         return;
 
     $attachments = get_posts( array(

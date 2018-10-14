@@ -1,14 +1,14 @@
 <?php
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
-if( 'default' == DTools::get('orign-image-resize') ) {
+if( 'default' == Utils::get('orign-image-resize') ) {
     add_image_size( 'default', 1600, 9999, $crop = false );
 }
 
 add_filter('wp_generate_attachment_metadata', __NAMESPACE__ . '\replace_uploaded_image');
 function replace_uploaded_image( $image_data ) {
-    $size = DTools::get( 'orign-image-resize' );
+    $size = Utils::get( 'orign-image-resize' );
 
     // if there is no large image : return
     if ( !$size || !isset($image_data['sizes'][$size]) )

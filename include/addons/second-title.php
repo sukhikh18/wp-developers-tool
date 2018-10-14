@@ -3,7 +3,7 @@
  * Дополнительный заголовок
  */
 
-namespace NikolayS93\Tool {
+namespace NikolayS93\Tools {
     add_action('edit_form_after_title', __NAMESPACE__ . '\render_second_title');
     function render_second_title() {
         global $post;
@@ -103,7 +103,7 @@ namespace NikolayS93\Tool {
 
         if( ! $id ) $id = $post->ID;
 
-        if( 'detail' == DTools::get('second-title') && ! is_singular() ) {
+        if( 'detail' == Utils::get('second-title') && ! is_singular() ) {
             return $title;
         }
 

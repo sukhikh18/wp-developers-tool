@@ -1,13 +1,13 @@
 <?php
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_filter( 'easy_queries_args', __NAMESPACE__ . '\top_sales_query_args', 10, 1 );
 function top_sales_query_args( $args ) {
     if( $args['post_type'] == 'top-sales' ) {
         $args['post_type'] = 'product';
 
-        switch ( DTools::get( 'bestsellers' ) ) {
+        switch ( Utils::get( 'bestsellers' ) ) {
             case 'personal':
                 $args['meta_key'] = 'top_sale_product';
                 $meta = array(
@@ -42,9 +42,9 @@ function top_sales_query_args( $args ) {
     return $args;
 }
 
-if( 'personal' === DTools::get( 'bestsellers' ) && is_admin() ) {
+if( 'personal' === Utils::get( 'bestsellers' ) && is_admin() ) {
     if( ! class_exists(__NAMESPACE__ . '\WCProductSettings') ) {
-        DTools::write_debug('Class WCProductSettings not found', __FILE__);
+        Utils::write_debug('Class WCProductSettings not found', __FILE__);
         return;
     }
 

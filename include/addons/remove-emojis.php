@@ -3,7 +3,7 @@
  * Отключить стандартные смайлы Wordpress
  */
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_action( 'init', __NAMESPACE__ . '\remove_emojis' );
 function remove_emojis() {

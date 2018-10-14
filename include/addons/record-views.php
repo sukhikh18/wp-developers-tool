@@ -3,11 +3,11 @@
  * Записать количетсво просмотров в total_views
  */
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_action( 'wp_footer', __NAMESPACE__ . '\add_view_count', 50);
 function add_view_count() {
-    if( $option = DTools::get( 'record-views' ) ) {
+    if( $option = Utils::get( 'record-views' ) ) {
         if( 'all' === $option ) {
             $option = null;
         }

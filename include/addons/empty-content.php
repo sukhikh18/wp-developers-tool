@@ -3,7 +3,7 @@
  * Выводить вместо the_content если "Контент" пуст.
  */
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_filter( 'the_content', __NAMESPACE__ . '\empty_content', 10, 1 );
 function empty_content( $content ) {
@@ -18,5 +18,5 @@ function empty_content( $content ) {
         return $content;
     }
 
-    return DTools::get('empty-content');
+    return Utils::get('empty-content');
 }

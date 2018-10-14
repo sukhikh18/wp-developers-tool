@@ -1,10 +1,16 @@
 <?php
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 add_action( 'wp_head', __NAMESPACE__ . '\plus_minus_styles' );
-function plus_minus_styles() { ?>
+function plus_minus_styles() {
+    if( apply_filters( 'disable_plus_minus_styles', false ) ) return;
+    ?>
     <style type="text/css">
+        .plus-minus-qty-wrapper {
+            float: left;
+            margin-right: .875em;
+        }
         div.product #plus-minus-qty-wrapper .minus,
         div.product #plus-minus-qty-wrapper .plus {
             display: inline-block;
@@ -42,7 +48,7 @@ function plus_minus_styles() { ?>
 # start qty
 add_action('woocommerce_before_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_start', 10);
 function plus_minus_buttons_start() { ?>
-    <div id="plus-minus-qty-wrapper">
+    <div id="plus-minus-qty-wrapper" class="plus-minus-qty-wrapper">
     <?php
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace NikolayS93\Tool;
+namespace NikolayS93\Tools;
 
 function get_product_wholesale_min( $product ) {
     if( ! is_a($product, 'WC_Product') )

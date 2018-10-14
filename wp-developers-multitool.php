@@ -23,8 +23,8 @@
 
 namespace NikolayS93\Tools;
 
-__("WordPress Developer\'s multitool", DOMAIN);
-__("Add more advanced functions for your Wordpress site.", DOMAIN);
+__("WordPress Developer\'s multitool");
+__("Add more advanced functions for your Wordpress site.");
 
 use NikolayS93\WPAdminPage as Admin;
 
@@ -63,27 +63,16 @@ class Plugin
         return apply_filters("get_{DOMAIN}_option_name", DOMAIN);
     }
 
-    public static function _admin_assets()
-    {
-        // array(
-            // 'tab_sections' => array(
-            //     DTools::PREFIX . 'general' => __('Main', DOMAIN),
-            //     DTools::PREFIX . 'scripts' => __('Scripts', DOMAIN),
-            // ),
-            // 'callback' => array(
-            //     DTools::PREFIX . 'general' => array(__CLASS__, 'general_settings_tab'),
-            //     DTools::PREFIX . 'scripts' => array(__CLASS__, 'scripts_settings_tab'),
-            // ),
-        // );
-
-        wp_enqueue_script(
-            'NikolayS93\Tools\Plugin\_admin_assets',
-            Utils::get_plugin_url('assets/admin.js'),
-            array('jquery'),
-            false,
-            true
-        );
-    }
+    // public static function _admin_assets()
+    // {
+    //     wp_enqueue_script(
+    //         'NikolayS93\Tools\Plugin\_admin_assets',
+    //         Utils::get_plugin_url('admin/assets/admin.js'),
+    //         array('jquery'),
+    //         false,
+    //         true
+    //     );
+    // }
 
     public static function admin_menu_page()
     {
@@ -99,19 +88,37 @@ class Plugin
             )
         );
 
-        $page->set_assets( array(__CLASS__, '_admin_assets') );
+        // $page->set_assets( array(__CLASS__, '_admin_assets') );
 
         $page->set_content( function() {
             Utils::get_admin_template('menu-page.php', false, $inc = true);
         } );
 
         $page->add_section( new Admin\Section(
-            'Section',
-            __('Section'),
+            'General',
+            __('General', DOMAIN),
             function() {
-                Utils::get_admin_template('section.php', false, $inc = true);
+                Utils::get_admin_template('general.php', false, $inc = true);
             }
         ) );
+
+        $page->add_section( new Admin\Section(
+            'Scripts',
+            __('Scripts', DOMAIN),
+            function() {
+                Utils::get_admin_template('scripts.php', false, $inc = true);
+            }
+        ) );
+
+        if ( class_exists( '\WooCommerce' ) )  {
+            $page->add_section( new Admin\Section(
+                'Woocommerce',
+                __('Woocommerce', DOMAIN),
+                function() {
+                    Utils::get_admin_template('woocommerce.php', false, $inc = true);
+                }
+            ) );
+        }
 
         // $metabox1 = new Admin\Metabox(
         //     'metabox1',
@@ -124,20 +131,6 @@ class Plugin
         // );
 
         // $page->add_metabox( $metabox1 );
-
-        // $metabox2 = new Admin\Metabox(
-        //     'metabox2',
-        //     __('metabox2', DOMAIN),
-        //     function() {
-        //         Utils::get_admin_template('metabox2.php', false, $inc = true);
-        //     },
-        //     $position = 'side',
-        //     $priority = 'high'
-        // );
-
-        // $page->add_metabox( $metabox2 );
-
-        add_action($page->page . '_after_form_inputs', 'submit_button' );
     }
 
     public static function define()
@@ -161,24 +154,27 @@ class Plugin
         $autoload = PLUGIN_DIR . '/vendor/autoload.php';
         if( file_exists($autoload) ) include $autoload;
 
-        $includes = apply_filters( 'dtools_active', array(
-            'maintenance-mode'   => PLUGIN_DIR . '/include/maintenance-mode.php',
-            'second-title'       => PLUGIN_DIR . '/include/second-title.php',
-            'record-views'       => PLUGIN_DIR . '/include/record-views.php',
-            'remove-images'      => PLUGIN_DIR . '/include/admin-remove-images.php',
-            'remove-emojis'      => PLUGIN_DIR . '/include/remove-emojis.php',
-            'orign-image-resize' => PLUGIN_DIR . '/include/admin-orign-image-resize.php',
-            'empty-content'      => PLUGIN_DIR . '/include/empty-content.php',
+        include PLUGIN_DIR . '/include/woocommerce.php';
 
-            'smooth_scroll' => PLUGIN_DIR . '/include/init-scripts.php',
-            'back_top'      => PLUGIN_DIR . '/include/init-scripts.php',
-        ), self::get('all') );
+        $addons = PLUGIN_DIR . '/include/addons';
+        $includes = apply_filters( 'Utils_active', array(
+            'maintenance-mode'   => $addons . '/maintenance-mode.php',
+            'second-title'       => $addons . '/second-title.php',
+            'record-views'       => $addons . '/record-views.php',
+            'remove-images'      => $addons . '/admin-remove-images.php',
+            'remove-emojis'      => $addons . '/remove-emojis.php',
+            'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
+            'empty-content'      => $addons . '/empty-content.php',
 
-        // foreach ($includes as $include) {
-        //     if(is_file($include)) include $include;
-        // }
+            'smooth_scroll'      => $addons . '/init-scripts.php',
+            'back_top'           => $addons . '/init-scripts.php',
+        ), Utils::get('all') );
 
-        // include PLUGIN_DIR . '/include/placeholders.php';
+        foreach ($includes as $include) {
+            if(is_file($include)) include_once $include;
+        }
+
+        include PLUGIN_DIR . '/include/placeholders.php';
 
         self::admin_menu_page();
     }
@@ -203,11 +199,11 @@ add_action( 'plugins_loaded', array( __NAMESPACE__ . '\Plugin', 'initialize' ), 
 /**
  * Подключать только активные
  */
-add_filter( 'dtools_active', __NAMESPACE__ . '\active_addons_filter', 10, 1 );
+add_filter( 'Utils_active', __NAMESPACE__ . '\active_addons_filter', 10, 1 );
 function active_addons_filter( $active )
 {
     foreach ($active as $k => $val) {
-        if( ! DTools::get( $k ) ) unset( $active[ $k ] );
+        if( ! Utils::get( $k ) ) unset( $active[ $k ] );
     }
 
     return $active;
