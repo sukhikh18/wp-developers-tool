@@ -11,7 +11,11 @@ namespace NikolayS93\Tools {
             // 'description' => __('На сайте это будет отображаться примерно как "Цена ## руб. за шт."', DOMAIN),
             // 'placeholder' => __('К примеру: "шт."', DOMAIN),
             // 'desc_tip'    => 'true',
-            ) );
+            'custom_attributes' => array(
+                'step' => 'any',
+                'min'  => '0',
+            ),
+        ) );
 
         $wc_fields->set_fields();
     }

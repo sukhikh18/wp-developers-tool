@@ -14,7 +14,7 @@ function get_product_wholesale_min( $product ) {
         $default = 1;
     }
 
-    if( $from > 1 )
+    if( $from > 0.1 )
         return $from;
 
     return $default;
@@ -31,7 +31,7 @@ function wholesales_field_validation( $passed_validation, $product_id ) {
     $product = wc_get_product( $product_id );
     $min = get_product_wholesale_min( $product );
     if ( empty( $_REQUEST['quantity'] ) || intval($_REQUEST['quantity']) < $min ) {
-        wc_add_notice( __('Invalid quantity value.', DOMAIN), 'error' ); // Недопустимое значение количества.
+        wc_add_notice( __('Invalid quantity value.', DOMAIN), 'error' );
         return false;
     }
 
@@ -43,10 +43,14 @@ if( is_admin() && class_exists(__NAMESPACE__ . '\WCProductSettings') ){
     $wc_fields->add_field( array(
         'id'          => 'wholesale_from',
         'type'        => 'number',
-        'label'       => __('Wholesale from', DOMAIN),
-        'description' => __('Allow sell out bigger only, than..', DOMAIN), // Разрешить продажи от этого количества
+        'label'       => __('Sale from', DOMAIN),
+        'description' => __('Allow sell out bigger only, than..', DOMAIN),
         'desc_tip'    => true,
-        ) );
+        'custom_attributes' => array(
+            'step' => 'any',
+            'min'  => '0.1',
+        ),
+    ) );
 
     $wc_fields->set_fields();
 }

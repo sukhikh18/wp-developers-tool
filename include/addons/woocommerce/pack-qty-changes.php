@@ -9,13 +9,33 @@ function woocommerce_quantity_input_package_step( $step ) {
     if( ! is_a($product, 'WC_Product') )
         return $step;
 
-    return $product->get_meta('pack_qty');
+    return floatval( $product->get_meta('pack_qty') );
 }
 
-add_filter( 'woocommerce_quantity_input_min', __NAMESPACE__ . '\wholesales_min', 50, 2 );
-function wholesales_min( $step, $product ) {
-	if( ! is_a($product, 'WC_Product') )
-        return $step;
+add_filter( 'woocommerce_quantity_input_min', __NAMESPACE__ . '\quantity_input_min', 50, 2 );
+function quantity_input_min( $min, $product ) {
+	if( ! is_a($product, 'WC_Product') ) return $min;
 
-    return ( $step !== 1 ) ? $step : $product->get_meta('pack_qty');
+    $nMin = $product->get_meta('pack_qty');
+    if( 1 > floatval($nMin) && $min == 1 ) {
+        $min = $nMin;
+    }
+
+    return $min;
+}
+
+add_filter( 'woocommerce_quantity_input_args', __NAMESPACE__ . '\quantity_input_value', 50, 2 );
+function quantity_input_value( $args, $product ) {
+    if( ! is_a($product, 'WC_Product') )
+        return $args;
+
+    if( $args['input_value'] < $args['step'] ) {
+        $args['input_value'] = $args['step'];
+    }
+
+    if( $args['input_value'] > $args['min_value'] ) {
+        $args['input_value'] = $args['min_value'];
+    }
+
+    return $args;
 }

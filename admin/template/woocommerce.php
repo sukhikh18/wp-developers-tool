@@ -56,6 +56,12 @@ function get_woocommerce_settings() {
             'label' => __('Increase step size', DOMAIN),
             'desc'  => __('The step change by pressing + / - (Up, Down) will be equal to the specified quantity in the package (Do not oppose entry into the manual)', DOMAIN),
         ),
+        array(
+            'id'    => 'qty-stock-decimals',
+            'type'  => 'checkbox',
+            'label' => __('Allow decimal quantities', DOMAIN),
+            'desc'  => '',
+        ),
     );
 
     return apply_filters( 'get_woocommerce_settings', $args );

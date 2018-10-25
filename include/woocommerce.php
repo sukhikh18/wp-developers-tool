@@ -11,12 +11,15 @@ if ( class_exists( '\WooCommerce' ) ) {
 function Utils_woocommerce_active( $active ) {
     $wc_addons = PLUGIN_DIR . '/include/addons/woocommerce';
 
-    $active[ 'product-measure-unit' ] = $wc_addons . '/measure-unit.php';
-    $active[ 'plus-minus-buttons' ]   = $wc_addons . '/plus-minus-buttons.php';
-    $active[ 'pack-qty' ]             = $wc_addons . '/pack-qty.php';
-    $active[ 'pack-qty-changes' ]     = $wc_addons . '/pack-qty-changes.php';
-    $active[ 'wholesales' ]           = $wc_addons . '/wholesales.php';
-    $active[ 'bestsellers' ]          = $wc_addons . '/bestsellers.php';
+    $active = array_merge($active, array(
+        'product-measure-unit' => $wc_addons . '/measure-unit.php',
+        'wholesales'           => $wc_addons . '/wholesales.php',
+        'plus-minus-buttons'   => $wc_addons . '/plus-minus-buttons.php',
+        'pack-qty'             => $wc_addons . '/pack-qty.php',
+        'pack-qty-changes'     => $wc_addons . '/pack-qty-changes.php',
+        'bestsellers'          => $wc_addons . '/bestsellers.php',
+        'qty-stock-decimals'   => $wc_addons . '/qty-stock-decimals.php',
+    ));
 
     return $active;
 }

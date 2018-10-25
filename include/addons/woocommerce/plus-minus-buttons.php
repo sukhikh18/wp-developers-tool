@@ -11,8 +11,8 @@ function plus_minus_styles() {
             float: left;
             margin-right: .875em;
         }
-        div.product #plus-minus-qty-wrapper .minus,
-        div.product #plus-minus-qty-wrapper .plus {
+        div.product .plus-minus-qty-wrapper .minus,
+        div.product .plus-minus-qty-wrapper .plus {
             display: inline-block;
             width: 25px;
             font-weight: 700;
@@ -27,18 +27,18 @@ function plus_minus_styles() {
             vertical-align: middle;
             top: -2px;
         }
-        div.product #plus-minus-qty-wrapper div.quantity {
+        div.product .plus-minus-qty-wrapper div.quantity {
             float: none;
             display: inline-block;
             margin: 0;
             vertical-align: middle;
         }
-        div.product #plus-minus-qty-wrapper div.quantity .qty::-webkit-inner-spin-button,
-        div.product #plus-minus-qty-wrapper div.quantity .qty::-webkit-outer-spin-button {
+        div.product .plus-minus-qty-wrapper div.quantity .qty::-webkit-inner-spin-button,
+        div.product .plus-minus-qty-wrapper div.quantity .qty::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-        div.product #plus-minus-qty-wrapper div.quantity .qty {
+        div.product .plus-minus-qty-wrapper div.quantity .qty {
             -moz-appearance: textfield;
         }
     </style>
@@ -47,45 +47,67 @@ function plus_minus_styles() {
 
 # start qty
 add_action('woocommerce_before_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_start', 10);
-function plus_minus_buttons_start() { ?>
-    <div id="plus-minus-qty-wrapper" class="plus-minus-qty-wrapper">
-    <?php
+function plus_minus_buttons_start() {
+    echo '<div class="plus-minus-qty-wrapper">';
 }
 
 # end qty
 add_action('woocommerce_after_add_to_cart_quantity', __NAMESPACE__ . '\plus_minus_buttons_end', 10);
-function plus_minus_buttons_end() { ?>
-    </div>
+function plus_minus_buttons_end() {
+    echo '</div><!-- .plus-minus-qty-wrapper -->';
+}
+
+add_action('wp_footer', __NAMESPACE__ . '\plus_minus_script', 10);
+function plus_minus_script() {
+    ?>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-            var $qty = $('[name="quantity"]');
-            var qty_step = $qty.attr('step') > 1 ? $qty.attr('step') : 1;
+            var $wrappers = $('.plus-minus-qty-wrapper');
 
-            $('#plus-minus-qty-wrapper').prepend('<span class="minus">-</span>');
-            $('#plus-minus-qty-wrapper').append( '<span class="plus">+</span>');
+            $wrappers.each(function(index, el) {
+                var $wrap = $(this);
+                var $qty = $('[name="quantity"]', $wrap);
 
-            $('#plus-minus-qty-wrapper .minus').on('click', function(event) {
-                event.preventDefault();
-                $qty.val( function( val ){
-                    var min = $qty.attr('min') || 0;
-                    return ( +$qty.val() <= min ) ? min : +$qty.val() - +qty_step;
-                } );
-                $qty.trigger('change');
-            });
+                var step = +$qty.attr('step') >= 0.1 ? +$qty.attr('step') : 1;
+                var min  = +$qty.attr('min') >= 0.1 ? +$qty.attr('min') : 1;
+                var max  = +$qty.attr('max') >= 0.1 ? +$qty.attr('max') : 9999999;
 
-            $('#plus-minus-qty-wrapper .plus').on('click', function(event) {
-                event.preventDefault();
-                $qty.val( function( val ){
-                    var max = +$qty.attr('max');
-                    return ( max && +$qty.val() > max ) ? max : +$qty.val() + +qty_step;
-                } );
-                $qty.trigger('change');
-            });
+                /**
+                 * How much toFixed numbers
+                 */
+                var fixed = step * 100 % 10 ? 2 : 1;
 
-            // $('.plus').on('click', function(event) {
-            //   console.log(qty_val());
-            //   if( qty_val() - 1 > $qty.attr('max') ) $qty.val( --qty_val );
-            // });
+                var $plus = $('<span class="plus">+</span>');
+                $plus.on('click', function(event) {
+                    event.preventDefault();
+
+                    // observe restrictions
+                    if( +$qty.val() >= max ) return;
+
+                    // increase value
+                    $qty.val( (+$qty.val() + step).toFixed(fixed) );
+
+                    // we change it
+                    $qty.trigger('change');
+                });
+
+                var $minus = $('<span class="minus">-</span>');
+                $minus.on('click', function(event) {
+                    event.preventDefault();
+
+                    // observe restrictions
+                    if( +$qty.val() <= min ) return min;
+
+                    // decrease value
+                    $qty.val( ($qty.val() - step).toFixed(fixed) );
+
+                    // we change it
+                    $qty.trigger('change');
+                });
+
+                $wrap.prepend( $minus );
+                $wrap.append( $plus );
+            }); // end each
         });
     </script>
     <?php
