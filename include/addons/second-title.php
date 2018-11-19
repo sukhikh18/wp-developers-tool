@@ -67,10 +67,10 @@ namespace NikolayS93\Tools {
         if( ! wp_verify_nonce( $nonce, 'save_second_title' ) )
             return $post_id;
 
-        $posted = wp_parse_args( $_POST, array(
+        $posted = shortcode_atts( array(
             'second-title' => '',
             'second-title-empty' => '',
-            ) );
+        ), $_POST );
 
         if( apply_filters( 'dt_sanitize_second_title_field', true ) ) {
             $posted = array_filter( $posted , 'sanitize_text_field' );
