@@ -49,6 +49,12 @@ class Utils extends Plugin
         return false;
     }
 
+    /**
+     * @param  string  $tpl     template name
+     * @param  array   $data    transfer data
+     * @param  boolean $include include on return
+     * @return strong           template path
+     */
     public static function get_admin_template( $tpl = '', $data = array(), $include = false )
     {
         $filename = PLUGIN_DIR . '/admin/template/' . $tpl;

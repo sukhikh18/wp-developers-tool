@@ -46,7 +46,7 @@ msgstr "К примеру: \"шт.\""
 
 #: includes/addons/woocommerce/pack-qty.php:10
 msgid "Pack qty"
-msgstr "Кол-во в упаковке"
+msgstr "Кратность"
 
 #: includes/addons/woocommerce/wholesales.php:34
 msgid "Invalid quantity value."
