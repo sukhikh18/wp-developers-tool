@@ -80,12 +80,6 @@ function get_general_settings() {
 			'placeholder' => __("The website is in maintenance.\nPlease check back later.", DOMAIN),
 			'input_class' => 'widefat',
 		),
-		array(
-			'id'    => 'remove-emojis',
-			'type'  => 'checkbox',
-			'label' => __('Disable wp_emoji', DOMAIN),
-			'desc'  => __('Disable default Wordpress emoji smiles', DOMAIN),
-		),
 	);
 
 	return apply_filters( 'get_general_settings', $args );

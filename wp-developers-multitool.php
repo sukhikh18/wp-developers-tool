@@ -46,7 +46,6 @@ class Plugin
     static function activate() {
         add_option( self::get_option_name(), array(
             'orign-image-resize' => 'default',
-            'remove-emojis' => 'on',
         ) );
     }
 
@@ -162,7 +161,6 @@ class Plugin
             'second-title'       => $addons . '/second-title.php',
             'record-views'       => $addons . '/record-views.php',
             'remove-images'      => $addons . '/admin-remove-images.php',
-            'remove-emojis'      => $addons . '/remove-emojis.php',
             'orign-image-resize' => $addons . '/admin-orign-image-resize.php',
             'empty-content'      => $addons . '/empty-content.php',
 

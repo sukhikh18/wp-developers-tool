@@ -23,7 +23,6 @@ This set of add-ons which I created when developing websites.
     * Remove attachments with posts
     * Show empty page message
     * Set maintenance mode
-    * Disable default emoji smiles
 
 --
 === Scripts: ===
