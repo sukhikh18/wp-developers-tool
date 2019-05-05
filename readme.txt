@@ -45,6 +45,9 @@ This set of add-ons which I created when developing websites.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 2.0 =
+    * Huge refactoring
+
 = 1.3 =
     * Exclude vendor scripts. Let's leave this fun for the "FrontEnd" developers or bower..
 

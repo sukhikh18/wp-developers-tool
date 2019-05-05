@@ -7,16 +7,8 @@ namespace NikolayS93\Tools;
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Utils_assets' );
 function Utils_assets() {
-//     $suffix = (defined('WP_DEBUG_SCRIPT') && WP_DEBUG_SCRIPT) ? '' : '.min';
-
-//     $assets = Utils::get_plugin_url( 'assets' );
-//     $sticky = Utils::get( 'sticky' );
-//     if(wp_is_mobile() && $sticky == 'phone_only' || $sticky == 'forever') {
-//         $sticky_src = apply_filters('dt_sticky_src',
-//             $assets . '/sticky/jquery.sticky'.$suffix.'.js', $suffix);
-
-//         wp_enqueue_script('sticky', $sticky_src, array( 'jquery' ), '1.0.4', true);
-//     }
+    $suffix = (defined('WP_DEBUG_SCRIPT') && \WP_DEBUG_SCRIPT) ? '' : '.min';
+    $assets = Utils::get_plugin_url( 'assets' );
 
 //     if( Utils::get( 'countTo' ) ) {
 //         $countto_src = apply_filters('dt_countto_src',
@@ -53,8 +45,8 @@ function Utils_assets() {
 //         wp_enqueue_style( 'font_awesome', $font_awesome_src, false, '4.7.0');
 //     }
 
-//     $settings = Utils::get( 'all' );
-//     $settings['is_mobile'] = wp_is_mobile();
-//     wp_enqueue_script(  'Utils-public', $assets . '/public.js', array( 'jquery' ), '1.1', true);
-//     wp_localize_script( 'Utils-public', 'Utils', $settings );
+    $settings = Utils::get( 'all' );
+    $settings['is_mobile'] = wp_is_mobile();
+    wp_enqueue_script(  'multitool-public', $assets . '/public'.$suffix.'.js', array( 'jquery' ), '1.1', true);
+    wp_localize_script( 'multitool-public', 'Utils', $settings );
 }
