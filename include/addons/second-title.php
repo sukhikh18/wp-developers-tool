@@ -96,6 +96,12 @@ namespace NikolayS93\Tools {
     function advanced_get_the_title( $title, $id = null, $enable_second_title = false ) {
         global $post;
 
+        $is_enabled = Utils::get('second-title');
+
+        if( 'enable' === $is_enabled ) {
+            return $title;
+        }
+
         if( ! $enable_second_title ) {
             if( is_admin() ) return $title;
             if( ! in_the_loop() ) return $title;
@@ -103,7 +109,7 @@ namespace NikolayS93\Tools {
 
         if( ! $id ) $id = $post->ID;
 
-        if( 'detail' == Utils::get('second-title') && ! is_singular() ) {
+        if( 'detail' == $is_enabled && ! is_singular() ) {
             return $title;
         }
 
