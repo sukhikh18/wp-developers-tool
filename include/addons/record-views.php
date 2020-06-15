@@ -7,7 +7,7 @@ namespace NikolayS93\Tools;
 
 add_action( 'wp_footer', __NAMESPACE__ . '\add_view_count', 50);
 function add_view_count() {
-    if( $option = Utils::get( 'record-views' ) ) {
+    if( $option = Plugin::get_setting( 'record-views' ) ) {
         if( 'all' === $option ) {
             $option = null;
         }

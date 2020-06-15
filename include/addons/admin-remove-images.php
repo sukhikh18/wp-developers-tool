@@ -12,7 +12,7 @@ function delete_attachments_with_post( $post_id ){
     if(is_wp_error($_post))
         return;
 
-    if( ! in_array(Utils::get( 'remove-images' ), array($_post->post_type, 'all') ) )
+    if( ! in_array(Plugin::get_setting( 'remove-images' ), array($_post->post_type, 'all') ) )
         return;
 
     $attachments = get_posts( array(

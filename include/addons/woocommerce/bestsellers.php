@@ -7,7 +7,7 @@ function top_sales_query_args( $args ) {
     if( $args['post_type'] == 'top-sales' ) {
         $args['post_type'] = 'product';
 
-        switch ( Utils::get( 'bestsellers' ) ) {
+        switch ( Plugin::get_setting( 'bestsellers' ) ) {
             case 'personal':
                 $args['meta_key'] = 'top_sale_product';
                 $meta = array(
@@ -42,9 +42,9 @@ function top_sales_query_args( $args ) {
     return $args;
 }
 
-if( 'personal' === Utils::get( 'bestsellers' ) && is_admin() ) {
+if( 'personal' === Plugin::get_setting( 'bestsellers' ) && is_admin() ) {
     if( ! class_exists(__NAMESPACE__ . '\WCProductSettings') ) {
-        Utils::write_debug('Class WCProductSettings not found', __FILE__);
+        error_log('Class WCProductSettings not found on ' . __FILE__);
         return;
     }
 

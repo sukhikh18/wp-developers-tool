@@ -103,7 +103,7 @@ namespace NikolayS93\Tools {
 
         if( ! $id ) $id = $post->ID;
 
-        if( 'detail' == Utils::get('second-title') && ! is_singular() ) {
+        if( 'detail' == Plugin::get_setting('second-title') && ! is_singular() ) {
             return $title;
         }
 

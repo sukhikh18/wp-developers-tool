@@ -45,6 +45,9 @@ This set of add-ons which I created when developing websites.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 2.1 =
+    * Pack qty by category
+
 = 2.0 =
     * Huge refactoring
 
@@ -52,7 +55,7 @@ This set of add-ons which I created when developing websites.
     * Exclude vendor scripts. Let's leave this fun for the "FrontEnd" developers or bower..
 
 = 1.2 =
-    * Excluded "Disable comments" as is not working as intended
+    * Exclude "Disable comments" because this not working as intended
 
 = 1.1 =
     * Set fontawesome cdn

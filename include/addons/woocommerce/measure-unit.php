@@ -11,7 +11,7 @@ function add_unit_after_add_to_cart_quantity() {
 		return false;
 
 	$unit = $product->get_meta('_unit') ?
-		$product->get_meta('_unit') : Utils::get( 'product-measure-unit' );
+		$product->get_meta('_unit') : Plugin::get_setting( 'product-measure-unit' );
 
 	echo sprintf("<span class='qty-unit'>%s</span>", apply_filters( 'dt_measure-unit', $unit ) );
 }

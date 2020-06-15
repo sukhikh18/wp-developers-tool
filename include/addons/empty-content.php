@@ -18,5 +18,5 @@ function empty_content( $content ) {
         return $content;
     }
 
-    return Utils::get('empty-content');
+    return Plugin::get_settings('empty-content');
 }
