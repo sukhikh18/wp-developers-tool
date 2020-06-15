@@ -30,6 +30,7 @@ function get_general_settings() {
 			'desc'    => __('Change title ..', DOMAIN),
 			'options' => array(
 				''       => __('Do not use', DOMAIN),
+				'enable' => __('Do not change', DOMAIN),
 				'loop'   => __('For "The loop"', DOMAIN),
 				'detail' => __('For detail only', DOMAIN),
 			),
