@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: plugin\n"
-"POT-Creation-Date: 2018-04-24 10:44+0400\n"
-"PO-Revision-Date: 2018-04-24 10:44+0400\n"
+"POT-Creation-Date: 2020-06-15 16:51+0400\n"
+"PO-Revision-Date: 2020-06-15 16:55+0400\n"
 "Last-Translator: \n"
 "Language-Team: NikolayS93 <NikolayS93@yandex.ru>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ../.\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,68 +20,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: languages\n"
 "X-Poedit-SearchPathExcluded-2: .git\n"
 
-#: includes/addons/second-title.php:44
-msgid "Insert second title"
-msgstr "Введите второе название"
-
-#: includes/addons/second-title.php:48
-msgid "Empty title"
-msgstr "Оставить пустым"
-
-#: includes/addons/woocommerce/bestsellers.php:56
-msgid "Popularity product"
-msgstr "Популярный товар"
-
-#: includes/addons/woocommerce/bestsellers.php:57
-msgid "Show it on popular block"
-msgstr "Этот товар будет показываться в блоке популярных товаров"
-
-#: includes/addons/woocommerce/measure-unit.php:26
-msgid "Measure unit"
-msgstr "Ед. измерения"
-
-#: includes/addons/woocommerce/measure-unit.php:27
-msgid "For ex. \"pcs\""
-msgstr "К примеру: \"шт.\""
-
-#: includes/addons/woocommerce/pack-qty.php:10
-msgid "Pack qty"
-msgstr "Кратность"
-
-#: includes/addons/woocommerce/wholesales.php:34
-msgid "Invalid quantity value."
-msgstr "Недопустимое значение количества."
-
-#: includes/addons/woocommerce/wholesales.php:46
-msgid "Wholesale from"
-msgstr "Опт от"
-
-#: includes/addons/woocommerce/wholesales.php:47
-#: includes/settings/woocommerce.php:22
-msgid "Allow sell out bigger only, than.."
-msgstr "Разрешить продажи от этого количества"
-
-#: includes/admin-page.php:12
-msgid "Advanced settings"
-msgstr "Дополнительные настройки"
-
-#: includes/admin-page.php:13
-msgid "Advance"
-msgstr "Еще"
-
-#: includes/admin-page.php:16
-msgid "Main"
-msgstr "Основные"
-
-#: includes/admin-page.php:17
-msgid "Scripts"
-msgstr "Скрипты"
-
-#: includes/settings/general.php:9
+#: admin/template/general.php:19
 msgid "Compress original images"
 msgstr "Сжимать оригиналы изображений"
 
-#: includes/settings/general.php:10
+#: admin/template/general.php:20
 msgid ""
 "If the size of the uploaded image exceeds this, the original will be "
 "deleted, and instead the image with the specified size will be renamed to "
@@ -91,114 +34,113 @@ msgstr ""
 "удален, а вместо него изображение с указанным размером переименуется в "
 "оригинал."
 
-#: includes/settings/general.php:12
+#: admin/template/general.php:22
 msgid "Do not compress"
 msgstr "Не сжимать"
 
-#: includes/settings/general.php:13
+#: admin/template/general.php:23
 msgid "Default compress (max-width: 1600)"
 msgstr "Уменьшать по-умолчанию (Макс. ширина: 1600пикс.)"
 
-#: includes/settings/general.php:19
+#: admin/template/general.php:29
 msgid "Enable second titles"
 msgstr "Включить дополнительные заголовки"
 
-#: includes/settings/general.php:20
+#: admin/template/general.php:30
 msgid "Change title .."
 msgstr "Изменить заголовок на .."
 
-#: includes/settings/general.php:22 includes/settings/general.php:37
-#: includes/settings/scripts.php:12 includes/settings/scripts.php:70
-#: includes/settings/woocommerce.php:12
+#: admin/template/general.php:32 admin/template/general.php:47
+#: admin/template/woocommerce.php:14
 msgid "Do not use"
 msgstr "Не использовать"
 
-#: includes/settings/general.php:23
+#: admin/template/general.php:33
 msgid "For \"The loop\""
 msgstr "Для \"The loop\""
 
-#: includes/settings/general.php:24
+#: admin/template/general.php:34
 msgid "For detail only"
 msgstr "На детальной странице"
 
-#: includes/settings/general.php:34
+#: admin/template/general.php:44
 msgid "Record views"
 msgstr "Записывать количество просмотров"
 
-#: includes/settings/general.php:35
+#: admin/template/general.php:45
 msgid "Record views data to meta field \"total_views\""
 msgstr ""
 "Записывать данные о количестве просмотров в дополнительное поле \"total_views"
 "\""
 
-#: includes/settings/general.php:38
+#: admin/template/general.php:48
 msgid "For all post types"
 msgstr "Записывать для всех"
 
-#: includes/settings/general.php:39
+#: admin/template/general.php:49
 msgid "For \"post\" only"
 msgstr "Только для записей"
 
-#: includes/settings/general.php:40
+#: admin/template/general.php:50
 msgid "For \"page\" only"
 msgstr "Только для страниц"
 
-#: includes/settings/general.php:41
+#: admin/template/general.php:51
 msgid "For \"product\" only"
 msgstr "Только для товаров"
 
-#: includes/settings/general.php:47
+#: admin/template/general.php:57
 msgid "Remove attached images"
 msgstr "Удалять прикрепленные изображения"
 
-#: includes/settings/general.php:48
+#: admin/template/general.php:58
 msgid "Remove attached images, when post will be deleted"
 msgstr ""
 "Если изображение привязано к записи, оно будет удалено, когда удалят запись"
 
-#: includes/settings/general.php:50
+#: admin/template/general.php:60
 msgid "Do not remove"
 msgstr "Не удалять"
 
-#: includes/settings/general.php:51
+#: admin/template/general.php:61
 msgid "Remove all"
 msgstr "Удалять все"
 
-#: includes/settings/general.php:52
+#: admin/template/general.php:62
 msgid "For post only"
 msgstr "Только для записей"
 
-#: includes/settings/general.php:53
+#: admin/template/general.php:63
 msgid "For page only"
 msgstr "Только для страниц"
 
-#: includes/settings/general.php:54
+#: admin/template/general.php:64
 msgid "For products only"
 msgstr "Только для товаров"
 
-#: includes/settings/general.php:60
+#: admin/template/general.php:70
 msgid "Empty page message"
 msgstr "Сообщение пустой страницы"
 
-#: includes/settings/general.php:61
+#: admin/template/general.php:71
 msgid "Set message when page is empty"
 msgstr "Если страница не заполнена, показывать сл. сообщение"
 
-#: includes/settings/general.php:62
+#: admin/template/general.php:72
 msgid "<h3>Page be under development</h3>"
 msgstr "<h3>Страница находится в разработке</h3>"
 
-#: includes/settings/general.php:68
+#: admin/template/general.php:78
 msgid "Enable maintenance"
 msgstr "Включить техническое обслуживание"
 
-#: includes/settings/general.php:69
+#: admin/template/general.php:79
 msgid "Maintenance for temporary close your site"
 msgstr ""
 "Техническое обслуживание времено закроет доступ к сайту (кроме пользователей "
 "с привелегией \"edit_themes\") с указанным сообщением"
 
-#: includes/settings/general.php:70
+#: admin/template/general.php:80
 msgid ""
 "The website is in maintenance.\n"
 "Please check back later."
@@ -206,43 +148,27 @@ msgstr ""
 "Сайт находится на техническом обслуживании.\n"
 "Пожалуйста, зайдите позже."
 
-#: includes/settings/general.php:76
+#: admin/template/general.php:86
 msgid "Disable wp_emoji"
 msgstr "Отключить wp_emoji"
 
-#: includes/settings/general.php:77
+#: admin/template/general.php:87
 msgid "Disable default Wordpress emoji smiles"
 msgstr "Отключить стандартную функционал Wordpress поддерживающий Emoji смайлы"
 
-#: includes/settings/scripts.php:9
-msgid "Use sticky container"
-msgstr "Использовать липкий контейнер"
+#: admin/template/scripts.php:11
+msgid "\"On top\" button content"
+msgstr "Содержимое кнопки \"Наверх\""
 
-#: includes/settings/scripts.php:10
-msgid "When you scroll down, the container sticks to the top of the screen"
-msgstr "При прокрутке вниз, контейнер прилипает к верхней части экрана"
+#: admin/template/scripts.php:12
+msgid "Set style for #back-top"
+msgstr "Задайте кнопке #back-top собственный стиль"
 
-#: includes/settings/scripts.php:13 includes/settings/scripts.php:71
-msgid "Use forever"
-msgstr "Исользовать всегда"
-
-#: includes/settings/scripts.php:14
-msgid "For mobile only"
-msgstr "Только для телефона"
-
-#: includes/settings/scripts.php:20
-msgid "Sticky selector"
-msgstr "Селектор липкого контейнера"
-
-#: includes/settings/scripts.php:21
-msgid "Enter Jquery selector (for ex. .ExampleClass or #ExampleID)"
-msgstr "Введите jQuery сселектор (к пр. .ExampleClass или #ExampleID)"
-
-#: includes/settings/scripts.php:27
+#: admin/template/scripts.php:24
 msgid "Smooth scroll"
 msgstr "Плаваня прокрутка"
 
-#: includes/settings/scripts.php:28
+#: admin/template/scripts.php:25
 msgid ""
 "Smoothly scrolls over a specified number of pixels before the start of the "
 "object if the reference starts with # (Specify the height-to-object distance)"
@@ -251,11 +177,11 @@ msgstr ""
 "Плавно пролистает за указанное количество пикселей до начала объекта, если "
 "ссылка начинается с # (Укажите высоту отступа до объекта)[href=#obj]"
 
-#: includes/settings/scripts.php:34
+#: admin/template/scripts.php:31
 msgid "Scroll after page on load"
 msgstr "Прокрутка после загрузки страницы"
 
-#: includes/settings/scripts.php:35
+#: admin/template/scripts.php:32
 msgid ""
 "Smoothly scrolls over a specified number of pixels before the start of the "
 "object, if the address ends with object ID [http://#obj]"
@@ -263,137 +189,76 @@ msgstr ""
 "Плавно пролистает за указанное количество пикселей до начала объекта, если "
 "адрес заканчивается на ID объекта"
 
-#: includes/settings/scripts.php:41
-msgid "\"On top\" button content"
-msgstr "Содержимое кнопки \"Наверх\""
-
-#: includes/settings/scripts.php:42
-msgid "Set style for #back-top"
-msgstr "Задайте кнопке #back-top собственный стиль"
-
-#: includes/settings/scripts.php:48
-msgid "FontAwesome fonts"
-msgstr "FontAwesome шрифт"
-
-#: includes/settings/scripts.php:49
-msgid ""
-"Enqueue <a target=\"_blank\" href=\"http://fontawesome.io/get-started/"
-"\">FontAwesome</a> fonts"
-msgstr ""
-"Подключить шрифтовые иконки <a target=\"_blank\" href=\"http://fontawesome."
-"io/get-started/\">FontAwesome</a>"
-
-#: includes/settings/scripts.php:54
-msgid "Enqueue animate.css"
-msgstr "Подключить анимацию.css"
-
-#: includes/settings/scripts.php:55
-msgid ""
-"Enqueue popular library <a target=\"_blank\" href=\"https://daneden.github."
-"io/animate.css/\" >animate.css</a>"
-msgstr ""
-"Подключает всем известный файл <a target=\"_blank\" href=\"https://daneden."
-"github.io/animate.css/\" >animate.css</a>"
-
-#: includes/settings/scripts.php:60
-msgid "Animate lib WOW.js"
-msgstr "Файл анимации WOW.js"
-
-#: includes/settings/scripts.php:66
-msgid ""
-"When you scroll down, the items change class for animate (for example using "
-"animate.css).<br>Objects to specify a class: <a target=\"_blank\" href="
-"\"http://mynameismatthieu.com/WOW/\" >wow</a> together with his. "
-msgstr ""
-"При прокрутке вниз, элементы изменяют класс для анимации (к примеру с "
-"помощью файла animate.css).<br>Обьекту задать класс: <a target=\"_blank\" "
-"href=\"http://mynameismatthieu.com/WOW/\">wow</a> совместно со своим."
-
-#: includes/settings/scripts.php:67
-msgid "advanced:"
-msgstr "дополнительно:"
-
-#: includes/settings/scripts.php:72
-msgid "Use for desktop only"
-msgstr "Только на комьютерах"
-
-#: includes/settings/scripts.php:78
-msgid "countTo lib"
-msgstr "Счетчик countTo"
-
-#: includes/settings/scripts.php:80
-msgid ""
-"Use <a target=\"_blank\" href=\"https://github.com/mhuggins/jquery-countTo"
-"\">count</a> attributes:"
-msgstr ""
-"Используйте <a target=\"_blank\" href=\"https://github.com/mhuggins/jquery-"
-"countTo\">count</a> атрибуты:"
-
-#: includes/settings/scripts.php:81
-msgid "Advanced:"
-msgstr "Дополнительно:"
-
-#: includes/settings/scripts.php:88
-msgid "Enqueue appear"
-msgstr "Подключить appear.js"
-
-#: includes/settings/scripts.php:89
-msgid ""
-"Enqueue <a target=\"_blank\" href=\"http://creativelive.github.io/appear/"
-"\">appear</a> lib"
-msgstr ""
-"Подключить библиотеку <a target=\"_blank\" href=\"http://creativelive.github."
-"io/appear/\">appear</a>"
-
-#: includes/settings/woocommerce.php:9
+#: admin/template/woocommerce.php:11
 msgid "Popular product"
 msgstr "Популярный товар"
 
-#: includes/settings/woocommerce.php:13
+#: admin/template/woocommerce.php:15
 msgid "Use manually"
 msgstr "Использовать вручную"
 
-#: includes/settings/woocommerce.php:14
+#: admin/template/woocommerce.php:16
 msgid "Sort by Views"
 msgstr "Сортировать по просмотрам"
 
-#: includes/settings/woocommerce.php:15
+#: admin/template/woocommerce.php:17
 msgid "Sort by sales"
 msgstr "Сортировать по продажам"
 
-#: includes/settings/woocommerce.php:21
+#: admin/template/woocommerce.php:23
 msgid "Wholesales"
 msgstr "Оптовые продажи"
 
-#: includes/settings/woocommerce.php:27
+#: admin/template/woocommerce.php:24
+#: include/addons/woocommerce/wholesales.php:47
+msgid "Allow sell out bigger only, than.."
+msgstr "Разрешить продажи от этого количества"
+
+#: admin/template/woocommerce.php:29
 msgid "Add measure unit"
 msgstr "Добавить товару ед. измерения"
 
-#: includes/settings/woocommerce.php:28
+#: admin/template/woocommerce.php:30
 msgid "Set default unit"
 msgstr "Укажите стандартную величину"
 
-#: includes/settings/woocommerce.php:29
+#: admin/template/woocommerce.php:31
 msgid "pcs"
 msgstr "шт."
 
-#: includes/settings/woocommerce.php:34
+#: admin/template/woocommerce.php:36
+msgid "Add discount by summary"
+msgstr "Добавить скидку от суммы"
+
+#: admin/template/woocommerce.php:37
+msgid "Change product price by cart summary"
+msgstr "Изменить стоимость товара от стоимости корзины"
+
+#: admin/template/woocommerce.php:45
+msgid "Allow decimal quantities"
+msgstr "Разрешить не целое количество"
+
+#: admin/template/woocommerce.php:51
 msgid "Add qty in pack"
 msgstr "Добавить количество в упаковке"
 
-#: includes/settings/woocommerce.php:40
+#: admin/template/woocommerce.php:57
+msgid "Frequency by category"
+msgstr ""
+
+#: admin/template/woocommerce.php:63
 msgid "Add +/-"
 msgstr "Добавить +/-"
 
-#: includes/settings/woocommerce.php:41
+#: admin/template/woocommerce.php:64
 msgid "Add +/- buttons for qty increase/decrease"
 msgstr "Добавить кнопки + и - для увеличения/уменьшения количество покупки"
 
-#: includes/settings/woocommerce.php:46
+#: admin/template/woocommerce.php:69
 msgid "Increase step size"
 msgstr "Изменять количетсво по упаковкам"
 
-#: includes/settings/woocommerce.php:47
+#: admin/template/woocommerce.php:70
 msgid ""
 "The step change by pressing + / - (Up, Down) will be equal to the specified "
 "quantity in the package (Do not oppose entry into the manual)"
@@ -401,19 +266,181 @@ msgstr ""
 "Шаг изменений при нажатии + / - (Вверх, Вниз) будет равен указанным "
 "количеством в упаковке (Не противодействует вводу в ручную)"
 
-#: includes/woocommerce.php:31
-msgid "WooCommerce"
-msgstr "Магазин"
-
-#: wp-developers-tool.php:21
-msgid "WordPress Developer\\'s Tool"
+#: include/.lang.php:8
+#, fuzzy
+#| msgid "WordPress Developer\\'s Tool"
+msgid "WordPress Developer\\'s multitool"
 msgstr "Инструмент веб-разработчика Wordpress"
 
-#: wp-developers-tool.php:22
+#: include/.lang.php:9
 msgid "Add more advanced functions for your Wordpress site."
 msgstr "Добавляет дополнительный функционал для вашего Wordpress сайта."
 
-#: wp-developers-tool.php:132
+#: include/addons/second-title.php:44
+msgid "Insert second title"
+msgstr "Введите второе название"
+
+#: include/addons/second-title.php:48
+msgid "Empty title"
+msgstr "Оставить пустым"
+
+#: include/addons/woocommerce/bestsellers.php:56
+msgid "Popularity product"
+msgstr "Популярный товар"
+
+#: include/addons/woocommerce/bestsellers.php:57
+msgid "Show it on popular block"
+msgstr "Этот товар будет показываться в блоке популярных товаров"
+
+#: include/addons/woocommerce/discount-by-summary.php:10
+msgid "Discount from"
+msgstr "Скидка от"
+
+#: include/addons/woocommerce/discount-by-summary.php:11
+msgid "Set discount price when cart summary price from.."
+msgstr "Установить скидку на товар при общей стоимости корзины от.."
+
+#: include/addons/woocommerce/measure-unit.php:26
+msgid "Measure unit"
+msgstr "Ед. измерения"
+
+#: include/addons/woocommerce/measure-unit.php:27
+msgid "For ex. \"pcs\""
+msgstr "К примеру: \"шт.\""
+
+#: include/addons/woocommerce/pack-qty.php:10
+msgid "Pack qty"
+msgstr "Кратность"
+
+#: include/addons/woocommerce/wholesales.php:34
+msgid "Invalid quantity value."
+msgstr "Недопустимое значение количества."
+
+#: include/addons/woocommerce/wholesales.php:46
+msgid "Sale from"
+msgstr "Продажа от"
+
+#: include/class/Register.php:53
+msgid "Advanced settings"
+msgstr "Дополнительные настройки"
+
+#: include/class/Register.php:56
+msgid "Advance"
+msgstr "Еще"
+
+#: include/class/Register.php:73
+msgid "General"
+msgstr "Общее"
+
+#: include/class/Register.php:81
+msgid "Scripts"
+msgstr "Скрипты"
+
+#: include/class/Register.php:90
+#, fuzzy
+#| msgid "WooCommerce"
+msgid "Woocommerce"
+msgstr "Магазин"
+
+#: vendor/NikolayS93/wp-admin-form/src/templates/select.php:8
+msgid "Choose an option"
+msgstr ""
+
+#: vendor/NikolayS93/wp-admin-table/WPListTable.php:38
+msgid "Title"
+msgstr ""
+
+#: vendor/NikolayS93/wp-admin-table/WPListTable.php:101
+msgid "Edit"
+msgstr ""
+
+#: vendor/NikolayS93/wp-admin-table/WPListTable.php:112
+#: vendor/NikolayS93/wp-admin-table/WPListTable.php:140
+msgid "Delete"
+msgstr ""
+
+#~ msgid "Main"
+#~ msgstr "Основные"
+
+#~ msgid "Use sticky container"
+#~ msgstr "Использовать липкий контейнер"
+
+#~ msgid "When you scroll down, the container sticks to the top of the screen"
+#~ msgstr "При прокрутке вниз, контейнер прилипает к верхней части экрана"
+
+#~ msgid "Use forever"
+#~ msgstr "Исользовать всегда"
+
+#~ msgid "For mobile only"
+#~ msgstr "Только для телефона"
+
+#~ msgid "Sticky selector"
+#~ msgstr "Селектор липкого контейнера"
+
+#~ msgid "Enter Jquery selector (for ex. .ExampleClass or #ExampleID)"
+#~ msgstr "Введите jQuery сселектор (к пр. .ExampleClass или #ExampleID)"
+
+#~ msgid "FontAwesome fonts"
+#~ msgstr "FontAwesome шрифт"
+
+#~ msgid ""
+#~ "Enqueue <a target=\"_blank\" href=\"http://fontawesome.io/get-started/"
+#~ "\">FontAwesome</a> fonts"
+#~ msgstr ""
+#~ "Подключить шрифтовые иконки <a target=\"_blank\" href=\"http://"
+#~ "fontawesome.io/get-started/\">FontAwesome</a>"
+
+#~ msgid "Enqueue animate.css"
+#~ msgstr "Подключить анимацию.css"
+
+#~ msgid ""
+#~ "Enqueue popular library <a target=\"_blank\" href=\"https://daneden."
+#~ "github.io/animate.css/\" >animate.css</a>"
+#~ msgstr ""
+#~ "Подключает всем известный файл <a target=\"_blank\" href=\"https://"
+#~ "daneden.github.io/animate.css/\" >animate.css</a>"
+
+#~ msgid "Animate lib WOW.js"
+#~ msgstr "Файл анимации WOW.js"
+
+#~ msgid ""
+#~ "When you scroll down, the items change class for animate (for example "
+#~ "using animate.css).<br>Objects to specify a class: <a target=\"_blank\" "
+#~ "href=\"http://mynameismatthieu.com/WOW/\" >wow</a> together with his. "
+#~ msgstr ""
+#~ "При прокрутке вниз, элементы изменяют класс для анимации (к примеру с "
+#~ "помощью файла animate.css).<br>Обьекту задать класс: <a target=\"_blank\" "
+#~ "href=\"http://mynameismatthieu.com/WOW/\">wow</a> совместно со своим."
+
+#~ msgid "advanced:"
+#~ msgstr "дополнительно:"
+
+#~ msgid "Use for desktop only"
+#~ msgstr "Только на комьютерах"
+
+#~ msgid "countTo lib"
+#~ msgstr "Счетчик countTo"
+
+#~ msgid ""
+#~ "Use <a target=\"_blank\" href=\"https://github.com/mhuggins/jquery-countTo"
+#~ "\">count</a> attributes:"
+#~ msgstr ""
+#~ "Используйте <a target=\"_blank\" href=\"https://github.com/mhuggins/"
+#~ "jquery-countTo\">count</a> атрибуты:"
+
+#~ msgid "Advanced:"
+#~ msgstr "Дополнительно:"
+
+#~ msgid "Enqueue appear"
+#~ msgstr "Подключить appear.js"
+
+#~ msgid ""
+#~ "Enqueue <a target=\"_blank\" href=\"http://creativelive.github.io/appear/"
+#~ "\">appear</a> lib"
+#~ msgstr ""
+#~ "Подключить библиотеку <a target=\"_blank\" href=\"http://creativelive."
+#~ "github.io/appear/\">appear</a>"
+
 #, php-format
-msgid "The file %s can not be included"
-msgstr "Файл %s не может быть подключен"
+#~ msgid "The file %s can not be included"
+#~ msgstr "Файл %s не может быть подключен"

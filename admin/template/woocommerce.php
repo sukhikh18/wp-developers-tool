@@ -30,6 +30,12 @@ $summary = array(
         'desc'        => __('Set default unit', DOMAIN),
         'placeholder' => __('pcs', DOMAIN),
     ),
+    array(
+        'id'          => 'discount-by-summary',
+        'type'        => 'checkbox',
+        'label'       => __('Add discount by summary', DOMAIN),
+        'desc'        => __('Change product price by cart summary', DOMAIN),
+    ),
 );
 
 $frequency = array(

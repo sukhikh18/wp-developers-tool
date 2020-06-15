@@ -70,6 +70,7 @@ add_action(
 				'pack-qty-changes'     => WOO_ADDONS_DIR . 'pack-qty-changes.php',
 				'bestsellers'          => WOO_ADDONS_DIR . 'bestsellers.php',
 				'qty-stock-decimals'   => WOO_ADDONS_DIR . 'qty-stock-decimals.php',
+				'discount-by-summary'  => WOO_ADDONS_DIR . 'discount-by-summary.php',
 			));
 		}
 
